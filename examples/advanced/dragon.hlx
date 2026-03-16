@@ -1,12 +1,9 @@
-fn greet(name: String) -> String {
-    return "Hello " + name
-}
-
 fn main() {
-    let x = 10
-    let msg = greet("Dragon")
+    let name = "Dragon"
+    let msg = "Hello " + name
     print(msg)
 
+    let x = 10
     if x > 5 {
         print("x is big")
     } else {

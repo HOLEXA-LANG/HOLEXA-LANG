@@ -2,6 +2,7 @@
 #include "../include/holexa.h"
 #include "../include/parser.h"
 #include "../include/semantic.h"
+#include "../include/interpreter.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,7 +25,7 @@ static char* read_file(const char* path) {
     return buf;
 }
 
-int main(int argc, char* argv[]) {
+static void print_banner(void) {
     printf("\n");
     printf("  ██╗  ██╗ ██████╗ ██╗     ███████╗██╗  ██╗ █████╗ \n");
     printf("  ██║  ██║██╔═══██╗██║     ██╔════╝╚██╗██╔╝██╔══██╗\n");
@@ -34,12 +35,15 @@ int main(int argc, char* argv[]) {
     printf("  ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝\n");
     printf("\n  Code like a Dragon. Think like a Human.\n");
     printf("  Version 1.0.0\n\n");
+}
 
+int main(int argc, char* argv[]) {
     if (argc < 2) {
+        print_banner();
         printf("Usage:\n");
-        printf("  hlxc <file.hlx>       Compile\n");
-        printf("  hlxc run <file.hlx>   Run\n");
-        printf("  hlxc --version        Version\n");
+        printf("  hlxc <file.hlx>       Compile and check\n");
+        printf("  hlxc run <file.hlx>   Run a HOLEXA program\n");
+        printf("  hlxc --version        Show version\n\n");
         return 0;
     }
 
@@ -48,42 +52,40 @@ int main(int argc, char* argv[]) {
         return 0;
     }
 
+    int do_run = 0;
     const char* filepath = argv[1];
+
     if (strcmp(argv[1], "run") == 0) {
-        if (argc < 3) { fprintf(stderr, "Error: No file\n"); return 1; }
+        if (argc < 3) { fprintf(stderr, "Error: No file specified\n"); return 1; }
         filepath = argv[2];
+        do_run = 1;
     }
 
-    printf("Compiling: %s\n\n", filepath);
-
-    // Phase 1: Read file
+    // Read file
     char* source = read_file(filepath);
 
-    // Phase 2: Lexer
+    // Phase 1: Lexer
     Lexer* lexer = lexer_new(source);
 
-    // Phase 3: Parser
+    // Phase 2: Parser
     Parser*  parser = parser_new(lexer);
     ASTNode* ast    = parser_parse(parser);
 
     if (parser->had_error) {
-        printf("✗ Parse failed.\n");
+        fprintf(stderr, "✗ Parse failed.\n");
         ast_node_free(ast);
         parser_free(parser);
         lexer_free(lexer);
         free(source);
         return 1;
     }
-    printf("✓ Phase 1: Lexer complete\n");
-    printf("✓ Phase 2: Parser complete\n");
 
-    // Phase 4: Semantic Analysis
+    // Phase 3: Semantic Analysis
     Semantic* sem = semantic_new();
     semantic_analyze(sem, ast);
 
     if (sem->error_count > 0) {
-        printf("\n✗ Semantic analysis failed — %d error(s) found\n",
-               sem->error_count);
+        fprintf(stderr, "\n✗ Compilation failed — %d error(s)\n", sem->error_count);
         semantic_free(sem);
         ast_node_free(ast);
         parser_free(parser);
@@ -92,19 +94,28 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    printf("✓ Phase 3: Semantic analysis complete");
-    if (sem->warning_count > 0)
-        printf(" (%d warning(s))", sem->warning_count);
-    printf("\n");
-
-    printf("\n════════════════════════════════\n");
-    printf("   HOLEXA — Compilation Result\n");
-    printf("════════════════════════════════\n");
-    printf("  File    : %s\n", filepath);
-    printf("  Errors  : %d\n", sem->error_count);
-    printf("  Warnings: %d\n", sem->warning_count);
-    printf("════════════════════════════════\n");
-    printf("\n✓ Compilation successful!\n\n");
+    // Phase 4: Run or Compile
+    if (do_run) {
+        // RUN MODE
+        Interpreter* interp = interpreter_new();
+        interpreter_run(interp, ast);
+        interpreter_free(interp);
+    } else {
+        // COMPILE CHECK MODE
+        print_banner();
+        printf("Compiling: %s\n\n", filepath);
+        printf("✓ Phase 1: Lexer complete\n");
+        printf("✓ Phase 2: Parser complete\n");
+        printf("✓ Phase 3: Semantic analysis complete\n");
+        printf("\n════════════════════════════════\n");
+        printf("   HOLEXA — Compilation Result\n");
+        printf("════════════════════════════════\n");
+        printf("  File    : %s\n", filepath);
+        printf("  Errors  : %d\n", sem->error_count);
+        printf("  Warnings: %d\n", sem->warning_count);
+        printf("════════════════════════════════\n");
+        printf("\n✓ Compilation successful!\n\n");
+    }
 
     semantic_free(sem);
     ast_node_free(ast);
