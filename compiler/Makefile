@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -O2 -D_POSIX_C_SOURCE=200809L
-SRCS = src/main.c src/lexer.c src/ast.c src/parser.c
+SRCS = src/main.c src/lexer.c src/ast.c src/parser.c src/semantic.c
 TARGET = hlxc
 
 all: $(TARGET)

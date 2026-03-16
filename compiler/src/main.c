@@ -1,6 +1,7 @@
 #define _POSIX_C_SOURCE 200809L
 #include "../include/holexa.h"
 #include "../include/parser.h"
+#include "../include/semantic.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -53,13 +54,37 @@ int main(int argc, char* argv[]) {
         filepath = argv[2];
     }
 
-    char*    source = read_file(filepath);
-    Lexer*   lexer  = lexer_new(source);
+    printf("Compiling: %s\n\n", filepath);
+
+    // Phase 1: Read file
+    char* source = read_file(filepath);
+
+    // Phase 2: Lexer
+    Lexer* lexer = lexer_new(source);
+
+    // Phase 3: Parser
     Parser*  parser = parser_new(lexer);
     ASTNode* ast    = parser_parse(parser);
 
     if (parser->had_error) {
-        printf("\n✗ Compilation failed.\n");
+        printf("✗ Parse failed.\n");
+        ast_node_free(ast);
+        parser_free(parser);
+        lexer_free(lexer);
+        free(source);
+        return 1;
+    }
+    printf("✓ Phase 1: Lexer complete\n");
+    printf("✓ Phase 2: Parser complete\n");
+
+    // Phase 4: Semantic Analysis
+    Semantic* sem = semantic_new();
+    semantic_analyze(sem, ast);
+
+    if (sem->error_count > 0) {
+        printf("\n✗ Semantic analysis failed — %d error(s) found\n",
+               sem->error_count);
+        semantic_free(sem);
         ast_node_free(ast);
         parser_free(parser);
         lexer_free(lexer);
@@ -67,13 +92,21 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    printf("Compiling: %s\n\n", filepath);
-    printf("════════════════════════════════\n");
-    printf("   HOLEXA Parser — AST Output\n");
-    printf("════════════════════════════════\n");
-    ast_print(ast, 0);
-    printf("\n✓ Parser phase complete!\n\n");
+    printf("✓ Phase 3: Semantic analysis complete");
+    if (sem->warning_count > 0)
+        printf(" (%d warning(s))", sem->warning_count);
+    printf("\n");
 
+    printf("\n════════════════════════════════\n");
+    printf("   HOLEXA — Compilation Result\n");
+    printf("════════════════════════════════\n");
+    printf("  File    : %s\n", filepath);
+    printf("  Errors  : %d\n", sem->error_count);
+    printf("  Warnings: %d\n", sem->warning_count);
+    printf("════════════════════════════════\n");
+    printf("\n✓ Compilation successful!\n\n");
+
+    semantic_free(sem);
     ast_node_free(ast);
     parser_free(parser);
     lexer_free(lexer);
