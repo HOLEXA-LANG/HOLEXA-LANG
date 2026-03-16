@@ -1,0 +1,8 @@
+{
+    "name":    "HOLEXA-LANG",
+    "version": "0.1.0",
+    "main":    "src/main.hlx",
+    "output":  "build/",
+    "test":    "tests/",
+    "run_after_build": false
+}

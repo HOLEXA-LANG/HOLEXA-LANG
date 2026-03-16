@@ -1,0 +1,147 @@
+#!/bin/sh
+# hlxbuild — HOLEXA Build Tool v1.0.0
+# Code like a Dragon. Think like a Human.
+
+VERSION="1.0.0"
+CONFIG="hlxbuild.json"
+
+GREEN='\033[0;32m'
+CYAN='\033[0;36m'
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+banner() {
+    echo ""
+    echo "  hlxbuild — HOLEXA Build Tool v$VERSION"
+    echo "  Code like a Dragon. Think like a Human."
+    echo ""
+}
+
+help_msg() {
+    banner
+    echo "Usage:"
+    echo "  hlxbuild              Build project"
+    echo "  hlxbuild run          Build and run"
+    echo "  hlxbuild clean        Clean build"
+    echo "  hlxbuild test         Run tests"
+    echo "  hlxbuild init         Init build config"
+    echo "  hlxbuild --version    Show version"
+    echo ""
+}
+
+cmd_init() {
+    echo "${CYAN}Initializing hlxbuild config...${NC}"
+    cat > "$CONFIG" << INITEOF
+{
+    "name":    "$(basename $(pwd))",
+    "version": "0.1.0",
+    "main":    "src/main.hlx",
+    "output":  "build/",
+    "test":    "tests/",
+    "run_after_build": false
+}
+INITEOF
+    mkdir -p build
+    mkdir -p src
+    mkdir -p tests
+    echo "${GREEN}✓ Created hlxbuild.json${NC}"
+    echo "${GREEN}✓ Created build/, src/, tests/ directories${NC}"
+}
+
+cmd_build() {
+    banner
+    echo "${CYAN}Building project...${NC}"
+    echo "────────────────────────────────"
+
+    MAIN="src/main.hlx"
+    if [ -f "$CONFIG" ]; then
+        MAIN=$(grep '"main"' "$CONFIG" | sed 's/.*"main".*:.*"\(.*\)".*/\1/')
+    fi
+
+    if [ ! -f "$MAIN" ]; then
+        echo "${RED}Error: Main file not found: $MAIN${NC}"
+        echo "Run: hlxbuild init"
+        exit 1
+    fi
+
+    mkdir -p build
+    echo "  ${CYAN}→ Checking: $MAIN${NC}"
+    hlxc "$MAIN"
+    STATUS=$?
+
+    if [ $STATUS -eq 0 ]; then
+        echo "  ${CYAN}→ Copying to build/${NC}"
+        cp "$MAIN" build/
+        echo "────────────────────────────────"
+        echo "${GREEN}✓ Build successful!${NC}"
+        echo "  Output: build/"
+        echo ""
+    else
+        echo "────────────────────────────────"
+        echo "${RED}✗ Build failed${NC}"
+        exit 1
+    fi
+}
+
+cmd_run() {
+    cmd_build
+    MAIN="src/main.hlx"
+    if [ -f "$CONFIG" ]; then
+        MAIN=$(grep '"main"' "$CONFIG" | sed 's/.*"main".*:.*"\(.*\)".*/\1/')
+    fi
+    echo "${CYAN}Running: $MAIN${NC}"
+    echo "────────────────────────────────"
+    hlxc run "$MAIN"
+}
+
+cmd_clean() {
+    echo "${CYAN}Cleaning build...${NC}"
+    rm -rf build/
+    mkdir -p build/
+    echo "${GREEN}✓ Build directory cleaned${NC}"
+}
+
+cmd_test() {
+    echo "${CYAN}Running tests...${NC}"
+    echo "────────────────────────────────"
+    TEST_DIR="tests"
+    if [ -f "$CONFIG" ]; then
+        TEST_DIR=$(grep '"test"' "$CONFIG" | sed 's/.*"test".*:.*"\(.*\)".*/\1/')
+    fi
+    passed=0
+    failed=0
+    for f in "$TEST_DIR"/*.hlx; do
+        if [ -f "$f" ]; then
+            echo "  Testing: $f"
+            hlxc run "$f"
+            if [ $? -eq 0 ]; then
+                echo "  ${GREEN}✓ PASS: $f${NC}"
+                passed=$((passed + 1))
+            else
+                echo "  ${RED}✗ FAIL: $f${NC}"
+                failed=$((failed + 1))
+            fi
+        fi
+    done
+    echo "────────────────────────────────"
+    echo "  Passed: $passed"
+    echo "  Failed: $failed"
+    if [ "$failed" -eq 0 ]; then
+        echo "${GREEN}✓ All tests passed!${NC}"
+    else
+        echo "${RED}✗ Some tests failed${NC}"
+        exit 1
+    fi
+}
+
+case "$1" in
+    "")        cmd_build   ;;
+    run)       cmd_run     ;;
+    clean)     cmd_clean   ;;
+    test)      cmd_test    ;;
+    init)      cmd_init    ;;
+    --version) echo "hlxbuild version $VERSION" ;;
+    --help)    help_msg    ;;
+    *)         help_msg    ;;
+esac

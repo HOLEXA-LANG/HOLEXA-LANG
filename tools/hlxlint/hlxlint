@@ -1,0 +1,143 @@
+#!/bin/sh
+# hlxlint — HOLEXA Code Linter v1.0.0
+# Code like a Dragon. Think like a Human.
+
+VERSION="1.0.0"
+
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+CYAN='\033[0;36m'
+NC='\033[0m'
+
+help_msg() {
+    echo ""
+    echo "  hlxlint — HOLEXA Code Linter v$VERSION"
+    echo ""
+    echo "Usage:"
+    echo "  hlxlint <file.hlx>         Lint a file"
+    echo "  hlxlint <dir/>             Lint a directory"
+    echo "  hlxlint --version          Show version"
+    echo ""
+}
+
+lint_file() {
+    FILE="$1"
+    ERRORS=0
+    WARNINGS=0
+    HINTS=0
+
+    if [ ! -f "$FILE" ]; then
+        echo "${RED}Error: File not found: $FILE${NC}"
+        exit 1
+    fi
+
+    echo "${CYAN}Linting: $FILE${NC}"
+    echo "────────────────────────────────"
+
+    lineno=0
+    while IFS= read -r line; do
+        lineno=$((lineno + 1))
+        trimmed=$(echo "$line" | sed 's/^[[:space:]]*//')
+
+        # Check trailing whitespace
+        trailing=$(echo "$line" | sed 's/[[:space:]]*$//')
+        if [ "$line" != "$trailing" ] && [ -n "$line" ]; then
+            echo "  ${YELLOW}WARN${NC}  Line $lineno: Trailing whitespace"
+            WARNINGS=$((WARNINGS + 1))
+        fi
+
+        # Check line too long (>100 chars)
+        length=$(echo "$line" | wc -c)
+        if [ "$length" -gt 100 ]; then
+            echo "  ${YELLOW}WARN${NC}  Line $lineno: Line too long ($length chars, max 100)"
+            WARNINGS=$((WARNINGS + 1))
+        fi
+
+        # Check TODO/FIXME
+        case "$trimmed" in
+            *"TODO"*) echo "  ${YELLOW}HINT${NC}  Line $lineno: TODO found — consider completing"
+                      HINTS=$((HINTS + 1)) ;;
+            *"FIXME"*) echo "  ${RED}WARN${NC}  Line $lineno: FIXME found — needs fixing"
+                       WARNINGS=$((WARNINGS + 1)) ;;
+            *"HACK"*) echo "  ${YELLOW}HINT${NC}  Line $lineno: HACK found — consider refactoring"
+                      HINTS=$((HINTS + 1)) ;;
+        esac
+
+        # Check empty function
+        case "$trimmed" in
+            "fn "*"{"*)
+                next_trimmed=$(sed -n "$((lineno + 1))p" "$FILE" | sed 's/^[[:space:]]*//')
+                if [ "$next_trimmed" = "}" ]; then
+                    echo "  ${YELLOW}WARN${NC}  Line $lineno: Empty function body"
+                    WARNINGS=$((WARNINGS + 1))
+                fi ;;
+        esac
+
+        # Check print without message
+        case "$trimmed" in
+            "print()"*) echo "  ${YELLOW}HINT${NC}  Line $lineno: print() called with no arguments"
+                        HINTS=$((HINTS + 1)) ;;
+        esac
+
+        # Check double semicolons
+        case "$trimmed" in
+            *";;"*) echo "  ${RED}ERROR${NC} Line $lineno: Double semicolon ';;'"
+                    ERRORS=$((ERRORS + 1)) ;;
+        esac
+
+        # Check missing space after if/while/for
+        case "$trimmed" in
+            "if("*) echo "  ${YELLOW}WARN${NC}  Line $lineno: Missing space after 'if'"
+                    WARNINGS=$((WARNINGS + 1)) ;;
+            "while("*) echo "  ${YELLOW}WARN${NC}  Line $lineno: Missing space after 'while'"
+                       WARNINGS=$((WARNINGS + 1)) ;;
+            "for("*) echo "  ${YELLOW}WARN${NC}  Line $lineno: Missing space after 'for'"
+                     WARNINGS=$((WARNINGS + 1)) ;;
+        esac
+
+    done < "$FILE"
+
+    echo "────────────────────────────────"
+
+    if [ "$ERRORS" -eq 0 ] && [ "$WARNINGS" -eq 0 ]; then
+        echo "${GREEN}✓ No issues found in $FILE${NC}"
+    else
+        echo "  Errors  : $ERRORS"
+        echo "  Warnings: $WARNINGS"
+        echo "  Hints   : $HINTS"
+        if [ "$ERRORS" -gt 0 ]; then
+            echo "${RED}✗ Lint failed${NC}"
+            exit 1
+        else
+            echo "${YELLOW}⚠ Lint passed with warnings${NC}"
+        fi
+    fi
+    echo ""
+}
+
+lint_dir() {
+    DIR="$1"
+    found=0
+    for f in "$DIR"/*.hlx "$DIR"/**/*.hlx; do
+        if [ -f "$f" ]; then
+            lint_file "$f"
+            found=$((found + 1))
+        fi
+    done
+    if [ "$found" -eq 0 ]; then
+        echo "No .hlx files found in $DIR"
+    fi
+}
+
+case "$1" in
+    --version) echo "hlxlint version $VERSION" ;;
+    --help)    help_msg ;;
+    "")        help_msg ;;
+    *)
+        if [ -d "$1" ]; then
+            lint_dir "$1"
+        else
+            lint_file "$1"
+        fi ;;
+esac

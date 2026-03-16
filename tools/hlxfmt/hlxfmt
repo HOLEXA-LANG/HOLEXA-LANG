@@ -1,0 +1,93 @@
+#!/bin/sh
+# hlxfmt — HOLEXA Code Formatter v1.0.0
+# Code like a Dragon. Think like a Human.
+
+VERSION="1.0.0"
+INDENT="    "
+
+GREEN='\033[0;32m'
+CYAN='\033[0;36m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+banner() {
+    echo ""
+    echo "  hlxfmt — HOLEXA Code Formatter v$VERSION"
+    echo "  Code like a Dragon. Think like a Human."
+    echo ""
+}
+
+help_msg() {
+    banner
+    echo "Usage:"
+    echo "  hlxfmt <file.hlx>          Format a file"
+    echo "  hlxfmt <file.hlx> --check  Check formatting"
+    echo "  hlxfmt --version           Show version"
+    echo ""
+}
+
+format_file() {
+    FILE="$1"
+    CHECK="$2"
+
+    if [ ! -f "$FILE" ]; then
+        echo "${RED}Error: File not found: $FILE${NC}"
+        exit 1
+    fi
+
+    case "$FILE" in
+        *.hlx) ;;
+        *) echo "${RED}Error: Not a .hlx file${NC}"; exit 1 ;;
+    esac
+
+    TMPFILE=$(mktemp)
+    indent=0
+
+    while IFS= read -r line; do
+        trimmed=$(echo "$line" | sed 's/^[[:space:]]*//')
+
+        case "$trimmed" in
+            "}"*) indent=$((indent - 1)) ;;
+        esac
+
+        if [ -n "$trimmed" ]; then
+            pad=""
+            i=0
+            while [ $i -lt $indent ]; do
+                pad="$pad$INDENT"
+                i=$((i + 1))
+            done
+            echo "$pad$trimmed" >> "$TMPFILE"
+        else
+            echo "" >> "$TMPFILE"
+        fi
+
+        case "$trimmed" in
+            *"{") indent=$((indent + 1)) ;;
+        esac
+
+    done < "$FILE"
+
+    if [ "$CHECK" = "--check" ]; then
+        if diff -q "$FILE" "$TMPFILE" > /dev/null 2>&1; then
+            echo "${GREEN}✓ $FILE is properly formatted${NC}"
+        else
+            echo "${RED}✗ $FILE needs formatting${NC}"
+            echo "  Run: hlxfmt $FILE"
+            rm "$TMPFILE"
+            exit 1
+        fi
+    else
+        cp "$TMPFILE" "$FILE"
+        echo "${GREEN}✓ Formatted: $FILE${NC}"
+    fi
+
+    rm "$TMPFILE"
+}
+
+case "$1" in
+    --version) echo "hlxfmt version $VERSION" ;;
+    --help)    help_msg ;;
+    "")        help_msg ;;
+    *)         format_file "$1" "$2" ;;
+esac

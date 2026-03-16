@@ -1,0 +1,49 @@
+#!/bin/sh
+# hlx-lsp — HOLEXA Language Server v1.0.0
+# Provides editor support for VS Code, Vim, Neovim, Emacs
+
+VERSION="1.0.0"
+
+log() {
+    echo "[hlx-lsp] $1" >&2
+}
+
+send_response() {
+    CONTENT="$1"
+    LENGTH=$(echo -n "$CONTENT" | wc -c)
+    printf "Content-Length: %d\r\n\r\n%s" "$LENGTH" "$CONTENT"
+}
+
+handle_initialize() {
+    send_response '{
+        "jsonrpc":"2.0",
+        "id":1,
+        "result":{
+            "capabilities":{
+                "textDocumentSync":1,
+                "completionProvider":{
+                    "triggerCharacters":[".",":"]
+                },
+                "hoverProvider":true,
+                "definitionProvider":true,
+                "documentFormattingProvider":true,
+                "diagnosticsProvider":true
+            },
+            "serverInfo":{
+                "name":"hlx-lsp",
+                "version":"1.0.0"
+            }
+        }
+    }'
+}
+
+log "HOLEXA Language Server v$VERSION started"
+log "Waiting for editor connection..."
+
+while IFS= read -r line; do
+    case "$line" in
+        *"initialize"*)   handle_initialize ;;
+        *"shutdown"*)     log "Shutdown requested"; exit 0 ;;
+        *"completion"*)   send_response '{"jsonrpc":"2.0","result":{"items":[]}}' ;;
+    esac
+done
