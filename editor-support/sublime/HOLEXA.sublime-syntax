@@ -1,0 +1,65 @@
+%YAML 1.2
+---
+name: HOLEXA
+file_extensions: [hlx]
+scope: source.hlx
+
+contexts:
+  main:
+    - include: comments
+    - include: keywords
+    - include: types
+    - include: strings
+    - include: numbers
+    - include: functions
+    - include: operators
+
+  comments:
+    - match: //.*$
+      scope: comment.line.hlx
+    - match: /\*
+      scope: comment.block.hlx
+      push:
+        - match: \*/
+          pop: true
+
+  keywords:
+    - match: \b(if|else|while|for|loop|break|continue|return|match|in)\b
+      scope: keyword.control.hlx
+    - match: \b(let|const|fn|class|trait|implements|async|await|spawn)\b
+      scope: keyword.declaration.hlx
+    - match: \b(import|from|try|catch|finally|raise|extern|self)\b
+      scope: keyword.other.hlx
+    - match: \b(true|false|none)\b
+      scope: constant.language.hlx
+
+  types:
+    - match: \b(Int|Float|String|Bool|List|Map|None|Any|Byte)\b
+      scope: support.type.hlx
+
+  strings:
+    - match: '"'
+      scope: string.quoted.double.hlx
+      push:
+        - match: \\.
+          scope: constant.character.escape.hlx
+        - match: '"'
+          pop: true
+
+  numbers:
+    - match: \b[0-9]+\.[0-9]+\b
+      scope: constant.numeric.float.hlx
+    - match: \b[0-9]+\b
+      scope: constant.numeric.integer.hlx
+
+  functions:
+    - match: \b([a-zA-Z_][a-zA-Z0-9_]*)(?=\s*\()
+      scope: entity.name.function.hlx
+    - match: (?<=fn\s)[a-zA-Z_][a-zA-Z0-9_]*
+      scope: entity.name.function.definition.hlx
+
+  operators:
+    - match: (->|\.\.)
+      scope: keyword.operator.hlx
+    - match: '[+\-*/%=<>!&|^~]+'
+      scope: keyword.operator.hlx

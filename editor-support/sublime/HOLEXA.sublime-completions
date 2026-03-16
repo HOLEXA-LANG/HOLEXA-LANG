@@ -1,0 +1,17 @@
+{
+    "scope": "source.hlx",
+    "completions": [
+        { "trigger": "fn",    "contents": "fn ${1:name}(${2:params}) -> ${3:None} {\n\t$0\n}" },
+        { "trigger": "main",  "contents": "fn main() {\n\t$0\n}" },
+        { "trigger": "let",   "contents": "let ${1:name} = ${2:value}" },
+        { "trigger": "if",    "contents": "if ${1:condition} {\n\t$0\n}" },
+        { "trigger": "for",   "contents": "for ${1:i} in ${2:0}..${3:10} {\n\t$0\n}" },
+        { "trigger": "while", "contents": "while ${1:condition} {\n\t$0\n}" },
+        { "trigger": "class", "contents": "class ${1:Name} {\n\t${2:field}: ${3:String}\n\n\tfn new(${2:field}: ${3:String}) -> ${1:Name} {\n\t\treturn ${1:Name} { ${2:field}: ${2:field} }\n\t}\n}" },
+        { "trigger": "try",   "contents": "try {\n\t$1\n} catch err {\n\tprint(err.message)\n}" },
+        { "trigger": "print", "contents": "print($1)" },
+        "let", "const", "fn", "return", "if", "else", "while",
+        "for", "loop", "break", "continue", "class", "import",
+        "true", "false", "none", "print", "input", "len"
+    ]
+}

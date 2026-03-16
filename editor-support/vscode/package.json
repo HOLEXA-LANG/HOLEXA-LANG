@@ -1,0 +1,84 @@
+{
+    "name": "holexa-lang",
+    "displayName": "HOLEXA Language",
+    "description": "HOLEXA programming language support — Code like a Dragon. Think like a Human.",
+    "version": "1.0.0",
+    "publisher": "HOLEXA-LANG",
+    "icon": "logo.png",
+    "engines": { "vscode": "^1.60.0" },
+    "categories": ["Programming Languages", "Formatters", "Linters"],
+    "keywords": ["holexa", "hlx", "dragon", "programming language"],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/HOLEXA-LANG/HOLEXA-LANG"
+    },
+    "contributes": {
+        "languages": [{
+            "id": "holexa",
+            "aliases": ["HOLEXA", "holexa", "hlx"],
+            "extensions": [".hlx"],
+            "configuration": "./language-configuration.json",
+            "icon": {
+                "light": "./logo.png",
+                "dark":  "./logo.png"
+            }
+        }],
+        "grammars": [{
+            "language": "holexa",
+            "scopeName": "source.hlx",
+            "path": "./syntaxes/holexa.tmLanguage.json"
+        }],
+        "themes": [{
+            "label": "HOLEXA Dragon Dark",
+            "uiTheme": "vs-dark",
+            "path": "./themes/dragon-dark.json"
+        }],
+        "snippets": [{
+            "language": "holexa",
+            "path": "./snippets.json"
+        }],
+        "commands": [
+            {
+                "command": "holexa.run",
+                "title": "HOLEXA: Run File"
+            },
+            {
+                "command": "holexa.build",
+                "title": "HOLEXA: Build File"
+            },
+            {
+                "command": "holexa.format",
+                "title": "HOLEXA: Format File"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "holexa.run",
+                "key": "ctrl+shift+r",
+                "when": "editorLangId == holexa"
+            }
+        ],
+        "configuration": {
+            "title": "HOLEXA",
+            "properties": {
+                "holexa.compilerPath": {
+                    "type": "string",
+                    "default": "hlxc",
+                    "description": "Path to hlxc compiler"
+                },
+                "holexa.formatOnSave": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Format on save"
+                },
+                "holexa.lintOnSave": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Lint on save"
+                }
+            }
+        }
+    },
+    "main": "./extension.js",
+    "activationEvents": ["onLanguage:holexa"]
+}

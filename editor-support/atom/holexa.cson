@@ -1,0 +1,30 @@
+'scopeName': 'source.hlx'
+'name': 'HOLEXA'
+'fileTypes': ['hlx']
+'patterns': [
+    {
+        'match': '//.*$'
+        'name': 'comment.line.hlx'
+    }
+    {
+        'match': '\\b(let|const|fn|return|if|else|while|for|loop|break|continue|class|import|from|async|await|spawn|try|catch|finally|raise|match|in|self)\\b'
+        'name': 'keyword.control.hlx'
+    }
+    {
+        'match': '\\b(Int|Float|String|Bool|List|Map|None|Any|Byte)\\b'
+        'name': 'support.type.hlx'
+    }
+    {
+        'match': '\\b(true|false|none)\\b'
+        'name': 'constant.language.hlx'
+    }
+    {
+        'begin': '"'
+        'end': '"'
+        'name': 'string.quoted.double.hlx'
+    }
+    {
+        'match': '\\b[0-9]+\\.?[0-9]*\\b'
+        'name': 'constant.numeric.hlx'
+    }
+]

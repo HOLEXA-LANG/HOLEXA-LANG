@@ -1,0 +1,71 @@
+{
+    "name": "HOLEXA Dragon Dark",
+    "type": "dark",
+    "colors": {
+        "editor.background":          "#0D0D0D",
+        "editor.foreground":          "#E0E0E0",
+        "editorLineNumber.foreground":"#404040",
+        "editor.selectionBackground": "#1A3A5C",
+        "editor.lineHighlightBackground":"#161616",
+        "editorCursor.foreground":    "#00BFFF",
+        "activityBar.background":     "#0A0A0A",
+        "sideBar.background":         "#0F0F0F",
+        "statusBar.background":       "#00BFFF",
+        "statusBar.foreground":       "#000000",
+        "titleBar.activeBackground":  "#0A0A0A",
+        "tab.activeBackground":       "#161616",
+        "tab.inactiveBackground":     "#0D0D0D"
+    },
+    "tokenColors": [
+        {
+            "name": "Keywords",
+            "scope": ["keyword.control.hlx", "keyword.declaration.hlx"],
+            "settings": { "foreground": "#00BFFF", "fontStyle": "bold" }
+        },
+        {
+            "name": "Other Keywords",
+            "scope": "keyword.other.hlx",
+            "settings": { "foreground": "#FF6B35" }
+        },
+        {
+            "name": "Types",
+            "scope": "support.type.hlx",
+            "settings": { "foreground": "#FF9500", "fontStyle": "bold" }
+        },
+        {
+            "name": "Strings",
+            "scope": "string.quoted.double.hlx",
+            "settings": { "foreground": "#98C379" }
+        },
+        {
+            "name": "Numbers",
+            "scope": ["constant.numeric.float.hlx", "constant.numeric.integer.hlx"],
+            "settings": { "foreground": "#D19A66" }
+        },
+        {
+            "name": "Functions",
+            "scope": ["entity.name.function.hlx", "entity.name.function.definition.hlx"],
+            "settings": { "foreground": "#61AFEF" }
+        },
+        {
+            "name": "Classes",
+            "scope": "entity.name.type.class.hlx",
+            "settings": { "foreground": "#E5C07B", "fontStyle": "bold" }
+        },
+        {
+            "name": "Constants",
+            "scope": ["constant.language.hlx", "variable.other.constant.hlx"],
+            "settings": { "foreground": "#FF6B35", "fontStyle": "bold" }
+        },
+        {
+            "name": "Comments",
+            "scope": ["comment.line.double-slash.hlx", "comment.block.hlx"],
+            "settings": { "foreground": "#5C6370", "fontStyle": "italic" }
+        },
+        {
+            "name": "Operators",
+            "scope": "keyword.operator.hlx",
+            "settings": { "foreground": "#56B6C2" }
+        }
+    ]
+}
