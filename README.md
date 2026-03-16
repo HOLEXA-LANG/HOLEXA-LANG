@@ -1,16 +1,25 @@
-## Hi there 👋
+# 🚀 HOLEXA Programming Language
 
-<!--
-**HOLEXA-LANG/HOLEXA-LANG** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+> Fast • Safe • Readable • Modern
 
-Here are some ideas to get you started:
+HOLEXA is a next-generation programming language combining:
+- ⚡ Speed of C
+- 🛡️ Safety of Rust  
+- 📖 Readability of Python
+- 🔧 Simplicity of Go
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## Hello World
+```hlx
+fn main() {
+    print("Hello, World!")
+}
+```
+
+## File Extension
+.hlx
+
+## Status
+🔨 Under active development — v1.0.0
+
+## License
+MIT
