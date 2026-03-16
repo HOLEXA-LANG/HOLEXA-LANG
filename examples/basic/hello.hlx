@@ -1,0 +1,7 @@
+// HOLEXA Hello World
+// Code like a Dragon. Think like a Human.
+
+fn main() {
+    print("Hello, World!")
+    print("Welcome to HOLEXA!")
+}

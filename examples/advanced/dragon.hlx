@@ -1,0 +1,32 @@
+// HOLEXA Advanced Example
+// Shows: functions, loops, classes, error handling
+
+class Dragon {
+    name: String
+    power: Int
+
+    fn new(name: String, power: Int) -> Dragon {
+        return Dragon { name: name, power: power }
+    }
+
+    fn roar(self) -> String {
+        return self.name + " roars with power " + self.power
+    }
+}
+
+fn main() {
+    let dragon = Dragon.new("HOLEXA", 9999)
+    print(dragon.roar())
+
+    for i in 1..5 {
+        print("Fire blast " + i)
+    }
+
+    try {
+        let result = 100 / 0
+    } catch err {
+        print("Caught: " + err.message)
+    }
+
+    print("Done!")
+}
