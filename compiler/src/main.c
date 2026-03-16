@@ -1,4 +1,5 @@
 #include "../include/holexa.h"
+#include "../include/parser.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,35 +11,14 @@ void hlx_error(const char* msg, int line, int col) {
 
 static char* read_file(const char* path) {
     FILE* f = fopen(path, "r");
-    if (!f) {
-        fprintf(stderr, "Error: Cannot open file '%s'\n", path);
-        exit(1);
-    }
+    if (!f) { fprintf(stderr, "Error: Cannot open '%s'\n", path); exit(1); }
     fseek(f, 0, SEEK_END);
-    long size = ftell(f);
-    rewind(f);
+    long size = ftell(f); rewind(f);
     char* buf = malloc(size + 1);
     fread(buf, 1, size, f);
     buf[size] = '\0';
     fclose(f);
     return buf;
-}
-
-static void run_tokens(const char* source) {
-    printf("\n═══════════════════════════════\n");
-    printf("  HOLEXA Lexer — Token Stream\n");
-    printf("═══════════════════════════════\n");
-    Lexer* lexer = lexer_new(source);
-    Token* tok;
-    do {
-        tok = lexer_next_token(lexer);
-        printf("  [Line %2d] %-12s → %s\n",
-            tok->line, token_type_name(tok->type), tok->value);
-        TokenType t = tok->type;
-        token_free(tok);
-        if (t == TOK_EOF) break;
-    } while (1);
-    lexer_free(lexer);
 }
 
 int main(int argc, char* argv[]) {
@@ -61,20 +41,44 @@ int main(int argc, char* argv[]) {
     }
 
     if (strcmp(argv[1], "--version") == 0) {
-        printf("hlxc version 1.0.0\n");
-        return 0;
+        printf("hlxc version 1.0.0\n"); return 0;
     }
 
     const char* filepath = argv[1];
     if (strcmp(argv[1], "run") == 0) {
-        if (argc < 3) { fprintf(stderr, "Error: No file specified\n"); return 1; }
+        if (argc < 3) { fprintf(stderr, "Error: No file\n"); return 1; }
         filepath = argv[2];
     }
 
     char* source = read_file(filepath);
-    printf("Compiling: %s\n", filepath);
-    run_tokens(source);
-    printf("\n✓ Lexer phase complete!\n");
+    printf("Compiling: %s\n\n", filepath);
+
+    // Phase 1: Lexer
+    Lexer* lexer = lexer_new(source);
+
+    // Phase 2: Parser
+    Parser* parser = parser_new(lexer);
+    ASTNode* ast   = parser_parse(parser);
+
+    if (parser->had_error) {
+        printf("\n✗ Compilation failed.\n");
+        ast_node_free(ast);
+        parser_free(parser);
+        lexer_free(lexer);
+        free(source);
+        return 1;
+    }
+
+    // Print AST
+    printf("═══════════════════════════════\n");
+    printf("  HOLEXA Parser — AST Output\n");
+    printf("═══════════════════════════════\n");
+    ast_print(ast, 0);
+    printf("\n✓ Parser phase complete!\n");
+
+    ast_node_free(ast);
+    parser_free(parser);
+    lexer_free(lexer);
     free(source);
     return 0;
 }
