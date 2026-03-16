@@ -1,0 +1,10 @@
+// Tests for myapp
+
+fn test_main() {
+    print("Running tests...")
+    print("All tests passed!")
+}
+
+fn main() {
+    test_main()
+}

@@ -1,0 +1,26 @@
+{
+    "registry": "HOLEXA Package Registry",
+    "version": "1.0.0",
+    "packages": {
+        "math":     { "version": "1.0.0", "desc": "Mathematics functions" },
+        "string":   { "version": "1.0.0", "desc": "String operations" },
+        "fs":       { "version": "1.0.0", "desc": "File system" },
+        "http":     { "version": "1.0.0", "desc": "HTTP client and server" },
+        "json":     { "version": "1.0.0", "desc": "JSON parser" },
+        "crypto":   { "version": "1.0.0", "desc": "Cryptography" },
+        "time":     { "version": "1.0.0", "desc": "Date and time" },
+        "random":   { "version": "1.0.0", "desc": "Random generation" },
+        "os":       { "version": "1.0.0", "desc": "Operating system" },
+        "net":      { "version": "1.0.0", "desc": "Networking" },
+        "io":       { "version": "1.0.0", "desc": "Input and Output" },
+        "list":     { "version": "1.0.0", "desc": "List operations" },
+        "map":      { "version": "1.0.0", "desc": "Map operations" },
+        "process":  { "version": "1.0.0", "desc": "Process control" },
+        "regex":    { "version": "1.0.0", "desc": "Regular expressions" },
+        "database": { "version": "1.0.0", "desc": "Database connectivity" },
+        "ai":       { "version": "1.0.0", "desc": "AI and ML utilities" },
+        "graphics": { "version": "1.0.0", "desc": "Graphics rendering" },
+        "game":     { "version": "1.0.0", "desc": "Game development" },
+        "cli":      { "version": "1.0.0", "desc": "CLI tools" }
+    }
+}

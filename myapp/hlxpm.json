@@ -1,0 +1,9 @@
+{
+    "name": "myapp",
+    "version": "0.1.0",
+    "description": "A HOLEXA project",
+    "author": "",
+    "license": "MIT",
+    "dependencies": {},
+    "main": "src/main.hlx"
+}

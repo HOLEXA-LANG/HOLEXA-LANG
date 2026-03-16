@@ -1,0 +1,7 @@
+// myapp — HOLEXA Project
+// Code like a Dragon. Think like a Human.
+
+fn main() {
+    print("Hello from myapp!")
+    print("Built with HOLEXA")
+}
