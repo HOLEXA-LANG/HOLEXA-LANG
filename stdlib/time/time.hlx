@@ -1,0 +1,47 @@
+// HOLEXA Standard Library — time
+
+fn now() -> Int {
+    return time.unix_timestamp()
+}
+
+fn now_ms() -> Int {
+    return time.unix_ms()
+}
+
+fn format(ts: Int, fmt: String) -> String {
+    return time.format_timestamp(ts, fmt)
+}
+
+fn parse_time(s: String, fmt: String) -> Int {
+    return time.parse_string(s, fmt)
+}
+
+fn diff(t1: Int, t2: Int) -> Int {
+    return t2 - t1
+}
+
+fn add_seconds(t: Int, s: Int) -> Int {
+    return t + s
+}
+
+fn add_minutes(t: Int, m: Int) -> Int {
+    return t + m * 60
+}
+
+fn add_hours(t: Int, h: Int) -> Int {
+    return t + h * 3600
+}
+
+fn add_days(t: Int, d: Int) -> Int {
+    return t + d * 86400
+}
+
+fn sleep(ms: Int) -> None {
+    time.sleep_ms(ms)
+}
+
+const SECOND = 1
+const MINUTE = 60
+const HOUR   = 3600
+const DAY    = 86400
+const WEEK   = 604800

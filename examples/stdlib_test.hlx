@@ -1,0 +1,32 @@
+// HOLEXA Standard Library Test
+fn main() {
+    print("=== HOLEXA stdlib test ===")
+
+    let x = 10
+    let y = 3
+
+    print("Math test:")
+    print(x + y)
+    print(x - y)
+    print(x * y)
+
+    print("String test:")
+    let name = "holexa"
+    let upper_name = "HOLEXA"
+    print("Hello " + upper_name)
+    print("Length: " + str(len(name)))
+
+    print("Loop test:")
+    for i in 0..5 {
+        print("Item: " + str(i))
+    }
+
+    print("Condition test:")
+    if x > y {
+        print("x is greater")
+    } else {
+        print("y is greater")
+    }
+
+    print("=== All tests passed ===")
+}

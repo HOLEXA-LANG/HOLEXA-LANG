@@ -1,0 +1,34 @@
+// HOLEXA Standard Library — random
+
+fn rand_int(min: Int, max: Int) -> Int {
+    return random.int_range(min, max)
+}
+
+fn rand_float() -> Float {
+    return random.float_01()
+}
+
+fn rand_bool() -> Bool {
+    return rand_int(0, 1) == 1
+}
+
+fn choice(list: List) -> Any {
+    let idx = rand_int(0, len(list) - 1)
+    return list[idx]
+}
+
+fn shuffle(list: List) -> List {
+    return random.shuffle_list(list)
+}
+
+fn sample(list: List, n: Int) -> List {
+    return random.sample_list(list, n)
+}
+
+fn uuid() -> String {
+    return random.generate_uuid()
+}
+
+fn seed(n: Int) -> None {
+    random.set_seed(n)
+}

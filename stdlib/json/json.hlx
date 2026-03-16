@@ -1,0 +1,47 @@
+// HOLEXA Standard Library — json
+
+fn parse(s: String) -> Map {
+    return json.parse_string(s)
+}
+
+fn stringify(obj: Map) -> String {
+    return json.to_string(obj)
+}
+
+fn pretty(obj: Map) -> String {
+    return json.to_pretty_string(obj, 2)
+}
+
+fn get_key(obj: Map, key: String) -> Any {
+    return obj[key]
+}
+
+fn has_key(obj: Map, key: String) -> Bool {
+    return obj.has(key)
+}
+
+fn keys(obj: Map) -> List {
+    return obj.keys()
+}
+
+fn values(obj: Map) -> List {
+    return obj.values()
+}
+
+fn merge(a: Map, b: Map) -> Map {
+    let result = a
+    for key in keys(b) {
+        result[key] = b[key]
+    }
+    return result
+}
+
+fn from_list(keys: List, vals: List) -> Map {
+    let result = {}
+    let i = 0
+    while i < len(keys) {
+        result[keys[i]] = vals[i]
+        i = i + 1
+    }
+    return result
+}

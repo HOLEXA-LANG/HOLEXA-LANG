@@ -1,0 +1,85 @@
+// HOLEXA Standard Library — fs (filesystem)
+
+fn read(path: String) -> String {
+    return fs.read_file(path)
+}
+
+fn write(path: String, content: String) -> Bool {
+    return fs.write_file(path, content)
+}
+
+fn append_file(path: String, content: String) -> Bool {
+    return fs.append_file(path, content)
+}
+
+fn exists(path: String) -> Bool {
+    return fs.file_exists(path)
+}
+
+fn delete(path: String) -> Bool {
+    return fs.delete_file(path)
+}
+
+fn list_dir(path: String) -> List {
+    return fs.list_directory(path)
+}
+
+fn mkdir(path: String) -> Bool {
+    return fs.make_directory(path)
+}
+
+fn is_file(path: String) -> Bool {
+    return fs.is_file(path)
+}
+
+fn is_dir(path: String) -> Bool {
+    return fs.is_directory(path)
+}
+
+fn copy(src: String, dst: String) -> Bool {
+    let content = read(src)
+    return write(dst, content)
+}
+
+fn move_file(src: String, dst: String) -> Bool {
+    copy(src, dst)
+    return delete(src)
+}
+
+fn size(path: String) -> Int {
+    return fs.file_size(path)
+}
+
+fn extension(path: String) -> String {
+    let parts = split(path, ".")
+    if len(parts) > 1 {
+        return parts[len(parts) - 1]
+    }
+    return ""
+}
+
+fn basename(path: String) -> String {
+    let parts = split(path, "/")
+    return parts[len(parts) - 1]
+}
+
+fn dirname(path: String) -> String {
+    let parts = split(path, "/")
+    let result = ""
+    let i = 0
+    while i < len(parts) - 1 {
+        result = result + parts[i] + "/"
+        i = i + 1
+    }
+    return result
+}
+
+fn read_lines(path: String) -> List {
+    let content = read(path)
+    return split(content, "\n")
+}
+
+fn write_lines(path: String, lines: List) -> Bool {
+    let content = join(lines, "\n")
+    return write(path, content)
+}

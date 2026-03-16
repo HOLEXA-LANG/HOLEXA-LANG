@@ -1,0 +1,63 @@
+// HOLEXA Standard Library — map
+
+fn get_val(m: Map, key: String) -> Any {
+    return m[key]
+}
+
+fn set_val(m: Map, key: String, val: Any) -> None {
+    m[key] = val
+}
+
+fn has(m: Map, key: String) -> Bool {
+    return m.has(key)
+}
+
+fn remove(m: Map, key: String) -> None {
+    m.delete(key)
+}
+
+fn map_keys(m: Map) -> List {
+    return m.keys()
+}
+
+fn map_values(m: Map) -> List {
+    return m.values()
+}
+
+fn map_size(m: Map) -> Int {
+    return len(m.keys())
+}
+
+fn merge_maps(a: Map, b: Map) -> Map {
+    let result = a
+    for k in b.keys() {
+        result[k] = b[k]
+    }
+    return result
+}
+
+fn map_to_list(m: Map) -> List {
+    let result = []
+    for k in m.keys() {
+        append(result, [k, m[k]])
+    }
+    return result
+}
+
+fn invert(m: Map) -> Map {
+    let result = {}
+    for k in m.keys() {
+        result[m[k]] = k
+    }
+    return result
+}
+
+fn filter_map(m: Map, f: fn) -> Map {
+    let result = {}
+    for k in m.keys() {
+        if f(k, m[k]) {
+            result[k] = m[k]
+        }
+    }
+    return result
+}

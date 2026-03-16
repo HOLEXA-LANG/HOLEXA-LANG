@@ -1,0 +1,19 @@
+// HOLEXA Standard Library — Master Index
+// Version 1.0.0
+// Code like a Dragon. Think like a Human.
+
+// Core Libraries
+import math
+import string
+import fs
+import http
+import os
+import json
+import time
+import random
+import list
+import map
+import crypto
+import io
+import net
+import process

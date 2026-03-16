@@ -1,0 +1,58 @@
+// HOLEXA Standard Library — io
+
+fn print_ln(msg: String) -> None {
+    print(msg)
+}
+
+fn print_err(msg: String) -> None {
+    io.stderr_write(msg)
+}
+
+fn read_line() -> String {
+    return input("")
+}
+
+fn read_prompt(prompt: String) -> String {
+    return input(prompt)
+}
+
+fn read_int() -> Int {
+    return int(input(""))
+}
+
+fn read_float() -> Float {
+    return float(input(""))
+}
+
+fn clear_screen() -> None {
+    print("\033[2J\033[H")
+}
+
+fn print_table(headers: List, rows: List) -> None {
+    let header_str = ""
+    for h in headers {
+        header_str = header_str + h + "\t"
+    }
+    print(header_str)
+    print("─────────────────────────")
+    for row in rows {
+        let row_str = ""
+        for cell in row {
+            row_str = row_str + str(cell) + "\t"
+        }
+        print(row_str)
+    }
+}
+
+fn print_color(msg: String, color: String) -> None {
+    if color == "red"    { print("\033[31m" + msg + "\033[0m") }
+    if color == "green"  { print("\033[32m" + msg + "\033[0m") }
+    if color == "yellow" { print("\033[33m" + msg + "\033[0m") }
+    if color == "blue"   { print("\033[34m" + msg + "\033[0m") }
+    if color == "cyan"   { print("\033[36m" + msg + "\033[0m") }
+    if color == "white"  { print("\033[37m" + msg + "\033[0m") }
+}
+
+fn print_bold(msg: String) -> None {
+    print("\033[1m" + msg + "\033[0m")
+}

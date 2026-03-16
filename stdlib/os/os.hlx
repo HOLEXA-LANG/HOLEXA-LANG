@@ -1,0 +1,53 @@
+// HOLEXA Standard Library — os
+
+fn env(key: String) -> String {
+    return os.get_env(key)
+}
+
+fn set_env(key: String, val: String) -> None {
+    os.set_env(key, val)
+}
+
+fn args() -> List {
+    return os.get_args()
+}
+
+fn exit(code: Int) -> None {
+    os.exit(code)
+}
+
+fn platform() -> String {
+    return os.get_platform()
+}
+
+fn cwd() -> String {
+    return os.get_cwd()
+}
+
+fn chdir(path: String) -> Bool {
+    return os.change_dir(path)
+}
+
+fn hostname() -> String {
+    return os.get_hostname()
+}
+
+fn username() -> String {
+    return os.get_username()
+}
+
+fn exec(cmd: String) -> String {
+    return os.execute(cmd)
+}
+
+fn sleep(ms: Int) -> None {
+    os.sleep_ms(ms)
+}
+
+fn pid() -> Int {
+    return os.get_pid()
+}
+
+const SEP     = "/"
+const NEWLINE = "\n"
+const NULL    = "\0"

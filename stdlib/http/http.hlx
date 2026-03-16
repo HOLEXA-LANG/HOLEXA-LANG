@@ -1,0 +1,51 @@
+// HOLEXA Standard Library — http
+
+fn get(url: String) -> Map {
+    return http.request("GET", url, none, none)
+}
+
+fn post(url: String, body: Map) -> Map {
+    return http.request("POST", url, body, none)
+}
+
+fn put(url: String, body: Map) -> Map {
+    return http.request("PUT", url, body, none)
+}
+
+fn delete_req(url: String) -> Map {
+    return http.request("DELETE", url, none, none)
+}
+
+fn patch(url: String, body: Map) -> Map {
+    return http.request("PATCH", url, body, none)
+}
+
+fn get_json(url: String) -> Map {
+    let res = get(url)
+    return json.parse(res["body"])
+}
+
+fn post_json(url: String, data: Map) -> Map {
+    let res = post(url, data)
+    return json.parse(res["body"])
+}
+
+fn status_ok(res: Map) -> Bool {
+    return res["status"] == 200
+}
+
+fn status_code(res: Map) -> Int {
+    return res["status"]
+}
+
+fn body(res: Map) -> String {
+    return res["body"]
+}
+
+fn headers(res: Map) -> Map {
+    return res["headers"]
+}
+
+fn serve(port: Int, handler: fn) -> None {
+    http.start_server(port, handler)
+}

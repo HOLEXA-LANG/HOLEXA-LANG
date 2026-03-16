@@ -1,0 +1,111 @@
+// HOLEXA Standard Library — string
+
+fn upper(s: String) -> String {
+    return s.upper()
+}
+
+fn lower(s: String) -> String {
+    return s.lower()
+}
+
+fn trim(s: String) -> String {
+    return s.trim()
+}
+
+fn length(s: String) -> Int {
+    return len(s)
+}
+
+fn contains(s: String, sub: String) -> Bool {
+    return s.contains(sub)
+}
+
+fn replace(s: String, old: String, new: String) -> String {
+    return s.replace(old, new)
+}
+
+fn split(s: String, sep: String) -> List {
+    return s.split(sep)
+}
+
+fn join(parts: List, sep: String) -> String {
+    return sep.join(parts)
+}
+
+fn starts_with(s: String, prefix: String) -> Bool {
+    return s.starts_with(prefix)
+}
+
+fn ends_with(s: String, suffix: String) -> Bool {
+    return s.ends_with(suffix)
+}
+
+fn reverse(s: String) -> String {
+    return s.reverse()
+}
+
+fn repeat(s: String, n: Int) -> String {
+    let result = ""
+    let i = 0
+    while i < n {
+        result = result + s
+        i = i + 1
+    }
+    return result
+}
+
+fn is_empty(s: String) -> Bool {
+    return len(s) == 0
+}
+
+fn pad_left(s: String, n: Int, ch: String) -> String {
+    while len(s) < n {
+        s = ch + s
+    }
+    return s
+}
+
+fn pad_right(s: String, n: Int, ch: String) -> String {
+    while len(s) < n {
+        s = s + ch
+    }
+    return s
+}
+
+fn count(s: String, sub: String) -> Int {
+    return s.count(sub)
+}
+
+fn slice(s: String, start: Int, end: Int) -> String {
+    return s.slice(start, end)
+}
+
+fn index_of(s: String, sub: String) -> Int {
+    return s.index_of(sub)
+}
+
+fn is_alpha(s: String) -> Bool {
+    return s.is_alpha()
+}
+
+fn is_digit(s: String) -> Bool {
+    return s.is_digit()
+}
+
+fn is_alnum(s: String) -> Bool {
+    return s.is_alnum()
+}
+
+fn capitalize(s: String) -> String {
+    if len(s) == 0 { return s }
+    return upper(slice(s, 0, 1)) + lower(slice(s, 1, len(s)))
+}
+
+fn title_case(s: String) -> String {
+    let words = split(s, " ")
+    let result = []
+    for w in words {
+        append(result, capitalize(w))
+    }
+    return join(result, " ")
+}

@@ -1,0 +1,107 @@
+// HOLEXA Standard Library — list
+
+fn push(lst: List, item: Any) -> None {
+    lst.push(item)
+}
+
+fn pop(lst: List) -> Any {
+    return lst.pop()
+}
+
+fn first(lst: List) -> Any {
+    return lst[0]
+}
+
+fn last(lst: List) -> Any {
+    return lst[len(lst) - 1]
+}
+
+fn slice_list(lst: List, s: Int, e: Int) -> List {
+    return lst.slice(s, e)
+}
+
+fn reverse_list(lst: List) -> List {
+    return lst.reverse()
+}
+
+fn sort_list(lst: List) -> List {
+    return lst.sort()
+}
+
+fn contains_item(lst: List, item: Any) -> Bool {
+    for x in lst {
+        if x == item { return true }
+    }
+    return false
+}
+
+fn index_of_item(lst: List, item: Any) -> Int {
+    let i = 0
+    for x in lst {
+        if x == item { return i }
+        i = i + 1
+    }
+    return -1
+}
+
+fn flatten(lst: List) -> List {
+    let result = []
+    for item in lst {
+        for x in item {
+            append(result, x)
+        }
+    }
+    return result
+}
+
+fn unique(lst: List) -> List {
+    let result = []
+    for item in lst {
+        if not contains_item(result, item) {
+            append(result, item)
+        }
+    }
+    return result
+}
+
+fn map_list(lst: List, f: fn) -> List {
+    let result = []
+    for item in lst {
+        append(result, f(item))
+    }
+    return result
+}
+
+fn filter_list(lst: List, f: fn) -> List {
+    let result = []
+    for item in lst {
+        if f(item) { append(result, item) }
+    }
+    return result
+}
+
+fn reduce(lst: List, f: fn, init: Any) -> Any {
+    let acc = init
+    for item in lst {
+        acc = f(acc, item)
+    }
+    return acc
+}
+
+fn zip(a: List, b: List) -> List {
+    let result = []
+    let i = 0
+    while i < len(a) and i < len(b) {
+        append(result, [a[i], b[i]])
+        i = i + 1
+    }
+    return result
+}
+
+fn count_item(lst: List, item: Any) -> Int {
+    let c = 0
+    for x in lst {
+        if x == item { c = c + 1 }
+    }
+    return c
+}

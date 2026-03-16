@@ -1,0 +1,37 @@
+// HOLEXA Standard Library — crypto
+
+fn md5(s: String) -> String {
+    return crypto.hash_md5(s)
+}
+
+fn sha256(s: String) -> String {
+    return crypto.hash_sha256(s)
+}
+
+fn sha512(s: String) -> String {
+    return crypto.hash_sha512(s)
+}
+
+fn base64_encode(s: String) -> String {
+    return crypto.b64_encode(s)
+}
+
+fn base64_decode(s: String) -> String {
+    return crypto.b64_decode(s)
+}
+
+fn hmac(key: String, msg: String) -> String {
+    return crypto.hmac_sha256(key, msg)
+}
+
+fn random_bytes(n: Int) -> String {
+    return crypto.rand_bytes(n)
+}
+
+fn random_hex(n: Int) -> String {
+    return crypto.rand_hex(n)
+}
+
+fn compare_hash(plain: String, hashed: String) -> Bool {
+    return crypto.safe_compare(sha256(plain), hashed)
+}

@@ -1,0 +1,29 @@
+// HOLEXA Standard Library — process
+
+fn spawn_process(cmd: String) -> Any {
+    return process.spawn(cmd)
+}
+
+fn run(cmd: String) -> String {
+    return process.run_capture(cmd)
+}
+
+fn kill(pid: Int) -> Bool {
+    return process.kill_pid(pid)
+}
+
+fn wait(proc: Any) -> Int {
+    return process.wait_for(proc)
+}
+
+fn get_pid() -> Int {
+    return process.current_pid()
+}
+
+fn get_ppid() -> Int {
+    return process.parent_pid()
+}
+
+fn exit_code(proc: Any) -> Int {
+    return process.get_exit_code(proc)
+}

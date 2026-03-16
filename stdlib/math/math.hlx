@@ -1,0 +1,80 @@
+// HOLEXA Standard Library — math
+// Code like a Dragon. Think like a Human.
+
+fn abs(x: Float) -> Float {
+    if x < 0 {
+        return x * -1
+    }
+    return x
+}
+
+fn sqrt(x: Float) -> Float {
+    if x < 0 {
+        return 0
+    }
+    let guess = x / 2
+    let i = 0
+    while i < 20 {
+        guess = (guess + x / guess) / 2
+        i = i + 1
+    }
+    return guess
+}
+
+fn pow(base: Float, exp: Int) -> Float {
+    let result = 1
+    let i = 0
+    while i < exp {
+        result = result * base
+        i = i + 1
+    }
+    return result
+}
+
+fn max(a: Float, b: Float) -> Float {
+    if a > b { return a }
+    return b
+}
+
+fn min(a: Float, b: Float) -> Float {
+    if a < b { return a }
+    return b
+}
+
+fn floor(x: Float) -> Int {
+    return int(x)
+}
+
+fn ceil(x: Float) -> Int {
+    let f = int(x)
+    if x > f { return f + 1 }
+    return f
+}
+
+fn round(x: Float) -> Int {
+    return int(x + 0.5)
+}
+
+fn clamp(val: Float, lo: Float, hi: Float) -> Float {
+    if val < lo { return lo }
+    if val > hi { return hi }
+    return val
+}
+
+fn sum(nums: List) -> Float {
+    let total = 0
+    for n in nums {
+        total = total + n
+    }
+    return total
+}
+
+fn average(nums: List) -> Float {
+    return sum(nums) / len(nums)
+}
+
+const PI    = 3.14159265358979
+const E     = 2.71828182845904
+const TAU   = 6.28318530717958
+const INF   = 999999999
+const EULER = 0.57721566490153

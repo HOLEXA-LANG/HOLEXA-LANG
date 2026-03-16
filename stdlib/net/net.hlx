@@ -1,0 +1,41 @@
+// HOLEXA Standard Library — net
+
+fn tcp_connect(host: String, port: Int) -> Any {
+    return net.tcp_connect(host, port)
+}
+
+fn tcp_listen(port: Int) -> Any {
+    return net.tcp_listen(port)
+}
+
+fn tcp_send(conn: Any, data: String) -> Bool {
+    return net.tcp_send(conn, data)
+}
+
+fn tcp_receive(conn: Any, size: Int) -> String {
+    return net.tcp_recv(conn, size)
+}
+
+fn tcp_close(conn: Any) -> None {
+    net.tcp_close(conn)
+}
+
+fn udp_send(host: String, port: Int, data: String) -> Bool {
+    return net.udp_send(host, port, data)
+}
+
+fn dns_lookup(host: String) -> String {
+    return net.dns_resolve(host)
+}
+
+fn is_valid_ip(ip: String) -> Bool {
+    return net.validate_ip(ip)
+}
+
+fn is_valid_url(url: String) -> Bool {
+    return net.validate_url(url)
+}
+
+fn ping(host: String) -> Int {
+    return net.ping_host(host)
+}
