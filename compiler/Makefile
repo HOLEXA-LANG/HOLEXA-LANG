@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99 -O2
+CFLAGS = -Wall -Wextra -std=c99 -O2 -D_POSIX_C_SOURCE=200809L
 SRCS = src/main.c src/lexer.c src/ast.c src/parser.c
 TARGET = hlxc
 
@@ -7,7 +7,7 @@ all: $(TARGET)
 
 $(TARGET):
 	$(CC) $(CFLAGS) -o $(TARGET) $(SRCS)
-	@echo "✓ hlxc compiler built successfully!"
+	@echo "✓ hlxc compiler built!"
 
 clean:
 	rm -f $(TARGET)

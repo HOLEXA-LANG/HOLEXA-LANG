@@ -1,3 +1,4 @@
+#define _POSIX_C_SOURCE 200809L
 #include "../include/holexa.h"
 #include "../include/parser.h"
 #include <stdio.h>
@@ -15,6 +16,7 @@ static char* read_file(const char* path) {
     fseek(f, 0, SEEK_END);
     long size = ftell(f); rewind(f);
     char* buf = malloc(size + 1);
+    if (!buf) { fprintf(stderr, "Error: Out of memory\n"); exit(1); }
     fread(buf, 1, size, f);
     buf[size] = '\0';
     fclose(f);
@@ -30,18 +32,19 @@ int main(int argc, char* argv[]) {
     printf("  ██║  ██║╚██████╔╝███████╗███████╗██╔╝ ██╗██║  ██║\n");
     printf("  ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝\n");
     printf("\n  Code like a Dragon. Think like a Human.\n");
-    printf("  Version 1.0.0 — hlxc compiler\n\n");
+    printf("  Version 1.0.0\n\n");
 
     if (argc < 2) {
         printf("Usage:\n");
-        printf("  hlxc <file.hlx>        Compile a file\n");
-        printf("  hlxc run <file.hlx>    Run a file\n");
-        printf("  hlxc --version         Show version\n");
+        printf("  hlxc <file.hlx>       Compile\n");
+        printf("  hlxc run <file.hlx>   Run\n");
+        printf("  hlxc --version        Version\n");
         return 0;
     }
 
     if (strcmp(argv[1], "--version") == 0) {
-        printf("hlxc version 1.0.0\n"); return 0;
+        printf("hlxc version 1.0.0\n");
+        return 0;
     }
 
     const char* filepath = argv[1];
@@ -50,15 +53,10 @@ int main(int argc, char* argv[]) {
         filepath = argv[2];
     }
 
-    char* source = read_file(filepath);
-    printf("Compiling: %s\n\n", filepath);
-
-    // Phase 1: Lexer
-    Lexer* lexer = lexer_new(source);
-
-    // Phase 2: Parser
-    Parser* parser = parser_new(lexer);
-    ASTNode* ast   = parser_parse(parser);
+    char*    source = read_file(filepath);
+    Lexer*   lexer  = lexer_new(source);
+    Parser*  parser = parser_new(lexer);
+    ASTNode* ast    = parser_parse(parser);
 
     if (parser->had_error) {
         printf("\n✗ Compilation failed.\n");
@@ -69,12 +67,12 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // Print AST
-    printf("═══════════════════════════════\n");
-    printf("  HOLEXA Parser — AST Output\n");
-    printf("═══════════════════════════════\n");
+    printf("Compiling: %s\n\n", filepath);
+    printf("════════════════════════════════\n");
+    printf("   HOLEXA Parser — AST Output\n");
+    printf("════════════════════════════════\n");
     ast_print(ast, 0);
-    printf("\n✓ Parser phase complete!\n");
+    printf("\n✓ Parser phase complete!\n\n");
 
     ast_node_free(ast);
     parser_free(parser);

@@ -1,20 +1,16 @@
 #ifndef HOLEXA_H
 #define HOLEXA_H
 
+#define _POSIX_C_SOURCE 200809L
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
-// ─────────────────────────────────────
-// TOKEN TYPES
-// ─────────────────────────────────────
 typedef enum {
-    // Literals
     TOK_INT, TOK_FLOAT, TOK_STRING, TOK_BOOL, TOK_NONE,
-    // Identifiers
     TOK_IDENT,
-    // Keywords
     TOK_LET, TOK_CONST, TOK_FN, TOK_RETURN,
     TOK_IF, TOK_ELSE, TOK_WHILE, TOK_FOR,
     TOK_LOOP, TOK_BREAK, TOK_CONTINUE,
@@ -24,23 +20,17 @@ typedef enum {
     TOK_MATCH, TOK_TRUE, TOK_FALSE,
     TOK_AND, TOK_OR, TOK_NOT, TOK_IN,
     TOK_SELF, TOK_TRAIT, TOK_IMPLEMENTS,
-    // Operators
     TOK_PLUS, TOK_MINUS, TOK_STAR, TOK_SLASH, TOK_PERCENT,
     TOK_EQ, TOK_NEQ, TOK_LT, TOK_GT, TOK_LTE, TOK_GTE,
     TOK_ASSIGN, TOK_PLUS_ASSIGN, TOK_MINUS_ASSIGN,
     TOK_ARROW, TOK_DOT, TOK_DOTDOT,
-    // Delimiters
     TOK_LPAREN, TOK_RPAREN,
     TOK_LBRACE, TOK_RBRACE,
     TOK_LBRACKET, TOK_RBRACKET,
     TOK_COMMA, TOK_COLON, TOK_SEMICOLON,
-    // Special
     TOK_EOF, TOK_ERROR
 } TokenType;
 
-// ─────────────────────────────────────
-// TOKEN STRUCTURE
-// ─────────────────────────────────────
 typedef struct {
     TokenType type;
     char*     value;
@@ -48,9 +38,6 @@ typedef struct {
     int       column;
 } Token;
 
-// ─────────────────────────────────────
-// LEXER STRUCTURE
-// ─────────────────────────────────────
 typedef struct {
     const char* source;
     int         pos;
@@ -59,9 +46,6 @@ typedef struct {
     int         length;
 } Lexer;
 
-// ─────────────────────────────────────
-// AST NODE TYPES
-// ─────────────────────────────────────
 typedef enum {
     NODE_PROGRAM,
     NODE_LET, NODE_CONST,
@@ -81,9 +65,6 @@ typedef enum {
     NODE_BLOCK
 } NodeType;
 
-// ─────────────────────────────────────
-// AST NODE STRUCTURE
-// ─────────────────────────────────────
 typedef struct ASTNode {
     NodeType         type;
     char*            str_val;
@@ -95,24 +76,17 @@ typedef struct ASTNode {
     int              line;
 } ASTNode;
 
-// ─────────────────────────────────────
-// FUNCTION DECLARATIONS
-// ─────────────────────────────────────
-
-// Lexer
-Lexer* lexer_new(const char* source);
-Token* lexer_next_token(Lexer* lexer);
-void   lexer_free(Lexer* lexer);
-void   token_free(Token* token);
+Lexer*      lexer_new(const char* source);
+Token*      lexer_next_token(Lexer* lexer);
+void        lexer_free(Lexer* lexer);
+void        token_free(Token* token);
 const char* token_type_name(TokenType type);
 
-// AST
 ASTNode* ast_node_new(NodeType type, int line);
 void     ast_node_add_child(ASTNode* parent, ASTNode* child);
 void     ast_node_free(ASTNode* node);
 void     ast_print(ASTNode* node, int indent);
 
-// Error
 void hlx_error(const char* msg, int line, int col);
 
 #endif
