@@ -1,0 +1,22 @@
+fn test_for_loop() {
+    print("For loop:")
+    for i in 0..5 {
+        print(str(i))
+    }
+}
+
+fn test_nested_loop() {
+    print("Nested loops:")
+    for i in 0..3 {
+        for j in 0..3 {
+            print(str(i) + "x" + str(j))
+        }
+    }
+}
+
+fn main() {
+    print("=== Loop Tests ===")
+    test_for_loop()
+    test_nested_loop()
+    print("=== PASS ===")
+}

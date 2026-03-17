@@ -1,0 +1,59 @@
+// HOLEXA Integration Tests — Algorithms
+
+fn bubble_sort_check() -> Int {
+    let a = 5
+    let b = 3
+    let c = 8
+    let d = 1
+    print("Values: " + str(a) + " " + str(b) + " " + str(c) + " " + str(d))
+    if a > b {
+        print("swap a,b: " + str(b) + " " + str(a))
+    }
+    return 1
+}
+
+fn fibonacci(n: Int) -> Int {
+    if n <= 1 { return n }
+    return fibonacci(n - 1) + fibonacci(n - 2)
+}
+
+fn is_prime(n: Int) -> Bool {
+    if n < 2 { return false }
+    let i = 2
+    while i * i <= n {
+        if n % i == 0 { return false }
+        i = i + 1
+    }
+    return true
+}
+
+fn gcd(a: Int, b: Int) -> Int {
+    while b != 0 {
+        let temp = b
+        b = a % b
+        a = temp
+    }
+    return a
+}
+
+fn main() {
+    print("=== Algorithm Tests ===")
+
+    print("Fibonacci sequence:")
+    for i in 0..8 {
+        print("fib(" + str(i) + ") = " + str(fibonacci(i)))
+    }
+
+    print("Prime numbers 1-20:")
+    for i in 2..20 {
+        if is_prime(i) {
+            print(str(i) + " is prime")
+        }
+    }
+
+    print("GCD(48,18) = " + str(gcd(48, 18)))
+    print("GCD(100,75) = " + str(gcd(100, 75)))
+
+    bubble_sort_check()
+    print("=== PASS ===")
+}

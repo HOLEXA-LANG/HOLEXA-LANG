@@ -1,0 +1,40 @@
+// HOLEXA Unit Tests — Conditions
+fn test_if() {
+    let age = 20
+    if age > 18 {
+        print("Adult: PASS")
+    } else {
+        print("Adult: FAIL")
+    }
+}
+
+fn test_if_else() {
+    let score = 85
+    if score > 90 {
+        print("Grade: A")
+    } else if score > 80 {
+        print("Grade: B")
+    } else if score > 70 {
+        print("Grade: C")
+    } else {
+        print("Grade: F")
+    }
+}
+
+fn test_nested_if() {
+    let x = 10
+    let y = 20
+    if x > 5 {
+        if y > 15 {
+            print("Both conditions: PASS")
+        }
+    }
+}
+
+fn main() {
+    print("=== Condition Tests ===")
+    test_if()
+    test_if_else()
+    test_nested_if()
+    print("=== PASS ===")
+}

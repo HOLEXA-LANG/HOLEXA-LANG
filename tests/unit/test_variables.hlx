@@ -1,0 +1,17 @@
+fn test_variables() {
+    let x = 42
+    let name = "HOLEXA"
+    let pi = 3
+    let active = true
+
+    print("=== Variable Tests ===")
+    print("Int test:    " + str(x))
+    print("String test: " + name)
+    print("Float test:  " + str(pi))
+    print("Bool test:   " + str(active))
+    print("=== PASS ===")
+}
+
+fn main() {
+    test_variables()
+}

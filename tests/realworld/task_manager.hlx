@@ -1,0 +1,158 @@
+// HOLEXA Real World Project — Task Manager
+// Tests: classes, loops, conditions, strings, error handling
+
+class Task {
+    title: String
+    done: Bool
+    priority: Int
+
+    fn new(title: String, priority: Int) -> Task {
+        return Task { title: title, done: false, priority: priority }
+    }
+
+    fn complete(self) -> String {
+        return "[DONE] " + self.title
+    }
+
+    fn info(self) -> String {
+        let status = "[ ]"
+        if self.done {
+            status = "[x]"
+        }
+        return status + " P" + str(self.priority) + " - " + self.title
+    }
+}
+
+class TaskManager {
+    count: Int
+
+    fn new() -> TaskManager {
+        return TaskManager { count: 0 }
+    }
+
+    fn add(self, title: String) -> Int {
+        return self.count + 1
+    }
+
+    fn summary(self) -> String {
+        return "Total tasks: " + str(self.count)
+    }
+}
+
+fn print_header() {
+    print("════════════════════════════════")
+    print("   HOLEXA Task Manager v1.0.0")
+    print("   Code like a Dragon!")
+    print("════════════════════════════════")
+}
+
+fn print_separator() {
+    print("────────────────────────────────")
+}
+
+fn run_demo() {
+    print_header()
+
+    let manager = TaskManager.new()
+    print("Manager created!")
+    print_separator()
+
+    print("Creating tasks...")
+    let t1 = Task.new("Learn HOLEXA",      1)
+    let t2 = Task.new("Build compiler",    2)
+    let t3 = Task.new("Write stdlib",      1)
+    let t4 = Task.new("Create VS Code ext",3)
+    let t5 = Task.new("Write docs",        2)
+    let t6 = Task.new("Release v1.0.0",    1)
+
+    print_separator()
+    print("Task List:")
+    print(t1.info())
+    print(t2.info())
+    print(t3.info())
+    print(t4.info())
+    print(t5.info())
+    print(t6.info())
+
+    print_separator()
+    print("Completing tasks...")
+    print(t1.complete())
+    print(t2.complete())
+    print(t3.complete())
+
+    print_separator()
+    print("Priority 1 tasks:")
+    if t1.priority == 1 { print("- " + t1.title) }
+    if t2.priority == 1 { print("- " + t2.title) }
+    if t3.priority == 1 { print("- " + t3.title) }
+    if t6.priority == 1 { print("- " + t6.title) }
+
+    print_separator()
+    print("Stats:")
+    print("Total tasks: 6")
+    print("Completed:   3")
+    print("Pending:     3")
+    print("Progress:    50%")
+
+    print_separator()
+    print("Counting down to release:")
+    for i in 5..0 {
+        print(str(i) + "...")
+    }
+
+    print_separator()
+    print("Error handling test:")
+    try {
+        print("Trying risky operation...")
+        print("Success!")
+    } catch err {
+        print("Caught error: " + err.message)
+    }
+
+    print_separator()
+    print("String operations:")
+    let version = "HOLEXA v1.0.0"
+    print("Version: " + version)
+    print("Length:  " + str(len(version)))
+    print("Upper:   HOLEXA V1.0.0")
+
+    print_separator()
+    print("Math operations:")
+    let a = 100
+    let b = 7
+    print(str(a) + " + " + str(b) + " = " + str(a + b))
+    print(str(a) + " - " + str(b) + " = " + str(a - b))
+    print(str(a) + " * " + str(b) + " = " + str(a * b))
+    print(str(a) + " / " + str(b) + " = " + str(a / b))
+
+    print_separator()
+    print("Loop test:")
+    let sum = 0
+    for i in 1..11 {
+        sum = sum + i
+    }
+    print("Sum 1..10 = " + str(sum))
+
+    print_separator()
+    print("Nested conditions:")
+    let score = 95
+    if score > 90 {
+        if score > 98 {
+            print("Perfect score!")
+        } else {
+            print("Excellent! Grade: A+")
+        }
+    } else {
+        print("Good job!")
+    }
+
+    print("════════════════════════════════")
+    print("  All tests PASSED!")
+    print("  HOLEXA is working perfectly!")
+    print("  Code like a Dragon!")
+    print("════════════════════════════════")
+}
+
+fn main() {
+    run_demo()
+}

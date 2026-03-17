@@ -1,0 +1,36 @@
+// HOLEXA Unit Tests — Functions
+fn add(a: Int, b: Int) -> Int {
+    return a + b
+}
+
+fn multiply(a: Int, b: Int) -> Int {
+    return a * b
+}
+
+fn greet(name: String) -> String {
+    return "Hello " + name
+}
+
+fn is_even(n: Int) -> Bool {
+    if n % 2 == 0 {
+        return true
+    }
+    return false
+}
+
+fn factorial(n: Int) -> Int {
+    if n <= 1 {
+        return 1
+    }
+    return n * factorial(n - 1)
+}
+
+fn main() {
+    print("=== Function Tests ===")
+    print("add(5,3):       " + str(add(5, 3)))
+    print("multiply(4,5):  " + str(multiply(4, 5)))
+    print("greet(Dragon):  " + greet("Dragon"))
+    print("is_even(4):     " + str(is_even(4)))
+    print("factorial(5):   " + str(factorial(5)))
+    print("=== PASS ===")
+}

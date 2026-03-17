@@ -4,329 +4,394 @@
 #include <stdlib.h>
 #include <string.h>
 
-static void advance(Parser* p) {
-    if (p->previous) token_free(p->previous);
-    p->previous = p->current;
-    p->current  = lexer_next_token(p->lexer);
+static void adv(Parser* p){
+    if(p->previous) token_free(p->previous);
+    p->previous=p->current;
+    p->current=lexer_next_token(p->lexer);
 }
-static int check(Parser* p, TokenType t) { return p->current->type == t; }
-static int match(Parser* p, TokenType t) { if (check(p,t)){advance(p);return 1;} return 0; }
-static Token* expect(Parser* p, TokenType type, const char* msg) {
-    if (!check(p, type)) {
-        fprintf(stderr, "\n[HOLEXA ERROR HLX100] Line %d: %s\n", p->current->line, msg);
-        fprintf(stderr, "  Expected: %s\n", token_type_name(type));
-        fprintf(stderr, "  Found:    %s ('%s')\n\n",
-            token_type_name(p->current->type), p->current->value);
-        p->had_error = 1;
+static int chk(Parser* p,TokenType t){ return p->current->type==t; }
+static int mat(Parser* p,TokenType t){ if(chk(p,t)){adv(p);return 1;}return 0; }
+
+static Token* exp_tok(Parser* p,TokenType type,const char* msg){
+    if(!chk(p,type)){
+        fprintf(stderr,"\n[HOLEXA ERROR HLX100] Line %d: %s\n",p->current->line,msg);
+        fprintf(stderr,"  Expected: %s\n",token_type_name(type));
+        fprintf(stderr,"  Found:    %s ('%s')\n\n",
+            token_type_name(p->current->type),p->current->value);
+        p->had_error=1;
         return p->current;
     }
-    advance(p);
+    adv(p);
     return p->previous;
 }
 
-static ASTNode* parse_statement(Parser* p);
-static ASTNode* parse_expression(Parser* p);
-static ASTNode* parse_block(Parser* p);
+static ASTNode* parse_stmt(Parser* p);
+static ASTNode* parse_expr(Parser* p);
+static ASTNode* parse_blk(Parser* p);
 
-static ASTNode* parse_block(Parser* p) {
-    int line = p->current->line;
-    expect(p, TOK_LBRACE, "Expected '{'");
-    ASTNode* block = ast_node_new(NODE_BLOCK, line);
-    while (!check(p, TOK_RBRACE) && !check(p, TOK_EOF)) {
-        ASTNode* s = parse_statement(p);
-        if (s) ast_node_add_child(block, s);
+static ASTNode* parse_blk(Parser* p){
+    int ln=p->current->line;
+    exp_tok(p,TOK_LBRACE,"Expected '{'");
+    ASTNode* blk=ast_node_new(NODE_BLOCK,ln);
+    while(!chk(p,TOK_RBRACE)&&!chk(p,TOK_EOF)){
+        ASTNode* s=parse_stmt(p);
+        if(s) ast_node_add_child(blk,s);
     }
-    expect(p, TOK_RBRACE, "Expected '}'");
-    return block;
+    exp_tok(p,TOK_RBRACE,"Expected '}'");
+    return blk;
 }
 
-static ASTNode* parse_primary(Parser* p) {
-    int line = p->current->line;
-
-    if (match(p, TOK_INT)) {
-        ASTNode* n = ast_node_new(NODE_INT, line);
-        n->int_val = atoll(p->previous->value);
-        return n;
-    }
-    if (match(p, TOK_FLOAT)) {
-        ASTNode* n = ast_node_new(NODE_FLOAT, line);
-        n->float_val = atof(p->previous->value);
-        return n;
-    }
-    if (match(p, TOK_STRING)) {
-        ASTNode* n = ast_node_new(NODE_STRING, line);
-        n->str_val = strdup(p->previous->value);
-        return n;
-    }
-    if (match(p, TOK_TRUE))  { ASTNode* n = ast_node_new(NODE_BOOL, line); n->bool_val=1; return n; }
-    if (match(p, TOK_FALSE)) { ASTNode* n = ast_node_new(NODE_BOOL, line); n->bool_val=0; return n; }
-    if (match(p, TOK_NONE))  { return ast_node_new(NODE_NONE, line); }
-
-    if (match(p, TOK_SELF)) {
-        ASTNode* node = ast_node_new(NODE_IDENT, line);
-        node->str_val = strdup("self");
-        while (match(p, TOK_DOT)) {
-            Token* mem = expect(p, TOK_IDENT, "Expected name after '.'");
-            ASTNode* dot = ast_node_new(NODE_BINOP, line);
-            dot->str_val = strdup(".");
-            ast_node_add_child(dot, node);
-            ASTNode* field = ast_node_new(NODE_IDENT, line);
-            field->str_val = strdup(mem->value);
-            if (match(p, TOK_LPAREN)) {
-                ASTNode* call = ast_node_new(NODE_CALL, line);
-                call->str_val = strdup(mem->value);
-                if (field->str_val) free(field->str_val);
-                free(field);
-                while (!check(p, TOK_RPAREN) && !check(p, TOK_EOF)) {
-                    ast_node_add_child(call, parse_expression(p));
-                    if (!check(p, TOK_RPAREN)) expect(p, TOK_COMMA, "Expected ','");
-                }
-                expect(p, TOK_RPAREN, "Expected ')'");
-                ast_node_add_child(dot, call);
-            } else {
-                ast_node_add_child(dot, field);
+static ASTNode* parse_dot_chain(Parser* p, ASTNode* left, int ln){
+    while(mat(p,TOK_DOT)){
+        Token* mbr=exp_tok(p,TOK_IDENT,"Expected name after '.'");
+        ASTNode* dt=ast_node_new(NODE_BINOP,ln);
+        dt->str_val=strdup(".");
+        ast_node_add_child(dt,left);
+        if(mat(p,TOK_LPAREN)){
+            ASTNode* mc=ast_node_new(NODE_CALL,ln);
+            mc->str_val=strdup(mbr->value);
+            while(!chk(p,TOK_RPAREN)&&!chk(p,TOK_EOF)){
+                ast_node_add_child(mc,parse_expr(p));
+                if(!chk(p,TOK_RPAREN)) exp_tok(p,TOK_COMMA,"Expected ','");
             }
-            node = dot;
-        }
-        return node;
-    }
-
-    if (match(p, TOK_IDENT)) {
-        char* name = strdup(p->previous->value);
-        ASTNode* node;
-        if (match(p, TOK_LPAREN)) {
-            node = ast_node_new(NODE_CALL, line);
-            node->str_val = name;
-            while (!check(p, TOK_RPAREN) && !check(p, TOK_EOF)) {
-                ast_node_add_child(node, parse_expression(p));
-                if (!check(p, TOK_RPAREN)) expect(p, TOK_COMMA, "Expected ','");
-            }
-            expect(p, TOK_RPAREN, "Expected ')'");
+            exp_tok(p,TOK_RPAREN,"Expected ')'");
+            ast_node_add_child(dt,mc);
         } else {
-            node = ast_node_new(NODE_IDENT, line);
-            node->str_val = name;
+            ASTNode* fld=ast_node_new(NODE_IDENT,ln);
+            fld->str_val=strdup(mbr->value);
+            ast_node_add_child(dt,fld);
         }
-        while (match(p, TOK_DOT)) {
-            Token* mem = expect(p, TOK_IDENT, "Expected name after '.'");
-            ASTNode* dot = ast_node_new(NODE_BINOP, line);
-            dot->str_val = strdup(".");
-            ast_node_add_child(dot, node);
-            if (match(p, TOK_LPAREN)) {
-                ASTNode* call = ast_node_new(NODE_CALL, line);
-                call->str_val = strdup(mem->value);
-                while (!check(p, TOK_RPAREN) && !check(p, TOK_EOF)) {
-                    ast_node_add_child(call, parse_expression(p));
-                    if (!check(p, TOK_RPAREN)) expect(p, TOK_COMMA, "Expected ','");
-                }
-                expect(p, TOK_RPAREN, "Expected ')'");
-                ast_node_add_child(dot, call);
-            } else {
-                ASTNode* field = ast_node_new(NODE_IDENT, line);
-                field->str_val = strdup(mem->value);
-                ast_node_add_child(dot, field);
-            }
-            node = dot;
+        left=dt;
+    }
+    return left;
+}
+
+static ASTNode* parse_primary(Parser* p){
+    int ln=p->current->line;
+
+    if(chk(p,TOK_MINUS)){
+        adv(p);
+        if(chk(p,TOK_INT)){
+            ASTNode* nd=ast_node_new(NODE_INT,ln);
+            nd->int_val=-atoll(p->current->value);
+            adv(p); return nd;
         }
-        return node;
+        if(chk(p,TOK_FLOAT)){
+            ASTNode* nd=ast_node_new(NODE_FLOAT,ln);
+            nd->float_val=-atof(p->current->value);
+            adv(p); return nd;
+        }
+        ASTNode* neg=ast_node_new(NODE_UNOP,ln);
+        neg->str_val=strdup("-");
+        ast_node_add_child(neg,parse_primary(p));
+        return neg;
     }
 
-    if (match(p, TOK_LPAREN)) {
-        ASTNode* e = parse_expression(p);
-        expect(p, TOK_RPAREN, "Expected ')'");
+    if(mat(p,TOK_INT)){
+        ASTNode* nd=ast_node_new(NODE_INT,ln);
+        nd->int_val=atoll(p->previous->value); return nd;
+    }
+    if(mat(p,TOK_FLOAT)){
+        ASTNode* nd=ast_node_new(NODE_FLOAT,ln);
+        nd->float_val=atof(p->previous->value); return nd;
+    }
+    if(mat(p,TOK_STRING)){
+        ASTNode* nd=ast_node_new(NODE_STRING,ln);
+        nd->str_val=strdup(p->previous->value); return nd;
+    }
+    if(mat(p,TOK_TRUE)) { ASTNode* nd=ast_node_new(NODE_BOOL,ln); nd->bool_val=1; return nd; }
+    if(mat(p,TOK_FALSE)){ ASTNode* nd=ast_node_new(NODE_BOOL,ln); nd->bool_val=0; return nd; }
+    if(mat(p,TOK_NONE))  return ast_node_new(NODE_NONE,ln);
+
+    if(mat(p,TOK_SELF)){
+        ASTNode* nd=ast_node_new(NODE_IDENT,ln);
+        nd->str_val=strdup("self");
+        return parse_dot_chain(p,nd,ln);
+    }
+
+    if(mat(p,TOK_IDENT)){
+        char* nm=strdup(p->previous->value);
+        ASTNode* nd;
+        if(mat(p,TOK_LPAREN)){
+            nd=ast_node_new(NODE_CALL,ln);
+            nd->str_val=nm;
+            while(!chk(p,TOK_RPAREN)&&!chk(p,TOK_EOF)){
+                ast_node_add_child(nd,parse_expr(p));
+                if(!chk(p,TOK_RPAREN)) exp_tok(p,TOK_COMMA,"Expected ','");
+             }
+            exp_tok(p,TOK_RPAREN,"Expected ')'");
+        } else {
+            nd=ast_node_new(NODE_IDENT,ln);
+            nd->str_val=nm;
+        }
+        return parse_dot_chain(p,nd,ln);
+    }
+
+    if(mat(p,TOK_LPAREN)){
+        ASTNode* e=parse_expr(p);
+        exp_tok(p,TOK_RPAREN,"Expected ')'");
         return e;
     }
 
-    fprintf(stderr, "[HOLEXA ERROR HLX101] Line %d: Unexpected token '%s'\n",
-        line, p->current->value);
-    p->had_error = 1;
-    advance(p);
-    return ast_node_new(NODE_NONE, line);
+    fprintf(stderr,"[HOLEXA ERROR HLX101] Line %d: Unexpected token '%s'\n",
+        ln,p->current->value);
+    p->had_error=1;
+    adv(p);
+    return ast_node_new(NODE_NONE,ln);
 }
 
-static ASTNode* parse_comparison(Parser* p) {
-    ASTNode* left = parse_primary(p);
-    while (check(p,TOK_EQ)||check(p,TOK_NEQ)||check(p,TOK_LT)||
-           check(p,TOK_GT)||check(p,TOK_LTE)||check(p,TOK_GTE)) {
-        char* op = strdup(p->current->value);
-        int line = p->current->line;
-        advance(p);
-        ASTNode* b = ast_node_new(NODE_BINOP, line);
-        b->str_val = op;
-        ast_node_add_child(b, left);
-        ast_node_add_child(b, parse_primary(p));
-        left = b;
+static ASTNode* parse_mul(Parser* p){
+    ASTNode* lft=parse_primary(p);
+    while(chk(p,TOK_STAR)||chk(p,TOK_SLASH)||chk(p,TOK_PERCENT)){
+        char* op=strdup(p->current->value);
+        int ln=p->current->line; adv(p);
+        ASTNode* b=ast_node_new(NODE_BINOP,ln);
+        b->str_val=op;
+        ast_node_add_child(b,lft);
+        ast_node_add_child(b,parse_primary(p));
+        lft=b;
     }
-    return left;
+    return lft;
 }
 
-static ASTNode* parse_addition(Parser* p) {
-    ASTNode* left = parse_comparison(p);
-    while (check(p,TOK_PLUS)||check(p,TOK_MINUS)) {
-        char* op = strdup(p->current->value);
-        int line = p->current->line;
-        advance(p);
-        ASTNode* b = ast_node_new(NODE_BINOP, line);
-        b->str_val = op;
-        ast_node_add_child(b, left);
-        ast_node_add_child(b, parse_comparison(p));
-        left = b;
+static ASTNode* parse_add(Parser* p){
+    ASTNode* lft=parse_mul(p);
+    while(chk(p,TOK_PLUS)||chk(p,TOK_MINUS)){
+        char* op=strdup(p->current->value);
+        int ln=p->current->line; adv(p);
+        ASTNode* b=ast_node_new(NODE_BINOP,ln);
+        b->str_val=op;
+        ast_node_add_child(b,lft);
+        ast_node_add_child(b,parse_mul(p));
+        lft=b;
     }
-    return left;
+    return lft;
 }
 
-static ASTNode* parse_expression(Parser* p) {
-    ASTNode* left = parse_addition(p);
-    while (check(p,TOK_STAR)||check(p,TOK_SLASH)||check(p,TOK_PERCENT)) {
-        char* op = strdup(p->current->value);
-        int line = p->current->line;
-        advance(p);
-        ASTNode* b = ast_node_new(NODE_BINOP, line);
-        b->str_val = op;
-        ast_node_add_child(b, left);
-        ast_node_add_child(b, parse_addition(p));
-        left = b;
+static ASTNode* parse_cmp(Parser* p){
+    ASTNode* lft=parse_add(p);
+    while(chk(p,TOK_EQ)||chk(p,TOK_NEQ)||chk(p,TOK_LT)||
+          chk(p,TOK_GT)||chk(p,TOK_LTE)||chk(p,TOK_GTE)){
+        char* op=strdup(p->current->value);
+        int ln=p->current->line; adv(p);
+        ASTNode* b=ast_node_new(NODE_BINOP,ln);
+        b->str_val=op;
+        ast_node_add_child(b,lft);
+        ast_node_add_child(b,parse_add(p));
+        lft=b;
     }
-    return left;
+    return lft;
 }
 
-static ASTNode* parse_let(Parser* p) {
-    int line = p->previous->line;
-    Token* name = expect(p, TOK_IDENT, "Expected variable name");
-    ASTNode* node = ast_node_new(NODE_LET, line);
-    node->str_val = strdup(name->value);
-    if (match(p, TOK_COLON)) { advance(p); }
-    expect(p, TOK_ASSIGN, "Expected '='");
-    ast_node_add_child(node, parse_expression(p));
-    return node;
-}
-
-static ASTNode* parse_fn(Parser* p) {
-    int line = p->previous->line;
-    Token* name = expect(p, TOK_IDENT, "Expected function name");
-    ASTNode* node = ast_node_new(NODE_FUNCTION, line);
-    node->str_val = strdup(name->value);
-    expect(p, TOK_LPAREN, "Expected '('");
-    while (!check(p, TOK_RPAREN) && !check(p, TOK_EOF)) {
-        if (check(p, TOK_IDENT) || check(p, TOK_SELF)) advance(p);
-        if (match(p, TOK_COLON)) advance(p);
-        if (check(p, TOK_COMMA)) advance(p);
+static ASTNode* parse_expr(Parser* p){
+    ASTNode* lft=parse_cmp(p);
+    while(chk(p,TOK_AND)||chk(p,TOK_OR)){
+        char* op=strdup(p->current->value);
+        int ln=p->current->line; adv(p);
+        ASTNode* b=ast_node_new(NODE_BINOP,ln);
+        b->str_val=op;
+        ast_node_add_child(b,lft);
+        ast_node_add_child(b,parse_cmp(p));
+        lft=b;
     }
-    expect(p, TOK_RPAREN, "Expected ')'");
-    if (match(p, TOK_ARROW)) advance(p);
-    ast_node_add_child(node, parse_block(p));
-    return node;
+    return lft;
 }
 
-static ASTNode* parse_class(Parser* p) {
-    int line = p->previous->line;
-    Token* name = expect(p, TOK_IDENT, "Expected class name");
-    ASTNode* node = ast_node_new(NODE_CLASS, line);
-    node->str_val = strdup(name->value);
-    expect(p, TOK_LBRACE, "Expected '{'");
-    while (!check(p, TOK_RBRACE) && !check(p, TOK_EOF)) {
-        if (match(p, TOK_FN)) {
-            ast_node_add_child(node, parse_fn(p));
-        } else if (check(p, TOK_IDENT)) {
-            advance(p);
-            if (match(p, TOK_COLON)) advance(p);
-        } else {
-            advance(p);
+static ASTNode* parse_let(Parser* p){
+    int ln=p->previous->line;
+    Token* nm=exp_tok(p,TOK_IDENT,"Expected variable name");
+    ASTNode* nd=ast_node_new(NODE_LET,ln);
+    nd->str_val=strdup(nm->value);
+    if(mat(p,TOK_COLON)) adv(p);
+    exp_tok(p,TOK_ASSIGN,"Expected '='");
+    ast_node_add_child(nd,parse_expr(p));
+    return nd;
+}
+
+static ASTNode* parse_const(Parser* p){
+    int ln=p->previous->line;
+    Token* nm=exp_tok(p,TOK_IDENT,"Expected const name");
+    ASTNode* nd=ast_node_new(NODE_CONST,ln);
+    nd->str_val=strdup(nm->value);
+    if(mat(p,TOK_COLON)) adv(p);
+    exp_tok(p,TOK_ASSIGN,"Expected '='");
+    ast_node_add_child(nd,parse_expr(p));
+    return nd;
+}
+
+static ASTNode* parse_fn(Parser* p){
+    int ln=p->previous->line;
+    Token* nm=exp_tok(p,TOK_IDENT,"Expected function name");
+    ASTNode* nd=ast_node_new(NODE_FUNCTION,ln);
+    nd->str_val=strdup(nm->value);
+    exp_tok(p,TOK_LPAREN,"Expected '('");
+    while(!chk(p,TOK_RPAREN)&&!chk(p,TOK_EOF)){
+        if(chk(p,TOK_IDENT)||chk(p,TOK_SELF)){
+            ASTNode* prm=ast_node_new(NODE_IDENT,ln);
+            prm->str_val=strdup(p->current->value);
+            ast_node_add_child(nd,prm);
+            adv(p);
         }
+        if(mat(p,TOK_COLON)) adv(p);
+        if(chk(p,TOK_COMMA)) adv(p);
     }
-    expect(p, TOK_RBRACE, "Expected '}'");
-    return node;
+    exp_tok(p,TOK_RPAREN,"Expected ')'");
+    if(mat(p,TOK_ARROW)) adv(p);
+    ast_node_add_child(nd,parse_blk(p));
+    return nd;
 }
 
-static ASTNode* parse_if(Parser* p) {
-    int line = p->previous->line;
-    ASTNode* node = ast_node_new(NODE_IF, line);
-    ast_node_add_child(node, parse_expression(p));
-    ast_node_add_child(node, parse_block(p));
-    if (match(p, TOK_ELSE)) {
-        if (match(p, TOK_IF)) ast_node_add_child(node, parse_if(p));
-        else ast_node_add_child(node, parse_block(p));
+static ASTNode* parse_class(Parser* p){
+    int ln=p->previous->line;
+    Token* nm=exp_tok(p,TOK_IDENT,"Expected class name");
+    ASTNode* nd=ast_node_new(NODE_CLASS,ln);
+    nd->str_val=strdup(nm->value);
+    exp_tok(p,TOK_LBRACE,"Expected '{'");
+    while(!chk(p,TOK_RBRACE)&&!chk(p,TOK_EOF)){
+        if(mat(p,TOK_FN)){
+            ast_node_add_child(nd,parse_fn(p));
+        } else if(chk(p,TOK_IDENT)){
+            adv(p);
+            if(mat(p,TOK_COLON)) adv(p);
+        } else { adv(p); }
     }
-    return node;
+    exp_tok(p,TOK_RBRACE,"Expected '}'");
+    return nd;
 }
 
-static ASTNode* parse_while(Parser* p) {
-    int line = p->previous->line;
-    ASTNode* node = ast_node_new(NODE_WHILE, line);
-    ast_node_add_child(node, parse_expression(p));
-    ast_node_add_child(node, parse_block(p));
-    return node;
-}
-
-static ASTNode* parse_for(Parser* p) {
-    int line = p->previous->line;
-    Token* var = expect(p, TOK_IDENT, "Expected variable in 'for'");
-    ASTNode* node = ast_node_new(NODE_FOR, line);
-    node->str_val = strdup(var->value);
-    expect(p, TOK_IN, "Expected 'in'");
-    ast_node_add_child(node, parse_expression(p));
-    if (match(p, TOK_DOTDOT)) ast_node_add_child(node, parse_expression(p));
-    ast_node_add_child(node, parse_block(p));
-    return node;
-}
-
-static ASTNode* parse_try(Parser* p) {
-    int line = p->previous->line;
-    ASTNode* node = ast_node_new(NODE_TRY, line);
-    ast_node_add_child(node, parse_block(p));
-    if (match(p, TOK_CATCH)) {
-        if (check(p, TOK_IDENT)) advance(p);
-        ast_node_add_child(node, parse_block(p));
+static ASTNode* parse_if(Parser* p){
+    int ln=p->previous->line;
+    ASTNode* nd=ast_node_new(NODE_IF,ln);
+    ast_node_add_child(nd,parse_expr(p));
+    ast_node_add_child(nd,parse_blk(p));
+    if(mat(p,TOK_ELSE)){
+        if(mat(p,TOK_IF)) ast_node_add_child(nd,parse_if(p));
+        else ast_node_add_child(nd,parse_blk(p));
     }
-    if (match(p, TOK_FINALLY)) ast_node_add_child(node, parse_block(p));
-    return node;
+    return nd;
 }
 
-static ASTNode* parse_statement(Parser* p) {
-    if (match(p, TOK_LET))     return parse_let(p);
-    if (match(p, TOK_FN))      return parse_fn(p);
-    if (match(p, TOK_CLASS))   return parse_class(p);
-    if (match(p, TOK_IF))      return parse_if(p);
-    if (match(p, TOK_WHILE))   return parse_while(p);
-    if (match(p, TOK_FOR))     return parse_for(p);
-    if (match(p, TOK_TRY))     return parse_try(p);
-    if (match(p, TOK_RETURN)) {
-        int line = p->previous->line;
-        ASTNode* node = ast_node_new(NODE_RETURN, line);
-        if (!check(p, TOK_RBRACE) && !check(p, TOK_EOF))
-            ast_node_add_child(node, parse_expression(p));
-        return node;
-    }
-    if (match(p, TOK_BREAK))    return ast_node_new(NODE_BREAK,    p->previous->line);
-    if (match(p, TOK_CONTINUE)) return ast_node_new(NODE_CONTINUE, p->previous->line);
-    if (match(p, TOK_LOOP)) {
-        ASTNode* node = ast_node_new(NODE_LOOP, p->previous->line);
-        ast_node_add_child(node, parse_block(p));
-        return node;
-    }
-    return parse_expression(p);
+static ASTNode* parse_while(Parser* p){
+    int ln=p->previous->line;
+    ASTNode* nd=ast_node_new(NODE_WHILE,ln);
+    ast_node_add_child(nd,parse_expr(p));
+    ast_node_add_child(nd,parse_blk(p));
+    return nd;
 }
 
-Parser* parser_new(Lexer* lexer) {
-    Parser* p    = malloc(sizeof(Parser));
-    p->lexer     = lexer;
-    p->previous  = NULL;
-    p->had_error = 0;
-    p->current   = lexer_next_token(lexer);
+static ASTNode* parse_for(Parser* p){
+    int ln=p->previous->line;
+    Token* vr=exp_tok(p,TOK_IDENT,"Expected variable in 'for'");
+    ASTNode* nd=ast_node_new(NODE_FOR,ln);
+    nd->str_val=strdup(vr->value);
+    exp_tok(p,TOK_IN,"Expected 'in'");
+    ast_node_add_child(nd,parse_expr(p));
+    if(mat(p,TOK_DOTDOT)) ast_node_add_child(nd,parse_expr(p));
+    ast_node_add_child(nd,parse_blk(p));
+    return nd;
+}
+
+static ASTNode* parse_try(Parser* p){
+    int ln=p->previous->line;
+    ASTNode* nd=ast_node_new(NODE_TRY,ln);
+    ast_node_add_child(nd,parse_blk(p));
+    if(mat(p,TOK_CATCH)){
+        if(chk(p,TOK_IDENT)) adv(p);
+        ast_node_add_child(nd,parse_blk(p));
+    }
+    if(mat(p,TOK_FINALLY)) ast_node_add_child(nd,parse_blk(p));
+    return nd;
+}
+
+static ASTNode* parse_stmt(Parser* p){
+    if(mat(p,TOK_LET))     return parse_let(p);
+    if(mat(p,TOK_CONST))   return parse_const(p);
+    if(mat(p,TOK_FN))      return parse_fn(p);
+    if(mat(p,TOK_CLASS))   return parse_class(p);
+    if(mat(p,TOK_IF))      return parse_if(p);
+    if(mat(p,TOK_WHILE))   return parse_while(p);
+    if(mat(p,TOK_FOR))     return parse_for(p);
+    if(mat(p,TOK_TRY))     return parse_try(p);
+    if(mat(p,TOK_RETURN)){
+        int ln=p->previous->line;
+        ASTNode* nd=ast_node_new(NODE_RETURN,ln);
+        if(!chk(p,TOK_RBRACE)&&!chk(p,TOK_EOF))
+            ast_node_add_child(nd,parse_expr(p));
+        return nd;
+    }
+
+    if(mat(p,TOK_BREAK))    return ast_node_new(NODE_BREAK,   p->previous->line);
+    if(mat(p,TOK_CONTINUE)) return ast_node_new(NODE_CONTINUE,p->previous->line);
+    if(mat(p,TOK_LOOP)){
+        ASTNode* nd=ast_node_new(NODE_LOOP,p->previous->line);
+        ast_node_add_child(nd,parse_blk(p));
+        return nd;
+    }
+
+    // Assignment or expression
+    if(chk(p,TOK_IDENT)){
+        char* nm=strdup(p->current->value);
+        int ln=p->current->line;
+        adv(p);
+
+        // Assignment: x = expr
+        if(chk(p,TOK_ASSIGN)){
+            adv(p);
+            ASTNode* nd=ast_node_new(NODE_LET,ln);
+            nd->str_val=nm;
+            ast_node_add_child(nd,parse_expr(p));
+            return nd;
+        }
+
+        // Function call: name(args)
+        if(chk(p,TOK_LPAREN)){
+            ASTNode* cl=ast_node_new(NODE_CALL,ln);
+            cl->str_val=nm;
+            adv(p);
+            while(!chk(p,TOK_RPAREN)&&!chk(p,TOK_EOF)){
+                ast_node_add_child(cl,parse_expr(p));
+                if(!chk(p,TOK_RPAREN)) exp_tok(p,TOK_COMMA,"Expected ','");
+            }
+            exp_tok(p,TOK_RPAREN,"Expected ')'");
+            return parse_dot_chain(p,cl,ln);
+        }
+
+        // Dot chain: obj.method()
+        if(chk(p,TOK_DOT)){
+            ASTNode* id=ast_node_new(NODE_IDENT,ln);
+            id->str_val=nm;
+            return parse_dot_chain(p,id,ln);
+        }
+
+        // Just identifier
+        ASTNode* id=ast_node_new(NODE_IDENT,ln);
+        id->str_val=nm;
+        return id;
+    }
+
+    return parse_expr(p);
+}
+
+Parser* parser_new(Lexer* lexr){
+    Parser* p=malloc(sizeof(Parser));
+    p->lexer=lexr; p->previous=NULL;
+    p->had_error=0;
+    p->current=lexer_next_token(lexr);
     return p;
 }
 
-ASTNode* parser_parse(Parser* p) {
-    ASTNode* program = ast_node_new(NODE_PROGRAM, 1);
-    while (!check(p, TOK_EOF)) {
-        ASTNode* s = parse_statement(p);
-        if (s) ast_node_add_child(program, s);
+ASTNode* parser_parse(Parser* p){
+    ASTNode* prog=ast_node_new(NODE_PROGRAM,1);
+    while(!chk(p,TOK_EOF)){
+        ASTNode* s=parse_stmt(p);
+        if(s) ast_node_add_child(prog,s);
     }
-    return program;
+    return prog;
 }
 
-void parser_free(Parser* p) {
-    if (!p) return;
-    if (p->current)  token_free(p->current);
-    if (p->previous) token_free(p->previous);
+void parser_free(Parser* p){
+    if(!p) return;
+    if(p->current)  token_free(p->current);
+    if(p->previous) token_free(p->previous);
     free(p);
 }

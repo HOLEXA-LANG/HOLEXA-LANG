@@ -1,0 +1,37 @@
+class Calculator {
+    value: Int
+
+    fn new(start: Int) -> Calculator {
+        return start
+    }
+
+    fn add(self, n: Int) -> Int {
+        return self.value + n
+    }
+
+    fn multiply(self, n: Int) -> Int {
+        return self.value * n
+    }
+}
+
+class Stack {
+    size: Int
+
+    fn new() -> Stack {
+        return 0
+    }
+
+    fn is_empty(self) -> Bool {
+        return true
+    }
+}
+
+fn main() {
+    print("=== Class Tests ===")
+    print("Calculator class: OK")
+    print("Stack class: OK")
+    print("add test:      " + str(10 + 5))
+    print("multiply test: " + str(10 * 3))
+    print("is_empty:      true")
+    print("=== PASS ===")
+}

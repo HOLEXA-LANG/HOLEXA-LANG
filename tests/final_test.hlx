@@ -1,0 +1,140 @@
+// HOLEXA Final Test v1.0.0
+
+fn add(a: Int, b: Int) -> Int {
+    return a + b
+}
+
+fn multiply(a: Int, b: Int) -> Int {
+    return a * b
+}
+
+fn greet(name: String) -> String {
+    return "Hello " + name
+}
+
+fn is_even(n: Int) -> Bool {
+    if n % 2 == 0 {
+        return true
+    }
+    return false
+}
+
+fn factorial(n: Int) -> Int {
+    if n <= 1 {
+        return 1
+    }
+    return n * factorial(n - 1)
+}
+
+fn fibonacci(n: Int) -> Int {
+    if n <= 1 {
+        return n
+    }
+    return fibonacci(n - 1) + fibonacci(n - 2)
+}
+
+fn abs_val(n: Int) -> Int {
+    if n < 0 {
+        let pos = n * -1
+        return pos
+    }
+    return n
+}
+
+fn main() {
+    print("════════════════════════════")
+    print("  HOLEXA Final Test v1.0.0")
+    print("  Code like a Dragon!")
+    print("════════════════════════════")
+
+    print("")
+    print("── Variables ──")
+    let x = 42
+    let name = "HOLEXA"
+    let flag = true
+    print("Int:    " + str(x))
+    print("String: " + name)
+    print("Bool:   " + str(flag))
+
+    print("")
+    print("── Negative Numbers ──")
+    let neg = -10
+    let neg2 = -99
+    print("neg:    " + str(neg))
+    print("neg2:   " + str(neg2))
+    print("abs:    " + str(abs_val(neg)))
+
+    print("")
+    print("── Assignment ──")
+    let counter = 0
+    counter = counter + 1
+    counter = counter + 1
+    counter = counter + 1
+    print("counter: " + str(counter))
+
+    print("")
+    print("── Functions ──")
+    print("add(10,5):     " + str(add(10, 5)))
+    print("multiply(4,5): " + str(multiply(4, 5)))
+    print("greet:         " + greet("Dragon"))
+
+    print("")
+    print("── Conditions ──")
+    if x > 10 {
+        print("x > 10: true")
+    } else {
+        print("x > 10: false")
+    }
+
+    let score = 95
+    if score > 90 {
+        print("Grade: A+")
+    } else if score > 80 {
+        print("Grade: A")
+    } else {
+        print("Grade: B")
+    }
+
+    print("")
+    print("── Loops ──")
+    for i in 0..5 {
+        print("i = " + str(i))
+    }
+
+    let w = 0
+    while w < 3 {
+        print("w = " + str(w))
+        w = w + 1
+    }
+
+    print("")
+    print("── Bool Functions ──")
+    print("is_even(4): " + str(is_even(4)))
+    print("is_even(7): " + str(is_even(7)))
+
+    print("")
+    print("── Recursion ──")
+    print("factorial(5): " + str(factorial(5)))
+    print("fibonacci(7): " + str(fibonacci(7)))
+
+    print("")
+    print("── Try/Catch ──")
+    try {
+        print("try: OK")
+    } catch err {
+        print("error!")
+    }
+
+    print("")
+    print("── Strings ──")
+    let s1 = "Hello"
+    let s2 = " HOLEXA"
+    print(s1 + s2)
+    print("length: " + str(len("HOLEXA")))
+
+    print("")
+    print("════════════════════════════")
+    print("  ALL TESTS PASSED!")
+    print("  Code like a Dragon!")
+    print("════════════════════════════")
+}

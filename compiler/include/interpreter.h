@@ -4,7 +4,6 @@
 #define _POSIX_C_SOURCE 200809L
 #include "holexa.h"
 
-// Value types
 typedef enum {
     VAL_INT,
     VAL_FLOAT,
@@ -15,9 +14,9 @@ typedef enum {
     VAL_RETURN
 } ValueType;
 
-// A HOLEXA value
 typedef struct Value {
-    ValueType type;
+    ValueType  type;
+    ValueType  return_type;
     long long  int_val;
     double     float_val;
     char*      str_val;
@@ -25,7 +24,6 @@ typedef struct Value {
     ASTNode*   fn_node;
 } Value;
 
-// Environment (variable store)
 #define MAX_ENV_VARS 512
 
 typedef struct Env {
@@ -35,7 +33,6 @@ typedef struct Env {
     struct Env*  parent;
 } Env;
 
-// Interpreter
 typedef struct {
     Env* global;
 } Interpreter;

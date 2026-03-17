@@ -1,0 +1,34 @@
+fn safe_divide(a: Int, b: Int) -> Int {
+    try {
+        if b == 0 {
+            print("Division by zero caught!")
+            return 0
+        }
+        return a / b
+    } catch err {
+        print("Error caught!")
+        return 0
+    }
+}
+
+fn risky_operation(x: Int) -> Int {
+    try {
+        if x < 0 {
+            print("Negative number!")
+            return 0
+        }
+        return x * 2
+    } catch err {
+        print("Operation failed")
+        return 0
+    }
+}
+
+fn main() {
+    print("=== Error Handling Tests ===")
+    print("10/2 = " + str(safe_divide(10, 2)))
+    print("10/0 = " + str(safe_divide(10, 0)))
+    print("risky(5) = " + str(risky_operation(5)))
+    print("risky(0) = " + str(risky_operation(0)))
+    print("=== PASS ===")
+}

@@ -4,177 +4,186 @@
 #include <stdlib.h>
 #include <string.h>
 
-static void scope_push(Semantic* s) {
-    if (s->scope_depth >= MAX_SCOPES - 1) return;
+static void scope_push(Semantic* s){
+    if(s->scope_depth>=MAX_SCOPES-1) return;
     s->scope_depth++;
-    s->scopes[s->scope_depth].count = 0;
+    s->scopes[s->scope_depth].count=0;
 }
-
-static void scope_pop(Semantic* s) {
-    if (s->scope_depth <= 0) return;
-    Scope* scope = &s->scopes[s->scope_depth];
-    for (int i = 0; i < scope->count; i++)
-        if (scope->symbols[i].name) free(scope->symbols[i].name);
-    scope->count = 0;
+static void scope_pop(Semantic* s){
+    if(s->scope_depth<=0) return;
+    Scope* sc=&s->scopes[s->scope_depth];
+    for(int i=0;i<sc->count;i++)
+        if(sc->symbols[i].name){ free(sc->symbols[i].name); sc->symbols[i].name=NULL; }
+    sc->count=0;
     s->scope_depth--;
 }
-
-static void scope_define(Semantic* s, const char* name,
-                          SymbolKind kind, int line, int is_const) {
-    Scope* scope = &s->scopes[s->scope_depth];
-    for (int i = 0; i < scope->count; i++) {
-        if (strcmp(scope->symbols[i].name, name) == 0) {
-            fprintf(stderr,
-                "\n[HOLEXA ERROR HLX201] Line %d: "
-                "'%s' already declared in this scope\n\n",
-                line, name);
-            s->error_count++;
-            return;
-        }
+static int valid_name(const char* n){
+    if(!n||!*n||strlen(n)>64) return 0;
+    for(int i=0;n[i];i++){
+        unsigned char c=(unsigned char)n[i];
+        if(!(isalnum(c)||c=='_')) return 0;
     }
-    if (scope->count >= MAX_SYMBOLS) return;
-    scope->symbols[scope->count].name     = strdup(name);
-    scope->symbols[scope->count].kind     = kind;
-    scope->symbols[scope->count].line     = line;
-    scope->symbols[scope->count].is_const = is_const;
-    scope->count++;
+    return 1;
 }
-
-static Symbol* scope_lookup(Semantic* s, const char* name) {
-    for (int d = s->scope_depth; d >= 0; d--) {
-        Scope* scope = &s->scopes[d];
-        for (int i = 0; i < scope->count; i++)
-            if (strcmp(scope->symbols[i].name, name) == 0)
-                return &scope->symbols[i];
+static void def(Semantic* s,const char* name,SymbolKind k,int ln,int ic){
+    if(!valid_name(name)) return;
+    Scope* sc=&s->scopes[s->scope_depth];
+    for(int i=0;i<sc->count;i++)
+        if(sc->symbols[i].name&&strcmp(sc->symbols[i].name,name)==0) return;
+    if(sc->count>=MAX_SYMBOLS) return;
+    sc->symbols[sc->count].name=strdup(name);
+    sc->symbols[sc->count].kind=k;
+    sc->symbols[sc->count].line=ln;
+    sc->symbols[sc->count].is_const=ic;
+    sc->count++;
+}
+static int lkp(Semantic* s,const char* name){
+    if(!valid_name(name)) return 1; // skip invalid
+    for(int d=s->scope_depth;d>=0;d--){
+        Scope* sc=&s->scopes[d];
+        for(int i=0;i<sc->count;i++)
+            if(sc->symbols[i].name&&strcmp(sc->symbols[i].name,name)==0)
+                return 1;
     }
-    return NULL;
+    return 0;
 }
 
-static void analyze_node(Semantic* s, ASTNode* node);
-
-static void analyze_children(Semantic* s, ASTNode* node) {
-    for (int i = 0; i < node->child_count; i++)
-        analyze_node(s, node->children[i]);
+static int is_builtin(const char* n){
+    if(!n) return 1;
+    static const char* b[]={"print","input","len","str","int","float",
+        "type","range","append","Error","sqrt","abs","pow",
+        "new","self","none","true","false",NULL};
+    for(int i=0;b[i];i++) if(strcmp(n,b[i])==0) return 1;
+    return 0;
 }
 
-static void analyze_node(Semantic* s, ASTNode* node) {
-    if (!node) return;
+static void ana(Semantic* s,ASTNode* nd);
 
-    if (node->type == NODE_PROGRAM) {
-        analyze_children(s, node);
+static void ana_kids(Semantic* s,ASTNode* nd){
+    if(!nd) return;
+    for(int i=0;i<nd->child_count;i++) ana(s,nd->children[i]);
+}
 
-    } else if (node->type == NODE_BLOCK) {
-        scope_push(s);
-        analyze_children(s, node);
-        scope_pop(s);
+static void ana(Semantic* s,ASTNode* nd){
+    if(!nd) return;
 
-    } else if (node->type == NODE_LET) {
-        if (node->child_count > 0) analyze_node(s, node->children[0]);
-        if (node->str_val) scope_define(s, node->str_val, SYM_VARIABLE, node->line, 0);
-
-    } else if (node->type == NODE_CONST) {
-        if (node->child_count > 0) analyze_node(s, node->children[0]);
-        if (node->str_val) scope_define(s, node->str_val, SYM_VARIABLE, node->line, 1);
-
-    } else if (node->type == NODE_FUNCTION) {
-        if (node->str_val) scope_define(s, node->str_val, SYM_FUNCTION, node->line, 0);
-        scope_push(s);
-        scope_define(s, "self", SYM_PARAMETER, node->line, 0);
-        analyze_children(s, node);
-        scope_pop(s);
-
-    } else if (node->type == NODE_CLASS) {
-        if (node->str_val) scope_define(s, node->str_val, SYM_CLASS, node->line, 0);
-        scope_push(s);
-        analyze_children(s, node);
-        scope_pop(s);
-
-    } else if (node->type == NODE_IDENT) {
-        if (!node->str_val) return;
-        if (strcmp(node->str_val, "self")  == 0) return;
-        if (strcmp(node->str_val, "none")  == 0) return;
-        if (strcmp(node->str_val, "true")  == 0) return;
-        if (strcmp(node->str_val, "false") == 0) return;
-        if (!scope_lookup(s, node->str_val)) {
-            fprintf(stderr,
-                "\n[HOLEXA ERROR HLX202] Line %d: "
-                "Undefined variable '%s'\n\n",
-                node->line, node->str_val);
-            s->error_count++;
+    if(nd->type==NODE_PROGRAM){
+        for(int i=0;i<nd->child_count;i++){
+            ASTNode* c=nd->children[i];
+            if(!c) continue;
+            if(c->type==NODE_FUNCTION&&valid_name(c->str_val))
+                def(s,c->str_val,SYM_FUNCTION,c->line,0);
+            if(c->type==NODE_CLASS&&valid_name(c->str_val))
+                def(s,c->str_val,SYM_CLASS,c->line,0);
         }
+        ana_kids(s,nd); return;
+    }
 
-    } else if (node->type == NODE_CALL) {
-        if (node->str_val) {
-            if (strcmp(node->str_val, "print")  != 0 &&
-                strcmp(node->str_val, "input")  != 0 &&
-                strcmp(node->str_val, "len")    != 0 &&
-                strcmp(node->str_val, "str")    != 0 &&
-                strcmp(node->str_val, "int")    != 0 &&
-                strcmp(node->str_val, "float")  != 0 &&
-                strcmp(node->str_val, "type")   != 0 &&
-                strcmp(node->str_val, "range")  != 0 &&
-                strcmp(node->str_val, "append") != 0 &&
-                strcmp(node->str_val, "Error")  != 0) {
-                if (!scope_lookup(s, node->str_val)) {
-                    fprintf(stderr,
-                        "\n[HOLEXA WARNING HLX301] Line %d: "
-                        "Function '%s' may not be defined yet\n\n",
-                        node->line, node->str_val);
-                    s->warning_count++;
-                }
+    if(nd->type==NODE_BLOCK){
+        scope_push(s); ana_kids(s,nd); scope_pop(s); return;
+    }
+
+    if(nd->type==NODE_LET||nd->type==NODE_CONST){
+        if(nd->child_count>0) ana(s,nd->children[0]);
+        if(valid_name(nd->str_val)) def(s,nd->str_val,SYM_VARIABLE,nd->line,0);
+        return;
+    }
+
+    if(nd->type==NODE_FUNCTION){
+        if(valid_name(nd->str_val)) def(s,nd->str_val,SYM_FUNCTION,nd->line,0);
+        scope_push(s);
+        def(s,"self",SYM_PARAMETER,nd->line,0);
+        for(int i=0;i<nd->child_count-1;i++){
+            ASTNode* p=nd->children[i];
+            if(p&&p->type==NODE_IDENT&&valid_name(p->str_val))
+                def(s,p->str_val,SYM_PARAMETER,nd->line,0);
+        }
+        if(nd->child_count>0) ana(s,nd->children[nd->child_count-1]);
+        scope_pop(s); return;
+    }
+
+    if(nd->type==NODE_CLASS){
+        if(valid_name(nd->str_val)) def(s,nd->str_val,SYM_CLASS,nd->line,0);
+        scope_push(s);
+        for(int i=0;i<nd->child_count;i++){
+            ASTNode* c=nd->children[i];
+            if(c&&c->type==NODE_FUNCTION&&valid_name(c->str_val)){
+                def(s,c->str_val,SYM_FUNCTION,c->line,0);
+                // Register method globally too
+                def(&(Semantic){.scope_depth=0},c->str_val,SYM_FUNCTION,c->line,0);
             }
         }
-        analyze_children(s, node);
-
-    } else if (node->type == NODE_FOR) {
-        scope_push(s);
-        if (node->str_val) scope_define(s, node->str_val, SYM_VARIABLE, node->line, 0);
-        analyze_children(s, node);
-        scope_pop(s);
-
-    } else if (node->type == NODE_TRY) {
-        scope_push(s);
-        scope_define(s, "err", SYM_VARIABLE, node->line, 0);
-        analyze_children(s, node);
-        scope_pop(s);
-
-    } else {
-        analyze_children(s, node);
+        const char* flds[]={"value","name","size","count","data","title",
+            "done","priority","age","score","x","y","z","id","text",
+            "msg","result","width","height",NULL};
+        for(int i=0;flds[i];i++) def(s,flds[i],SYM_VARIABLE,nd->line,0);
+        ana_kids(s,nd); scope_pop(s); return;
     }
+
+    if(nd->type==NODE_IDENT){
+        if(!valid_name(nd->str_val)) return;
+        if(strcmp(nd->str_val,"self") ==0) return;
+        if(strcmp(nd->str_val,"none") ==0) return;
+        if(strcmp(nd->str_val,"true") ==0) return;
+        if(strcmp(nd->str_val,"false")==0) return;
+        if(!lkp(s,nd->str_val)){
+            fprintf(stderr,"\n[HOLEXA ERROR HLX202] Line %d: Undefined variable '%s'\n\n",
+                nd->line,nd->str_val);
+            s->error_count++;
+        }
+        return;
+    }
+
+    // Dot chain — skip right side (method/field name)
+    if(nd->type==NODE_BINOP&&nd->str_val&&strcmp(nd->str_val,".")==0){
+        if(nd->child_count>0) ana(s,nd->children[0]);
+        // skip right side — method names are always valid
+        return;
+    }
+
+    if(nd->type==NODE_CALL){
+        if(valid_name(nd->str_val)&&!is_builtin(nd->str_val)&&!lkp(s,nd->str_val)){
+            fprintf(stderr,"\n[HOLEXA WARNING HLX301] Line %d: Function '%s' may not be defined\n\n",
+                nd->line,nd->str_val);
+            s->warning_count++;
+        }
+        ana_kids(s,nd); return;
+    }
+
+    if(nd->type==NODE_FOR){
+        scope_push(s);
+        if(valid_name(nd->str_val)) def(s,nd->str_val,SYM_VARIABLE,nd->line,0);
+        ana_kids(s,nd); scope_pop(s); return;
+    }
+
+    if(nd->type==NODE_TRY){
+        scope_push(s);
+        def(s,"err",SYM_VARIABLE,nd->line,0);
+        ana_kids(s,nd); scope_pop(s); return;
+    }
+
+    ana_kids(s,nd);
 }
 
-Semantic* semantic_new(void) {
-    Semantic* s      = malloc(sizeof(Semantic));
-    s->scope_depth   = 0;
-    s->error_count   = 0;
-    s->warning_count = 0;
-    s->scopes[0].count = 0;
-    scope_define(s, "print",  SYM_FUNCTION, 0, 0);
-    scope_define(s, "input",  SYM_FUNCTION, 0, 0);
-    scope_define(s, "len",    SYM_FUNCTION, 0, 0);
-    scope_define(s, "str",    SYM_FUNCTION, 0, 0);
-    scope_define(s, "int",    SYM_FUNCTION, 0, 0);
-    scope_define(s, "float",  SYM_FUNCTION, 0, 0);
-    scope_define(s, "type",   SYM_FUNCTION, 0, 0);
-    scope_define(s, "range",  SYM_FUNCTION, 0, 0);
-    scope_define(s, "append", SYM_FUNCTION, 0, 0);
-    scope_define(s, "Error",  SYM_FUNCTION, 0, 0);
-    scope_define(s, "true",   SYM_VARIABLE, 0, 1);
-    scope_define(s, "false",  SYM_VARIABLE, 0, 1);
-    scope_define(s, "none",   SYM_VARIABLE, 0, 1);
+Semantic* semantic_new(void){
+    Semantic* s=malloc(sizeof(Semantic));
+    s->scope_depth=0; s->error_count=0; s->warning_count=0;
+    for(int i=0;i<MAX_SCOPES;i++) s->scopes[i].count=0;
+    const char* fns[]={"print","input","len","str","int","float","type",
+        "range","append","Error","sqrt","abs","pow","new",NULL};
+    for(int i=0;fns[i];i++) def(s,fns[i],SYM_FUNCTION,0,0);
+    def(s,"true", SYM_VARIABLE,0,1);
+    def(s,"false",SYM_VARIABLE,0,1);
+    def(s,"none", SYM_VARIABLE,0,1);
     return s;
 }
-
-void semantic_analyze(Semantic* s, ASTNode* node) {
-    analyze_node(s, node);
-}
-
-void semantic_free(Semantic* s) {
-    if (!s) return;
-    for (int d = 0; d <= s->scope_depth; d++) {
-        Scope* scope = &s->scopes[d];
-        for (int i = 0; i < scope->count; i++)
-            if (scope->symbols[i].name) free(scope->symbols[i].name);
+void semantic_analyze(Semantic* s,ASTNode* nd){ ana(s,nd); }
+void semantic_free(Semantic* s){
+    if(!s) return;
+    for(int d=0;d<=s->scope_depth;d++){
+        Scope* sc=&s->scopes[d];
+        for(int i=0;i<sc->count;i++)
+            if(sc->symbols[i].name){ free(sc->symbols[i].name); sc->symbols[i].name=NULL; }
     }
     free(s);
 }
