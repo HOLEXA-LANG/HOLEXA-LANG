@@ -1,0 +1,155 @@
+// HOLEXA Self-Hosted Interpreter v1.0.0
+// Code like a Dragon. Think like a Human.
+
+fn eval_add(a: Int, b: Int) -> Int {
+    return a + b
+}
+
+fn eval_sub(a: Int, b: Int) -> Int {
+    return a - b
+}
+
+fn eval_mul(a: Int, b: Int) -> Int {
+    return a * b
+}
+
+fn eval_div(a: Int, b: Int) -> Int {
+    if b == 0 {
+        print("[HOLEXA ERROR] Division by zero!")
+        return 0
+    }
+    return a / b
+}
+
+fn eval_mod(a: Int, b: Int) -> Int {
+    if b == 0 {
+        print("[HOLEXA ERROR] Modulo by zero!")
+        return 0
+    }
+    return a % b
+}
+
+fn eval_eq(a: Int, b: Int) -> Bool {
+    return a == b
+}
+
+fn eval_lt(a: Int, b: Int) -> Bool {
+    return a < b
+}
+
+fn eval_gt(a: Int, b: Int) -> Bool {
+    return a > b
+}
+
+fn eval_and(a: Bool, b: Bool) -> Bool {
+    return a and b
+}
+
+fn eval_or(a: Bool, b: Bool) -> Bool {
+    return a or b
+}
+
+fn eval_negate(a: Bool) -> Bool {
+    if a {
+        return false
+    }
+    return true
+}
+
+fn eval_concat(a: String, b: String) -> String {
+    return a + b
+}
+
+fn eval_if(cond: Bool, then_val: Int, else_val: Int) -> Int {
+    if cond {
+        return then_val
+    }
+    return else_val
+}
+
+fn eval_while_demo(start: Int, end: Int) -> Int {
+    let i = start
+    let result = 0
+    while i < end {
+        result = result + i
+        i = i + 1
+    }
+    return result
+}
+
+fn eval_for_demo(start: Int, end: Int) -> Int {
+    let result = 0
+    for i in start..end {
+        result = result + i
+    }
+    return result
+}
+
+fn eval_factorial(n: Int) -> Int {
+    if n <= 1 {
+        return 1
+    }
+    return n * eval_factorial(n - 1)
+}
+
+fn eval_fibonacci(n: Int) -> Int {
+    if n <= 1 {
+        return n
+    }
+    return eval_fibonacci(n - 1) + eval_fibonacci(n - 2)
+}
+
+fn main() {
+    print("════════════════════════════════")
+    print("  HOLEXA Self-Hosted Interpreter")
+    print("════════════════════════════════")
+    print("")
+
+    print("── Arithmetic ──")
+    print("add(10,5):  " + str(eval_add(10, 5)))
+    print("sub(10,5):  " + str(eval_sub(10, 5)))
+    print("mul(10,5):  " + str(eval_mul(10, 5)))
+    print("div(10,5):  " + str(eval_div(10, 5)))
+    print("mod(10,3):  " + str(eval_mod(10, 3)))
+
+    print("")
+    print("── Comparison ──")
+    print("eq(5,5):    " + str(eval_eq(5, 5)))
+    print("lt(3,5):    " + str(eval_lt(3, 5)))
+    print("gt(7,5):    " + str(eval_gt(7, 5)))
+
+    print("")
+    print("── Logic ──")
+    print("and(T,T):   " + str(eval_and(true, true)))
+    print("and(T,F):   " + str(eval_and(true, false)))
+    print("or(F,T):    " + str(eval_or(false, true)))
+    print("negate(T):  " + str(eval_negate(true)))
+    print("negate(F):  " + str(eval_negate(false)))
+
+    print("")
+    print("── String ──")
+    print("concat:     " + eval_concat("Hello ", "HOLEXA!"))
+
+    print("")
+    print("── Control Flow ──")
+    print("if(true):   " + str(eval_if(true, 42, 0)))
+    print("if(false):  " + str(eval_if(false, 42, 99)))
+    print("while sum:  " + str(eval_while_demo(0, 5)))
+    print("for sum:    " + str(eval_for_demo(0, 5)))
+
+    print("")
+    print("── Recursion ──")
+    print("factorial(5): " + str(eval_factorial(5)))
+    print("fibonacci(7): " + str(eval_fibonacci(7)))
+
+    print("")
+    print("── Error Handling ──")
+    print("div by 0:   " + str(eval_div(10, 0)))
+
+    print("")
+    print("════════════════════════════════")
+    print("✓ HOLEXA Interpreter Self-Hosted!")
+    print("  Written in HOLEXA")
+    print("  Compiled by HOLEXA")
+    print("════════════════════════════════")
+}

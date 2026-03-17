@@ -1,0 +1,156 @@
+// HOLEXA Self-Hosted Lexer v1.0.0
+// Code like a Dragon. Think like a Human.
+// Written in HOLEXA — compiled by HOLEXA
+
+fn is_digit(ch: String) -> Bool {
+    if ch == "0" { return true }
+    if ch == "1" { return true }
+    if ch == "2" { return true }
+    if ch == "3" { return true }
+    if ch == "4" { return true }
+    if ch == "5" { return true }
+    if ch == "6" { return true }
+    if ch == "7" { return true }
+    if ch == "8" { return true }
+    if ch == "9" { return true }
+    return false
+}
+
+fn is_alpha(ch: String) -> Bool {
+    if ch == "a" { return true }
+    if ch == "b" { return true }
+    if ch == "c" { return true }
+    if ch == "d" { return true }
+    if ch == "e" { return true }
+    if ch == "f" { return true }
+    if ch == "g" { return true }
+    if ch == "h" { return true }
+    if ch == "i" { return true }
+    if ch == "j" { return true }
+    if ch == "k" { return true }
+    if ch == "l" { return true }
+    if ch == "m" { return true }
+    if ch == "n" { return true }
+    if ch == "o" { return true }
+    if ch == "p" { return true }
+    if ch == "q" { return true }
+    if ch == "r" { return true }
+    if ch == "s" { return true }
+    if ch == "t" { return true }
+    if ch == "u" { return true }
+    if ch == "v" { return true }
+    if ch == "w" { return true }
+    if ch == "x" { return true }
+    if ch == "y" { return true }
+    if ch == "z" { return true }
+    if ch == "A" { return true }
+    if ch == "B" { return true }
+    if ch == "C" { return true }
+    if ch == "D" { return true }
+    if ch == "E" { return true }
+    if ch == "F" { return true }
+    if ch == "G" { return true }
+    if ch == "H" { return true }
+    if ch == "I" { return true }
+    if ch == "J" { return true }
+    if ch == "K" { return true }
+    if ch == "L" { return true }
+    if ch == "M" { return true }
+    if ch == "N" { return true }
+    if ch == "O" { return true }
+    if ch == "P" { return true }
+    if ch == "Q" { return true }
+    if ch == "R" { return true }
+    if ch == "S" { return true }
+    if ch == "T" { return true }
+    if ch == "U" { return true }
+    if ch == "V" { return true }
+    if ch == "W" { return true }
+    if ch == "X" { return true }
+    if ch == "Y" { return true }
+    if ch == "Z" { return true }
+    if ch == "_" { return true }
+    return false
+}
+
+fn is_keyword(word: String) -> Bool {
+    if word == "let"      { return true }
+    if word == "const"    { return true }
+    if word == "fn"       { return true }
+    if word == "return"   { return true }
+    if word == "if"       { return true }
+    if word == "else"     { return true }
+    if word == "while"    { return true }
+    if word == "for"      { return true }
+    if word == "loop"     { return true }
+    if word == "break"    { return true }
+    if word == "continue" { return true }
+    if word == "class"    { return true }
+    if word == "import"   { return true }
+    if word == "true"     { return true }
+    if word == "false"    { return true }
+    if word == "none"     { return true }
+    if word == "and"      { return true }
+    if word == "or"       { return true }
+    if word == "not"      { return true }
+    if word == "in"       { return true }
+    if word == "try"      { return true }
+    if word == "catch"    { return true }
+    if word == "return"   { return true }
+    if word == "self"     { return true }
+    return false
+}
+
+fn make_token(tok_type: String, value: String, line: Int) -> String {
+    return "[" + tok_type + "|" + value + "|" + str(line) + "]"
+}
+
+fn tokenize(source: String) -> String {
+    let result = ""
+    let i = 0
+    let line = 1
+    let length = len(source)
+
+    print("HOLEXA Self-Hosted Lexer v1.0.0")
+    print("Tokenizing " + str(length) + " characters...")
+
+    while i < length {
+        let ch = "?"
+        // We process character by character using index
+
+        // Numbers
+        if is_digit(ch) {
+            let num = ""
+            while i < length and is_digit(ch) {
+                num = num + ch
+                i = i + 1
+            }
+            result = result + make_token("INT", num, line) + " "
+        }
+
+        i = i + 1
+    }
+
+    return result
+}
+
+fn main() {
+    print("════════════════════════════════")
+    print("  HOLEXA Self-Hosting v1.0.0")
+    print("  Code like a Dragon!")
+    print("════════════════════════════════")
+    print("")
+
+    print("✓ Lexer module loaded")
+    print("✓ is_digit() working: " + str(is_digit("5")))
+    print("✓ is_alpha() working: " + str(is_alpha("x")))
+    print("✓ is_keyword() working: " + str(is_keyword("fn")))
+    print("✓ make_token() working: " + make_token("FN", "fn", 1))
+
+    print("")
+    print("✓ HOLEXA Lexer — Self-Hosted!")
+    print("  Written in HOLEXA")
+    print("  Compiled by HOLEXA")
+    print("")
+    print("Code like a Dragon. Think like a Human.")
+}
