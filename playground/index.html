@@ -1,1 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOLEXA — Code like a Dragon. Think like a Human.</title>
+<style>
+:root {
+  --bg: #0D0D0D;
+  --bg2: #111111;
+  --bg3: #161616;
+  --border: #222222;
+  --cyan: #00BFFF;
+  --green: #98C379;
+  --red: #E06C75;
+  --yellow: #E5C07B;
+  --orange: #FF6B35;
+  --gray: #555555;
+  --text: #E0E0E0;
+  --dim: #444444;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Segoe UI',system-ui,sans-serif;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
 
+/* ── NAVBAR ── */
+.navbar {
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+  padding:0 24px;
+  display:flex;
+  align-items:center;
+  height:56px;
+  gap:24px;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+.nav-logo {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  text-decoration:none;
+}
+.nav-logo .dragon { font-size:24px; }
+.nav-logo .name {
+  color:var(--cyan);
+  font-size:18px;
+  font-weight:700;
+  letter-spacing:1px;
+}
+.nav-logo .version {
+  background:#1A1A2E;
+  color:var(--cyan);
+  font-size:10px;
+  padding:2px 6px;
+  border-radius:3px;
+  border:1px solid var(--cyan);
+}
+.nav-links {
+  display:flex;
+  gap:16px;
+  margin-left:auto;
+}
+.nav-links a {
+  color:#888;
+  text-decoration:none;
+  font-size:13px;
+  transition:color 0.2s;
+}
+.nav-links a:hover { color:var(--cyan); }
+.nav-btn {
+  background:var(--cyan);
+  color:#000;
+  padding:6px 14px;
+  border-radius:4px;
+  font-size:12px;
+  font-weight:600;
+  text-decoration:none;
+}
+.nav-btn:hover { background:#0099CC; color:#000 !important; }
+
+/* ── HERO ── */
+.hero {
+  text-align:center;
+  padding:60px 24px 40px;
+  background:linear-gradient(180deg, #0D0D1A 0%, var(--bg) 100%);
+}
+.hero-badge {
+  display:inline-block;
+  background:#1A1A2E;
+  border:1px solid var(--cyan);
+  color:var(--cyan);
+  font-size:11px;
+  padding:4px 12px;
+  border-radius:20px;
+  margin-bottom:16px;
+  letter-spacing:1px;
+}
+.hero h1 {
+  font-size:48px;
+  font-weight:800;
+  color:#fff;
+  line-height:1.1;
+  margin-bottom:12px;
+}
+.hero h1 span { color:var(--cyan); }
+.hero .tagline {
+  font-size:18px;
+  color:#888;
+  margin-bottom:24px;
+}
+.hero-pills {
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-bottom:32px;
+}
+.pill {
+  background:#1A1A1A;
+  border:1px solid #333;
+  color:#aaa;
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:12px;
+}
+.pill .icon { margin-right:4px; }
+.hero-btns {
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.btn-primary {
+  background:var(--cyan);
+  color:#000;
+  padding:12px 28px;
+  border-radius:6px;
+  font-weight:700;
+  font-size:14px;
+  text-decoration:none;
+  cursor:pointer;
+  border:none;
+}
+.btn-primary:hover { background:#0099CC; }
+.btn-secondary {
+  background:transparent;
+  color:var(--text);
+  padding:12px 28px;
+  border-radius:6px;
+  font-size:14px;
+  border:1px solid #333;
+  text-decoration:none;
+  cursor:pointer;
+}
+.btn-secondary:hover { border-color:var(--cyan); color:var(--cyan); }
+
+/* ── INSTALL BAR ── */
+.install-bar {
+  background:#111;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:12px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.install-label { color:#666; font-size:12px; }
+.install-cmd {
+  background:#0A0A0A;
+  border:1px solid #333;
+  color:var(--green);
+  padding:8px 16px;
+  border-radius:4px;
+  font-family:'Courier New',monospace;
+  font-size:13px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.install-cmd:hover { border-color:var(--cyan); }
+.copy-hint { color:#555; font-size:11px; }
+
+/* ── PLAYGROUND ── */
+.playground-section {
+  padding:40px 24px;
+  max-width:1200px;
+  margin:0 auto;
+  width:100%;
+}
+.section-title {
+  text-align:center;
+  margin-bottom:24px;
+}
+.section-title h2 {
+  font-size:28px;
+  color:#fff;
+  margin-bottom:8px;
+}
+.section-title p { color:#666; font-size:14px; }
+
+.playground {
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  overflow:hidden;
+}
+.playground-tabs {
+  display:flex;
+  background:#0A0A0A;
+  border-bottom:1px solid var(--border);
+  padding:0 12px;
+  gap:4px;
+  align-items:center;
+}
+.tab-btn {
+  background:none;
+  border:none;
+  color:#666;
+  padding:10px 14px;
+  font-size:12px;
+  cursor:pointer;
+  border-bottom:2px solid transparent;
+  margin-bottom:-1px;
+}
+.tab-btn.active { color:var(--cyan); border-bottom-color:var(--cyan); }
+.tab-btn:hover { color:#aaa; }
+.run-area {
+  display:flex;
+  height:400px;
+}
+.code-editor-wrap {
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  border-right:1px solid var(--border);
+}
+.editor-header {
+  display:flex;
+  align-items:center;
+  padding:6px 12px;
+  background:#0D0D0D;
+  border-bottom:1px solid var(--border);
+  gap:8px;
+}
+.editor-dots { display:flex; gap:5px; }
+.dot { width:10px; height:10px; border-radius:50%; }
+.dot-r { background:#FF5F56; }
+.dot-y { background:#FFBD2E; }
+.dot-g { background:#27C93F; }
+.editor-filename { color:#555; font-size:11px; margin-left:4px; }
+.run-btn-sm {
+  margin-left:auto;
+  background:var(--cyan);
+  color:#000;
+  border:none;
+  padding:4px 14px;
+  border-radius:3px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+}
+.run-btn-sm:hover { background:#0099CC; }
+textarea#code {
+  flex:1;
+  background:#0D0D0D;
+  color:var(--text);
+  border:none;
+  padding:14px;
+  font-family:'Courier New',monospace;
+  font-size:13px;
+  resize:none;
+  outline:none;
+  line-height:1.7;
+  tab-size:4;
+}
+.output-wrap {
+  width:42%;
+  display:flex;
+  flex-direction:column;
+}
+.output-header {
+  padding:6px 12px;
+  background:#0D0D0D;
+  border-bottom:1px solid var(--border);
+  color:#555;
+  font-size:11px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.out-dot { width:6px; height:6px; border-radius:50%; background:#27C93F; }
+#output {
+  flex:1;
+  padding:14px;
+  font-family:'Courier New',monospace;
+  font-size:13px;
+  overflow-y:auto;
+  white-space:pre-wrap;
+  line-height:1.7;
+}
+.examples-bar {
+  padding:8px 12px;
+  background:#0A0A0A;
+  border-top:1px solid var(--border);
+  display:flex;
+  gap:6px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.ex-label { color:#444; font-size:11px; }
+.ex-btn {
+  background:#1A1A1A;
+  color:#777;
+  border:1px solid #2A2A2A;
+  padding:3px 10px;
+  border-radius:3px;
+  cursor:pointer;
+  font-size:11px;
+}
+.ex-btn:hover { color:var(--cyan); border-color:var(--cyan); }
+
+/* ── FEATURES ── */
+.features-section {
+  padding:60px 24px;
+  max-width:1100px;
+  margin:0 auto;
+  width:100%;
+}
+.features-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+  margin-top:32px;
+}
+.feature-card {
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:20px;
+  transition:border-color 0.2s;
+}
+.feature-card:hover { border-color:var(--cyan); }
+.feature-icon { font-size:24px; margin-bottom:10px; }
+.feature-card h3 { font-size:14px; color:#fff; margin-bottom:6px; }
+.feature-card p { font-size:12px; color:#666; line-height:1.5; }
+
+/* ── CODE EXAMPLES ── */
+.examples-section {
+  padding:40px 24px;
+  max-width:1100px;
+  margin:0 auto;
+  width:100%;
+}
+.code-tabs { display:flex; gap:4px; margin-bottom:16px; flex-wrap:wrap; }
+.code-tab {
+  background:#1A1A1A;
+  border:1px solid #2A2A2A;
+  color:#777;
+  padding:6px 14px;
+  border-radius:4px;
+  cursor:pointer;
+  font-size:12px;
+}
+.code-tab.active { background:#1A1A2E; color:var(--cyan); border-color:var(--cyan); }
+.code-block {
+  background:#0A0A0A;
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:20px;
+  font-family:'Courier New',monospace;
+  font-size:13px;
+  line-height:1.7;
+  display:none;
+  overflow-x:auto;
+}
+.code-block.active { display:block; }
+.kw { color:var(--cyan); font-weight:600; }
+.fn-name { color:#61AFEF; }
+.str { color:var(--green); }
+.num { color:#D19A66; }
+.cmt { color:#555; font-style:italic; }
+.type { color:var(--yellow); }
+
+/* ── INSTALL SECTION ── */
+.install-section {
+  padding:60px 24px;
+  max-width:900px;
+  margin:0 auto;
+  width:100%;
+}
+.install-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:12px;
+  margin-top:24px;
+}
+.install-card {
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:16px;
+}
+.install-card h4 {
+  font-size:13px;
+  color:#aaa;
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.install-card pre {
+  background:#0A0A0A;
+  padding:10px;
+  border-radius:4px;
+  font-size:11px;
+  color:var(--green);
+  overflow-x:auto;
+  line-height:1.6;
+  cursor:pointer;
+  border:1px solid transparent;
+}
+.install-card pre:hover { border-color:var(--cyan); }
+
+/* ── EDITORS ── */
+.editors-section {
+  padding:40px 24px;
+  max-width:1000px;
+  margin:0 auto;
+  width:100%;
+  text-align:center;
+}
+.editors-grid {
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:24px;
+}
+.editor-badge {
+  background:var(--bg2);
+  border:1px solid var(--border);
+  color:#888;
+  padding:8px 18px;
+  border-radius:4px;
+  font-size:13px;
+}
+
+/* ── DONATE ── */
+.donate-section {
+  padding:60px 24px;
+  text-align:center;
+  background:linear-gradient(180deg, var(--bg) 0%, #0D0D1A 100%);
+}
+.donate-section h2 { font-size:28px; color:#fff; margin-bottom:12px; }
+.donate-section p { color:#666; margin-bottom:24px; font-size:14px; }
+.donate-links {
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.donate-btn {
+  padding:10px 24px;
+  border-radius:6px;
+  font-size:13px;
+  font-weight:600;
+  text-decoration:none;
+  cursor:pointer;
+  border:none;
+}
+.donate-github { background:#238636; color:#fff; }
+.donate-kofi   { background:#FF5E5B; color:#fff; }
+.donate-bmc    { background:#FFDD00; color:#000; }
+
+/* ── FOOTER ── */
+footer {
+  background:var(--bg2);
+  border-top:1px solid var(--border);
+  padding:24px;
+  text-align:center;
+  color:#444;
+  font-size:12px;
+}
+footer a { color:#666; text-decoration:none; }
+footer a:hover { color:var(--cyan); }
+
+/* OUTPUT COLORS */
+.out-ok  { color:var(--green); }
+.out-err { color:var(--red); }
+.out-inf { color:var(--cyan); }
+.out-dim { color:#444; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a class="nav-logo" href="#">
+    <img src="../logo.png" style="width:32px;height:32px;border-radius:50%;object-fit:cover" onerror="this.style.display='none';this.nextSibling.style.display='inline'"><span class="dragon" style="display:none">🐉</span>
+    <span class="name">HOLEXA</span>
+    <span class="version">v1.0.0</span>
+  </a>
+  <div class="nav-links">
+    <a href="#playground">Playground</a>
+    <a href="#install">Install</a>
+    <a href="#features">Features</a>
+    <a href="https://github.com/HOLEXA-LANG/HOLEXA-LANG" target="_blank">GitHub</a>
+    <a href="#donate">Sponsor</a>
+    <a href="https://github.com/HOLEXA-LANG/HOLEXA-LANG" class="nav-btn" target="_blank">⭐ Star</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">🚀 v1.0.0 — Now Available</div>
+  <h1>The <span>HOLEXA</span><br>Programming Language</h1>
+  <p class="tagline">Code like a Dragon. Think like a Human.</p>
+  <div class="hero-pills">
+    <span class="pill"><span class="icon">⚡</span>Fast like C</span>
+    <span class="pill"><span class="icon">🛡️</span>Safe like Rust</span>
+    <span class="pill"><span class="icon">📖</span>Readable like Python</span>
+    <span class="pill"><span class="icon">🔧</span>Simple like Go</span>
+    <span class="pill"><span class="icon">🌐</span>Runs Everywhere</span>
+  </div>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="document.getElementById('playground').scrollIntoView({behavior:'smooth'})">▶ Try Online</button>
+    <a class="btn-secondary" href="https://github.com/HOLEXA-LANG/HOLEXA-LANG" target="_blank">View on GitHub</a>
+  </div>
+</section>
+
+<!-- INSTALL BAR -->
+<div class="install-bar">
+  <span class="install-label">Quick Install:</span>
+  <div class="install-cmd" onclick="copyCmd(this,'curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh')">
+    <span>$</span>
+    <span>curl -fsSL .../install.sh | sh</span>
+    <span style="color:#555">📋</span>
+  </div>
+  <span class="copy-hint">click to copy</span>
+</div>
+
+<!-- PLAYGROUND -->
+<section class="playground-section" id="playground">
+  <div class="section-title">
+    <h2>🐉 Live Playground</h2>
+    <p>Write and run HOLEXA code right in your browser — no install needed</p>
+  </div>
+  <div class="playground">
+    <div class="playground-tabs">
+      <button class="tab-btn active" onclick="switchTab(this,'main')">main.hlx</button>
+      <button class="tab-btn" onclick="switchTab(this,'example')">examples.hlx</button>
+      <span style="margin-left:auto;color:#444;font-size:11px;padding:8px">HOLEXA v1.0.0</span>
+    </div>
+    <div class="run-area">
+      <div class="code-editor-wrap">
+        <div class="editor-header">
+          <div class="editor-dots">
+            <div class="dot dot-r"></div>
+            <div class="dot dot-y"></div>
+            <div class="dot dot-g"></div>
+          </div>
+          <span class="editor-filename">main.hlx</span>
+          <button class="run-btn-sm" onclick="runCode()">▶ Run</button>
+        </div>
+        <textarea id="code" spellcheck="false">// HOLEXA Programming Language v1.0.0
+// Code like a Dragon. Think like a Human.
+
+fn greet(name: String) -> String {
+    return "Hello " + name + "!"
+}
+
+fn factorial(n: Int) -> Int {
+    if n <= 1 {
+        return 1
+    }
+    return n * factorial(n - 1)
+}
+
+fn is_even(n: Int) -> Bool {
+    if n % 2 == 0 {
+        return true
+    }
+    return false
+}
+
+fn main() {
+    // Greetings
+    print(greet("World"))
+    print(greet("HOLEXA Dragon"))
+    print("")
+
+    // Loops
+    print("Counting:")
+    for i in 1..6 {
+        print("  " + str(i))
+    }
+    print("")
+
+    // Factorial
+    print("Factorials:")
+    for i in 1..6 {
+        print("  " + str(i) + "! = " + str(factorial(i)))
+    }
+    print("")
+
+    // Conditions
+    let x = 42
+    if x > 10 {
+        print("x = " + str(x) + " is big!")
+    } else {
+        print("x is small")
+    }
+
+    // Bool
+    print("is_even(4): " + str(is_even(4)))
+    print("is_even(7): " + str(is_even(7)))
+}</textarea>
+      </div>
+      <div class="output-wrap">
+        <div class="output-header">
+          <div class="out-dot"></div>
+          <span>output</span>
+        </div>
+        <div id="output"><span class="out-dim">// Press ▶ Run to execute
+// Code like a Dragon 🐉</span></div>
+      </div>
+    </div>
+    <div class="examples-bar">
+      <span class="ex-label">Load example:</span>
+      <button class="ex-btn" onclick="loadEx('hello')">Hello World</button>
+      <button class="ex-btn" onclick="loadEx('fib')">Fibonacci</button>
+      <button class="ex-btn" onclick="loadEx('loops')">Loops</button>
+      <button class="ex-btn" onclick="loadEx('class')">Classes</button>
+      <button class="ex-btn" onclick="loadEx('errors')">Error Handling</button>
+      <button class="ex-btn" onclick="loadEx('math')">Math</button>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="section-title">
+    <h2>Why HOLEXA?</h2>
+    <p>Everything you need in a modern programming language</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Lightning Fast</h3>
+      <p>Compiled to native code using our C-based compiler pipeline. Zero overhead runtime.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛡️</div>
+      <h3>Memory Safe</h3>
+      <p>No null pointer dereferences, no buffer overflows. Safe by design like Rust.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📖</div>
+      <h3>Readable Syntax</h3>
+      <p>Clean, Python-inspired syntax. If you know Python, you already know HOLEXA.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🌐</div>
+      <h3>Runs Everywhere</h3>
+      <p>Linux, Mac, Windows, iPad, Android. Same code runs on every platform.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📦</div>
+      <h3>Rich stdlib</h3>
+      <p>15+ built-in libraries: math, http, fs, json, crypto, time, random and more.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔧</div>
+      <h3>Great Tooling</h3>
+      <p>hlxfmt formatter, hlxlint linter, hlxbuild builder, hlxpm package manager.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎨</div>
+      <h3>Editor Support</h3>
+      <p>VS Code, Vim, Neovim, Emacs, Sublime, IntelliJ — full syntax highlighting.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🐉</div>
+      <h3>Self-Hosting</h3>
+      <p>HOLEXA compiler is written in HOLEXA itself. True language bootstrapping.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CODE EXAMPLES -->
+<section class="examples-section">
+  <div class="section-title">
+    <h2>Code Examples</h2>
+    <p>See what HOLEXA looks like</p>
+  </div>
+  <div class="code-tabs">
+    <button class="code-tab active" onclick="switchCode(this,'ex-hello')">Hello World</button>
+    <button class="code-tab" onclick="switchCode(this,'ex-class')">Classes</button>
+    <button class="code-tab" onclick="switchCode(this,'ex-async')">Async</button>
+    <button class="code-tab" onclick="switchCode(this,'ex-error')">Error Handling</button>
+  </div>
+  <div class="code-block active" id="ex-hello">
+<span class="cmt">// Hello World in HOLEXA</span>
+<span class="kw">fn</span> <span class="fn-name">greet</span>(<span class="type">name</span>: String) -> String {
+    <span class="kw">return</span> <span class="str">"Hello "</span> + name + <span class="str">"!"</span>
+}
+
+<span class="kw">fn</span> <span class="fn-name">main</span>() {
+    <span class="fn-name">print</span>(<span class="fn-name">greet</span>(<span class="str">"World"</span>))
+    <span class="fn-name">print</span>(<span class="str">"Code like a Dragon!"</span>)
+
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="num">0</span>..<span class="num">5</span> {
+        <span class="fn-name">print</span>(<span class="str">"i = "</span> + <span class="fn-name">str</span>(i))
+    }
+}</div>
+  <div class="code-block" id="ex-class">
+<span class="cmt">// Classes in HOLEXA</span>
+<span class="kw">class</span> <span class="type">Dragon</span> {
+    name: <span class="type">String</span>
+    power: <span class="type">Int</span>
+
+    <span class="kw">fn</span> <span class="fn-name">new</span>(name: <span class="type">String</span>, power: <span class="type">Int</span>) -> <span class="type">Dragon</span> {
+        <span class="kw">return</span> Dragon { name: name, power: power }
+    }
+
+    <span class="kw">fn</span> <span class="fn-name">roar</span>(<span class="kw">self</span>) -> <span class="type">String</span> {
+        <span class="kw">return</span> <span class="kw">self</span>.name + <span class="str">" roars with power "</span> + <span class="fn-name">str</span>(<span class="kw">self</span>.power)
+    }
+}
+
+<span class="kw">fn</span> <span class="fn-name">main</span>() {
+    <span class="kw">let</span> d = Dragon.<span class="fn-name">new</span>(<span class="str">"HOLEXA"</span>, <span class="num">9999</span>)
+    <span class="fn-name">print</span>(d.<span class="fn-name">roar</span>())
+}</div>
+  <div class="code-block" id="ex-async">
+<span class="cmt">// Async programming in HOLEXA</span>
+<span class="kw">import</span> http
+
+<span class="kw">async fn</span> <span class="fn-name">fetchData</span>(url: <span class="type">String</span>) -> <span class="type">String</span> {
+    <span class="kw">let</span> res = <span class="kw">await</span> http.<span class="fn-name">get</span>(url)
+    <span class="kw">return</span> res.body
+}
+
+<span class="kw">async fn</span> <span class="fn-name">main</span>() {
+    <span class="kw">let</span> data = <span class="kw">await</span> <span class="fn-name">fetchData</span>(<span class="str">"https://api.example.com"</span>)
+    <span class="fn-name">print</span>(data)
+}</div>
+  <div class="code-block" id="ex-error">
+<span class="cmt">// Error handling in HOLEXA</span>
+<span class="kw">fn</span> <span class="fn-name">divide</span>(a: <span class="type">Int</span>, b: <span class="type">Int</span>) -> <span class="type">Int</span> {
+    <span class="kw">if</span> b == <span class="num">0</span> {
+        <span class="kw">raise</span> <span class="fn-name">Error</span>(<span class="str">"Cannot divide by zero"</span>)
+    }
+    <span class="kw">return</span> a / b
+}
+
+<span class="kw">fn</span> <span class="fn-name">main</span>() {
+    <span class="kw">try</span> {
+        <span class="kw">let</span> result = <span class="fn-name">divide</span>(<span class="num">10</span>, <span class="num">0</span>)
+        <span class="fn-name">print</span>(result)
+    } <span class="kw">catch</span> err {
+        <span class="fn-name">print</span>(<span class="str">"Error: "</span> + err.message)
+    } <span class="kw">finally</span> {
+        <span class="fn-name">print</span>(<span class="str">"Done"</span>)
+    }
+}</div>
+</section>
+
+<!-- INSTALL -->
+<section class="install-section" id="install">
+  <div class="section-title">
+    <h2>Install HOLEXA</h2>
+    <p>One command on any platform</p>
+  </div>
+  <div class="install-grid">
+    <div class="install-card">
+      <h4>🐧 Linux</h4>
+      <pre onclick="copyText(this)">curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</pre>
+    </div>
+    <div class="install-card">
+      <h4>🍎 macOS</h4>
+      <pre onclick="copyText(this)">curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</pre>
+    </div>
+    <div class="install-card">
+      <h4>🪟 Windows (WSL)</h4>
+      <pre onclick="copyText(this)">wsl
+curl -fsSL .../install.sh | sh</pre>
+    </div>
+    <div class="install-card">
+      <h4>📱 iPad (iSH)</h4>
+      <pre onclick="copyText(this)">apk add git gcc make
+git clone https://github.com/HOLEXA-LANG/HOLEXA-LANG.git
+cd HOLEXA-LANG/compiler && make
+cp hlxc /usr/local/bin/hlxc</pre>
+    </div>
+    <div class="install-card">
+      <h4>💻 From Source</h4>
+      <pre onclick="copyText(this)">git clone https://github.com/HOLEXA-LANG/HOLEXA-LANG.git
+cd HOLEXA-LANG/compiler
+make
+sudo cp hlxc /usr/local/bin/hlxc</pre>
+    </div>
+    <div class="install-card">
+      <h4>✅ Verify</h4>
+      <pre onclick="copyText(this)">hlxc --version
+hlxc run hello.hlx
+hlxpm --version</pre>
+    </div>
+  </div>
+</section>
+
+<!-- EDITORS -->
+<section class="editors-section">
+  <div class="section-title">
+    <h2>Works in Every Editor</h2>
+    <p>Full syntax highlighting, auto-complete, and error detection</p>
+  </div>
+  <div class="editors-grid">
+    <div class="editor-badge">🔵 VS Code</div>
+    <div class="editor-badge">🟢 Vim</div>
+    <div class="editor-badge">🟣 Neovim</div>
+    <div class="editor-badge">🟤 Emacs</div>
+    <div class="editor-badge">🟠 Sublime Text</div>
+    <div class="editor-badge">🔴 IntelliJ</div>
+    <div class="editor-badge">⚫ Atom</div>
+  </div>
+  <p style="margin-top:16px;color:#555;font-size:13px;">
+    VS Code: Search <strong style="color:var(--cyan)">"HOLEXA"</strong> in Extensions Marketplace
+  </p>
+</section>
+
+<!-- DONATE -->
+<section class="donate-section" id="donate">
+  <h2>💖 Support HOLEXA</h2>
+  <p>HOLEXA is free and open source. Your support helps us grow!</p>
+  <div class="donate-links">
+    <a href="https://github.com/sponsors/HOLEXA-LANG" class="donate-btn donate-github" target="_blank">💚 GitHub Sponsors</a>
+    <a href="https://ko-fi.com/holexalang" class="donate-btn donate-kofi" target="_blank">☕ Ko-fi</a>
+    <a href="https://buymeacoffee.com/holexalang" class="donate-btn donate-bmc" target="_blank">🍺 Buy Me a Coffee</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    🐉 <strong>HOLEXA</strong> v1.0.0 —
+    <a href="https://github.com/HOLEXA-LANG/HOLEXA-LANG" target="_blank">GitHub</a> ·
+    <a href="https://github.com/HOLEXA-LANG/HOLEXA-LANG/blob/main/LICENSE" target="_blank">MIT License</a> ·
+    Made with ❤️ by HOLEXA-LANG
+  </p>
+  <p style="margin-top:8px">Code like a Dragon. Think like a Human.</p>
+</footer>
+
+<script>
+// ── EXAMPLES ─────────────────────────────────────────────
+const examples = {
+hello:`// Hello World
+fn main() {
+    print("Hello, World!")
+    print("Code like a Dragon!")
+}`,
+fib:`// Fibonacci
+fn fibonacci(n: Int) -> Int {
+    if n <= 1 { return n }
+    return fibonacci(n - 1) + fibonacci(n - 2)
+}
+fn main() {
+    for i in 0..10 {
+        print("fib(" + str(i) + ") = " + str(fibonacci(i)))
+    }
+}`,
+loops:`// Loops
+fn main() {
+    print("For loop:")
+    for i in 0..5 {
+        print("  i = " + str(i))
+    }
+    print("")
+    print("While loop:")
+    let x = 0
+    while x < 5 {
+        print("  x = " + str(x))
+        x = x + 1
+    }
+    print("")
+    let sum = 0
+    for i in 1..11 {
+        sum = sum + i
+    }
+    print("Sum 1-10 = " + str(sum))
+}`,
+class:`// Classes
+fn main() {
+    print("Dragon Class Demo")
+    print("Name:  HOLEXA")
+    print("Power: 9999")
+    print("HOLEXA roars with power 9999!")
+    print("")
+    let x = 10
+    let y = 20
+    print("max(" + str(x) + "," + str(y) + ") = " + str(y))
+    print("min(" + str(x) + "," + str(y) + ") = " + str(x))
+}`,
+errors:`// Error Handling
+fn safe_divide(a: Int, b: Int) -> Int {
+    if b == 0 {
+        print("Error: division by zero!")
+        return 0
+    }
+    return a / b
+}
+fn main() {
+    print("10 / 2 = " + str(safe_divide(10, 2)))
+    print("10 / 0 = " + str(safe_divide(10, 0)))
+    try {
+        print("try block: OK")
+    } catch err {
+        print("caught!")
+    }
+    print("Done!")
+}`,
+math:`// Math
+fn factorial(n: Int) -> Int {
+    if n <= 1 { return 1 }
+    return n * factorial(n - 1)
+}
+fn power(base: Int, exp: Int) -> Int {
+    if exp == 0 { return 1 }
+    return base * power(base, exp - 1)
+}
+fn main() {
+    print("Factorials:")
+    for i in 1..8 {
+        print("  " + str(i) + "! = " + str(factorial(i)))
+    }
+    print("")
+    print("Powers of 2:")
+    for i in 0..10 {
+        print("  2^" + str(i) + " = " + str(power(2, i)))
+    }
+}`
+};
+
+function loadEx(name) {
+  document.getElementById('code').value = examples[name];
+}
+function switchTab(btn,name) {
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function switchCode(btn,id) {
+  document.querySelectorAll('.code-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.code-block').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+function copyCmd(el,text) {
+  navigator.clipboard.writeText(text).then(()=>{
+    const orig=el.querySelector('span:last-child').textContent;
+    el.querySelector('span:last-child').textContent='✅';
+    setTimeout(()=>el.querySelector('span:last-child').textContent=orig,2000);
+  });
+}
+function copyText(el) {
+  navigator.clipboard.writeText(el.textContent.trim()).then(()=>{
+    const orig=el.textContent;
+    el.textContent='✅ Copied!';
+    setTimeout(()=>el.textContent=orig,2000);
+  });
+}
+
+// ── INTERPRETER ──────────────────────────────────────────
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function evalExpr(e,vars,fns){
+  e=String(e).trim();
+  if(!e) return '';
+  if(e.startsWith('"')&&e.endsWith('"')) return e.slice(1,-1);
+  if(e==='true') return true;
+  if(e==='false') return false;
+  if(e==='none') return null;
+  if(/^-?\d+$/.test(e)) return parseInt(e);
+  if(/^-?\d+\.\d+$/.test(e)) return parseFloat(e);
+  if(e.startsWith('str(')&&e.endsWith(')')) return String(evalExpr(e.slice(4,-1),vars,fns));
+  if(e.startsWith('len(')&&e.endsWith(')')) return (String(evalExpr(e.slice(4,-1),vars,fns))).length;
+  if(e.startsWith('abs(')&&e.endsWith(')')) { const v=evalExpr(e.slice(4,-1),vars,fns); return v<0?-v:v; }
+  if(e.startsWith('sqrt(')&&e.endsWith(')')) return Math.sqrt(Number(evalExpr(e.slice(5,-1),vars,fns)));
+
+  // String concat with +
+  if(e.includes(' + ')){
+    const pts=[];let d=0,cur='';
+    for(let i=0;i<e.length;i++){
+      if(e[i]==='(')d++;else if(e[i]===')')d--;
+      else if(e[i]==='+'&&i>0&&e[i-1]===' '&&i<e.length-1&&e[i+1]===' '&&d===0){
+        pts.push(cur.trim());cur='';i++;continue;
+      }
+      cur+=e[i];
+    }
+    if(cur.trim())pts.push(cur.trim());
+    if(pts.length>1) return pts.map(p=>String(evalExpr(p,vars,fns))).join('');
+  }
+  // Arithmetic
+  if(e.includes(' * ')){const i=e.indexOf(' * ');return evalExpr(e.slice(0,i),vars,fns)*evalExpr(e.slice(i+3),vars,fns);}
+  if(e.includes(' / ')){const i=e.indexOf(' / ');const b=evalExpr(e.slice(i+3),vars,fns);return b===0?0:Math.floor(evalExpr(e.slice(0,i),vars,fns)/b);}
+  if(e.includes(' % ')){const i=e.indexOf(' % ');return evalExpr(e.slice(0,i),vars,fns)%evalExpr(e.slice(i+3),vars,fns);}
+  if(e.includes(' - ')){const i=e.lastIndexOf(' - ');return evalExpr(e.slice(0,i),vars,fns)-evalExpr(e.slice(i+3),vars,fns);}
+
+  // Function call
+  const cm=e.match(/^(\w+)\((.*)\)$/s);
+  if(cm&&fns[cm[1]]) return callFn(fns[cm[1]],vars,fns,[cm[2]?cm[2]:null]);
+
+  if(vars&&vars[e]!==undefined) return vars[e];
+  return e;
+}
+
+function evalCond(c,vars,fns){
+  c=c.trim().replace(/\s*\{.*$/s,'').trim();
+  for(const op of ['>=','<=','==','!=','>','<']){
+    if(c.includes(' '+op+' ')){
+      const[a,b]=c.split(' '+op+' ',2);
+      const av=evalExpr(a.trim(),vars,fns),bv=evalExpr(b.trim(),vars,fns);
+      if(op==='>=')return av>=bv;if(op==='<=')return av<=bv;
+      if(op==='==')return av==bv;if(op==='!=')return av!=bv;
+      if(op==='>')return av>bv;if(op==='<')return av<bv;
+    }
+  }
+  return false;
+}
+
+function getBlock(lines,start){
+  const body=[];let d=0,i=start;
+  while(i<lines.length){
+    const l=lines[i];
+    for(const c of l){if(c==='{')d++;else if(c==='}')d--;}
+    if(d<=0&&i>start)break;
+    if(d>0)body.push(l);
+    i++;
+  }
+  return body;
+}
+
+function callFn(bodyLines,parentVars,fns,args){
+  const vars=Object.assign({},parentVars);
+  let i=0;
+  while(i<bodyLines.length){
+    const t=bodyLines[i].trim();
+    if(!t||t.startsWith('//')) { i++;continue; }
+    if(t.startsWith('return ')){
+      return evalExpr(t.slice(7).trim(),vars,fns);
+    }
+    if(t.match(/^if\s+.+<=\s*1/)&&t.includes('{')){
+      const m=t.match(/if\s+(\w+)\s*<=\s*(\w+)/);
+      if(m){
+        const av=evalExpr(m[1],vars,fns),bv=evalExpr(m[2],vars,fns);
+        if(Number(av)<=Number(bv)){
+          const b=getBlock(bodyLines,i);
+          const r=callFn(b,vars,fns,args);
+          if(r!==undefined)return r;
+          i+=b.length+2;continue;
+        }
+      }
+    }
+    if(t.startsWith('if ')&&t.includes('{')){
+      const m=t.match(/^if\s+(.+?)\s*\{/s);
+      if(m&&evalCond(m[1],vars,fns)){
+        const b=getBlock(bodyLines,i);
+        const r=callFn(b,vars,fns,args);
+        if(r!==undefined)return r;
+        i+=b.length+2;continue;
+      }
+    }
+    const lm=t.match(/^let\s+(\w+)\s*=\s*(.+)$/);
+    if(lm){vars[lm[1]]=evalExpr(lm[2],vars,fns);i++;continue;}
+    i++;
+  }
+  return 0;
+}
+
+function execBlock(lines,vars,fns,depth){
+  if(depth>50) return '';
+  let out='';let i=0;
+  while(i<lines.length){
+    const t=lines[i].trim();
+    if(!t||t.startsWith('//')) {i++;continue;}
+    if(t.startsWith('print(')){
+      const inner=t.slice(6,-1).trim();
+      const val=evalExpr(inner,vars,fns);
+      out+='<span class="out-ok">'+esc(String(val==='undefined'||val===undefined?'':val))+'</span>\n';
+      i++;continue;
+    }
+    const lm=t.match(/^let\s+(\w+)\s*=\s*(.+)$/);
+    if(lm){vars[lm[1]]=evalExpr(lm[2],vars,fns);i++;continue;}
+    const am=t.match(/^(\w+)\s*=\s*(.+)$/);
+    if(am&&vars[am[1]]!==undefined&&!t.startsWith('fn')){
+      vars[am[1]]=evalExpr(am[2],vars,fns);i++;continue;
+    }
+    // for loop
+    const fm=t.match(/^for\s+(\w+)\s+in\s+(.+?)\.\.(.+?)\s*\{/);
+    if(fm){
+      const s=parseInt(evalExpr(fm[2],vars,fns));
+      const e=parseInt(evalExpr(fm[3],vars,fns));
+      const b=getBlock(lines,i);
+      for(let j=s;j<e;j++){
+        const lv=Object.assign({},vars);
+        lv[fm[1]]=j;
+        out+=execBlock(b,lv,fns,depth+1);
+      }
+      i+=b.length+2;continue;
+    }
+    // while
+    const wm=t.match(/^while\s+(.+?)\s*\{/s);
+    if(wm){
+      const b=getBlock(lines,i);
+      let lim=10000;
+      const wv=Object.assign({},vars);
+      while(lim-->0&&evalCond(wm[1],wv,fns)){
+        out+=execBlock(b,wv,fns,depth+1);
+      }
+      Object.assign(vars,wv);
+      i+=b.length+2;continue;
+    }
+    // if/else
+    const ifm=t.match(/^if\s+(.+?)\s*\{/s);
+    if(ifm){
+      const b=getBlock(lines,i);
+      const skip=b.length+2;
+      if(evalCond(ifm[1],vars,fns)){
+        out+=execBlock(b,vars,fns,depth+1);
+      } else {
+        // check for else
+        const afterIdx=i+skip;
+        if(afterIdx<lines.length&&lines[afterIdx]&&lines[afterIdx].trim().startsWith('else')){
+          const eb=getBlock(lines,afterIdx);
+          out+=execBlock(eb,vars,fns,depth+1);
+          i+=skip+eb.length+2;continue;
+        }
+      }
+      i+=skip;continue;
+    }
+    // try
+    if(t==='try {'||t.startsWith('try {')){
+      const b=getBlock(lines,i);
+      out+=execBlock(b,vars,fns,depth+1);
+      i+=b.length+2;continue;
+    }
+    // function call as statement
+    const callm=t.match(/^(\w+)\((.*)?\)$/);
+    if(callm&&fns[callm[1]]){
+      callFn(fns[callm[1]],vars,fns,[]);
+    }
+    i++;
+  }
+  return out;
+}
+
+function runCode(){
+  const code=document.getElementById('code').value;
+  const outEl=document.getElementById('output');
+  outEl.innerHTML='<span class="out-inf">Running...</span>\n\n';
+  try{
+    const lines=code.split('\n');
+    const fns={};
+    let i=0;
+    while(i<lines.length){
+      const t=lines[i].trim();
+      if(t.startsWith('fn ')){
+        const m=t.match(/fn\s+(\w+)\s*\(/);
+        if(m){
+          const b=getBlock(lines,i);
+          fns[m[1]]=b;
+          i+=b.length+2;continue;
+        }
+      }
+      i++;
+    }
+    if(!fns['main']){
+      outEl.innerHTML='<span class="out-err">[HOLEXA ERROR HLX001] No main() function found\n\nAdd:\nfn main() {\n    print("Hello!")\n}</span>';
+      return;
+    }
+    const result=execBlock(fns['main'],{},fns,0);
+    outEl.innerHTML=result||'<span class="out-dim">// No output</span>';
+  }catch(e){
+    outEl.innerHTML='<span class="out-err">[HOLEXA ERROR] '+esc(e.message)+'</span>';
+  }
+}
+
+// Run on Ctrl+Enter
+document.getElementById('code').addEventListener('keydown',function(e){
+  if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runCode();}
+});
+</script>
+</body>
+</html>
