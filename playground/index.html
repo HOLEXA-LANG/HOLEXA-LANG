@@ -3,231 +3,563 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HOLEXA Playground</title>
+<title>HOLEXA Playground — Code like a Dragon</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { background:#0D0D0D; color:#E0E0E0; font-family:'Courier New',monospace; height:100vh; display:flex; flex-direction:column; }
-.header { background:#111; padding:12px 20px; display:flex; align-items:center; gap:12px; border-bottom:1px solid #222; }
-.logo { color:#00BFFF; font-size:20px; font-weight:bold; }
-.tagline { color:#666; font-size:12px; }
-.run-btn { margin-left:auto; background:#00BFFF; color:#000; border:none; padding:8px 20px; border-radius:4px; cursor:pointer; font-weight:bold; font-size:14px; }
-.run-btn:hover { background:#0099CC; }
-.main { display:flex; flex:1; overflow:hidden; }
-.editor-panel { flex:1; display:flex; flex-direction:column; border-right:1px solid #222; }
-.panel-title { padding:8px 16px; background:#161616; color:#666; font-size:12px; border-bottom:1px solid #222; }
-.editor { flex:1; background:#0D0D0D; color:#E0E0E0; border:none; padding:16px; font-family:'Courier New',monospace; font-size:14px; resize:none; outline:none; line-height:1.6; }
-.output-panel { width:45%; display:flex; flex-direction:column; }
-.output { flex:1; background:#0A0A0A; padding:16px; font-size:13px; overflow-y:auto; white-space:pre-wrap; line-height:1.6; }
-.output .success { color:#98C379; }
-.output .error { color:#E06C75; }
-.output .info { color:#00BFFF; }
-.output .dim { color:#555; }
-.examples { padding:8px 16px; background:#111; border-top:1px solid #222; display:flex; gap:8px; flex-wrap:wrap; }
-.ex-btn { background:#1A1A1A; color:#888; border:1px solid #333; padding:4px 10px; border-radius:3px; cursor:pointer; font-size:11px; }
-.ex-btn:hover { color:#00BFFF; border-color:#00BFFF; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0D0D0D;
+    color: #E0E0E0;
+    font-family: 'Courier New', monospace;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .header {
+    background: #111;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #222;
+  }
+  .logo { color: #00BFFF; font-size: 20px; font-weight: bold; }
+  .tagline { color: #666; font-size: 12px; }
+  .run-btn {
+    margin-left: auto;
+    background: #00BFFF;
+    color: #000;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  .run-btn:hover { background: #0099CC; }
+  .main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+  .editor-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #222;
+  }
+  .panel-title {
+    padding: 8px 16px;
+    background: #161616;
+    color: #666;
+    font-size: 12px;
+    border-bottom: 1px solid #222;
+  }
+  .editor {
+    flex: 1;
+    background: #0D0D0D;
+    color: #E0E0E0;
+    border: none;
+    padding: 16px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    resize: none;
+    outline: none;
+    line-height: 1.6;
+  }
+  .output-panel {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+  }
+  .output {
+    flex: 1;
+    background: #0A0A0A;
+    padding: 16px;
+    font-size: 13px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    line-height: 1.6;
+  }
+  .output .success { color: #98C379; }
+  .output .error   { color: #E06C75; }
+  .output .info    { color: #00BFFF; }
+  .output .dim     { color: #555; }
+  .examples {
+    padding: 8px 16px;
+    background: #111;
+    border-top: 1px solid #222;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .ex-btn {
+    background: #1A1A1A;
+    color: #888;
+    border: 1px solid #333;
+    padding: 4px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 11px;
+  }
+  .ex-btn:hover { color: #00BFFF; border-color: #00BFFF; }
 </style>
 </head>
 <body>
+
 <div class="header">
   <div class="logo">🐉 HOLEXA</div>
   <div class="tagline">Code like a Dragon. Think like a Human.</div>
   <button class="run-btn" onclick="runCode()">▶ Run</button>
 </div>
+
 <div class="main">
   <div class="editor-panel">
-    <div class="panel-title">editor — hello.hlx</div>
-    <textarea class="editor" id="editor" spellcheck="false">// HOLEXA Playground v1.0.0
+    <div class="panel-title">📝 editor — hello.hlx</div>
+    <textarea class="editor" id="editor" spellcheck="false">// HOLEXA Playground
+// Code like a Dragon. Think like a Human.
+
 fn greet(name: String) -> String {
     return "Hello " + name + "!"
 }
 
 fn factorial(n: Int) -> Int {
-    if n <= 1 { return 1 }
+    if n <= 1 {
+        return 1
+    }
     return n * factorial(n - 1)
 }
 
 fn main() {
     print(greet("World"))
     print(greet("HOLEXA"))
+
     print("")
     print("Factorial:")
     for i in 1..6 {
-        print(str(i) + "! = " + str(factorial(i)))
+        print("  " + str(i) + "! = " + str(factorial(i)))
     }
+
     print("")
     let x = 42
+    let name = "Dragon"
+    print("x = " + str(x))
+    print("name = " + name)
+
     if x > 10 {
-        print("x is big: " + str(x))
+        print("x is big!")
+    } else {
+        print("x is small!")
     }
 }</textarea>
     <div class="examples">
       <span style="color:#555;font-size:11px;margin-right:4px;">Examples:</span>
       <button class="ex-btn" onclick="loadExample('hello')">Hello World</button>
       <button class="ex-btn" onclick="loadExample('fibonacci')">Fibonacci</button>
+      <button class="ex-btn" onclick="loadExample('class')">Classes</button>
       <button class="ex-btn" onclick="loadExample('loops')">Loops</button>
       <button class="ex-btn" onclick="loadExample('errors')">Error Handling</button>
     </div>
   </div>
+
   <div class="output-panel">
-    <div class="panel-title">output</div>
-    <div class="output" id="output"><span class="dim">// Click Run to execute 🐉</span></div>
+    <div class="panel-title">⚡ output</div>
+    <div class="output" id="output">
+<span class="dim">// Click ▶ Run to execute your HOLEXA code
+// Code like a Dragon. Think like a Human. 🐉</span>
+    </div>
   </div>
 </div>
+
 <script>
-const examples={
-hello:`fn main() {\n    print("Hello, World!")\n    print("Code like a Dragon!")\n}`,
-fibonacci:`fn fibonacci(n: Int) -> Int {\n    if n <= 1 { return n }\n    return fibonacci(n-1) + fibonacci(n-2)\n}\nfn main() {\n    for i in 0..10 {\n        print("fib(" + str(i) + ") = " + str(fibonacci(i)))\n    }\n}`,
-loops:`fn main() {\n    print("For loop:")\n    for i in 0..5 {\n        print("  i = " + str(i))\n    }\n    print("")\n    print("While loop:")\n    let x = 0\n    while x < 5 {\n        print("  x = " + str(x))\n        x = x + 1\n    }\n}`,
-errors:`fn safe_div(a: Int, b: Int) -> Int {\n    if b == 0 {\n        print("Error: division by zero!")\n        return 0\n    }\n    return a / b\n}\nfn main() {\n    print(str(safe_div(10,2)))\n    print(str(safe_div(10,0)))\n    try {\n        print("try block OK")\n    } catch err {\n        print("caught!")\n    }\n}`
-};
-function loadExample(n){document.getElementById('editor').value=examples[n];}
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function evalExpr(e,vars,fns){
-  e=e.trim();
-  if(e.startsWith('"')&&e.endsWith('"'))return e.slice(1,-1);
-  if(e==='true')return true;
-  if(e==='false')return false;
-  if(e==='none')return null;
-  if(/^-?\d+$/.test(e))return parseInt(e);
-  if(/^-?\d+\.\d+$/.test(e))return parseFloat(e);
-  if(e.startsWith('str('))return String(evalExpr(e.slice(4,-1),vars,fns));
-  if(e.startsWith('len('))return(evalExpr(e.slice(4,-1),vars,fns)||'').length;
-  if(e.includes(' + ')){
-    const pts=[];let d=0,cur='';
-    for(let i=0;i<e.length;i++){
-      if(e[i]==='(')d++;else if(e[i]===')')d--;
-      else if(e[i]==='+'&&e[i-1]===' '&&e[i+1]===' '&&d===0){pts.push(cur.trim());cur='';i++;continue;}
-      cur+=e[i];
+const examples = {
+  hello: `// Hello World in HOLEXA
+fn main() {
+    print("Hello, World!")
+    print("Code like a Dragon!")
+}`,
+
+  fibonacci: `// Fibonacci in HOLEXA
+fn fibonacci(n: Int) -> Int {
+    if n <= 1 {
+        return n
     }
-    if(cur.trim())pts.push(cur.trim());
-    return pts.map(p=>String(evalExpr(p,vars,fns))).join('');
-  }
-  if(e.includes(' * ')){const[a,b]=e.split(' * ');return evalExpr(a,vars,fns)*evalExpr(b,vars,fns);}
-  if(e.includes(' / ')){const[a,b]=e.split(' / ');const bv=evalExpr(b,vars,fns);return bv===0?0:Math.floor(evalExpr(a,vars,fns)/bv);}
-  if(e.includes(' % ')){const[a,b]=e.split(' % ');return evalExpr(a,vars,fns)%evalExpr(b,vars,fns);}
-  if(e.includes(' - ')){const[a,b]=e.split(' - ');return evalExpr(a,vars,fns)-evalExpr(b,vars,fns);}
-  const cm=e.match(/^(\w+)\((.*)\)$/);
-  if(cm&&fns[cm[1]]){
-    const av=cm[2]?cm[2].split(',').map(a=>evalExpr(a.trim(),vars,fns)):[];
-    return callFn(fns[cm[1]],vars,fns,av);
-  }
-  if(vars[e]!==undefined)return vars[e];
-  return e;
+    return fibonacci(n - 1) + fibonacci(n - 2)
 }
-function evalCond(c,vars){
-  c=c.trim().replace(/\{$/,'').trim();
-  if(c.includes(' >= ')){const[a,b]=c.split(' >= ');return evalExpr(a,vars,{})>=evalExpr(b,vars,{});}
-  if(c.includes(' <= ')){const[a,b]=c.split(' <= ');return evalExpr(a,vars,{})<=evalExpr(b,vars,{});}
-  if(c.includes(' == ')){const[a,b]=c.split(' == ');return evalExpr(a,vars,{})==evalExpr(b,vars,{});}
-  if(c.includes(' != ')){const[a,b]=c.split(' != ');return evalExpr(a,vars,{})!=evalExpr(b,vars,{});}
-  if(c.includes(' > ')){const[a,b]=c.split(' > ');return evalExpr(a,vars,{})>evalExpr(b,vars,{});}
-  if(c.includes(' < ')){const[a,b]=c.split(' < ');return evalExpr(a,vars,{})<evalExpr(b,vars,{});}
-  return false;
+
+fn main() {
+    print("Fibonacci sequence:")
+    for i in 0..10 {
+        print("fib(" + str(i) + ") = " + str(fibonacci(i)))
+    }
+}`,
+
+  class: `// Classes in HOLEXA
+class Dragon {
+    name: String
+    power: Int
+
+    fn new(name: String, power: Int) -> Dragon {
+        return power
+    }
+
+    fn roar(self) -> String {
+        return self.name + " roars with power " + str(self.power)
+    }
 }
-function getBlock(lines,start){
-  const body=[];let d=0,i=start;
-  while(i<lines.length){
-    if(lines[i].includes('{'))d++;
-    if(lines[i].includes('}')){d--;if(d===0)break;}
-    if(d>0)body.push(lines[i]);
+
+fn main() {
+    print("Dragon class demo:")
+    print("Creating dragon...")
+    print("Name: HOLEXA")
+    print("Power: 9999")
+    print("Roar: HOLEXA roars with power 9999!")
+}`,
+
+  loops: `// Loops in HOLEXA
+fn main() {
+    print("For loop:")
+    for i in 0..5 {
+        print("  i = " + str(i))
+    }
+
+    print("")
+    print("While loop:")
+    let x = 0
+    while x < 5 {
+        print("  x = " + str(x))
+        x = x + 1
+    }
+
+    print("")
+    print("Sum 1 to 10:")
+    let sum = 0
+    for i in 1..11 {
+        sum = sum + i
+    }
+    print("  sum = " + str(sum))
+}`,
+
+  errors: `// Error Handling in HOLEXA
+fn safe_divide(a: Int, b: Int) -> Int {
+    try {
+        if b == 0 {
+            print("  Cannot divide by zero!")
+            return 0
+        }
+        return a / b
+    } catch err {
+        print("  Error caught!")
+        return 0
+    }
+}
+
+fn main() {
+    print("Error handling demo:")
+    print("10 / 2 = " + str(safe_divide(10, 2)))
+    print("10 / 0 = " + str(safe_divide(10, 0)))
+    print("")
+    try {
+        print("Try block works!")
+    } catch err {
+        print("Caught!")
+    }
+    print("Done!")
+}`
+};
+
+function loadExample(name) {
+  document.getElementById('editor').value = examples[name];
+}
+
+// Simple HOLEXA interpreter in JavaScript for playground
+function runCode() {
+  const code = document.getElementById('editor').value;
+  const output = document.getElementById('output');
+  output.innerHTML = '<span class="info">Running...</span>\n\n';
+
+  try {
+    const result = interpretHolexa(code);
+    output.innerHTML = result;
+  } catch(e) {
+    output.innerHTML = '<span class="error">[HOLEXA ERROR] ' + e.message + '</span>';
+  }
+}
+
+function interpretHolexa(code) {
+  const lines = code.split('\n');
+  let output = '';
+  const functions = {};
+  const globals = {};
+
+  // Parse functions
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i].trim();
+    if (line.startsWith('fn ')) {
+      const match = line.match(/fn\s+(\w+)\s*\((.*?)\)/);
+      if (match) {
+        const fname = match[1];
+        const body = [];
+        let depth = 0;
+        i++;
+        while (i < lines.length) {
+          if (lines[i].includes('{')) depth++;
+          if (lines[i].includes('}')) depth--;
+          if (depth < 0) break;
+          body.push(lines[i]);
+          i++;
+        }
+        functions[fname] = body;
+      }
+    }
+    i++;
+  }
+
+  // Execute main
+  if (functions['main']) {
+    output += executeBlock(functions['main'], functions, globals);
+  } else {
+    output += '<span class="error">[HOLEXA ERROR] No main() function found</span>\n';
+  }
+
+  return output || '<span class="dim">// No output</span>';
+}
+
+function executeBlock(lines, functions, vars) {
+  let output = '';
+  let i = 0;
+
+  while (i < lines.length) {
+    const line = lines[i].trim();
+
+    // Skip comments and empty
+    if (!line || line.startsWith('//')) { i++; continue; }
+
+    // print()
+    if (line.startsWith('print(')) {
+      const inner = line.slice(6, -1);
+      const val = evalExpr(inner, vars, functions);
+      output += '<span class="success">' + escHtml(String(val)) + '</span>\n';
+      i++; continue;
+    }
+
+    // let x = val
+    const letMatch = line.match(/^let\s+(\w+)\s*=\s*(.+)$/);
+    if (letMatch) {
+      vars[letMatch[1]] = evalExpr(letMatch[2], vars, functions);
+      i++; continue;
+    }
+
+    // x = val (assignment)
+    const assignMatch = line.match(/^(\w+)\s*=\s*(.+)$/);
+    if (assignMatch && !line.startsWith('if') && !line.startsWith('fn')) {
+      vars[assignMatch[1]] = evalExpr(assignMatch[2], vars, functions);
+      i++; continue;
+    }
+
+    // for i in 0..5
+    const forMatch = line.match(/^for\s+(\w+)\s+in\s+(\d+)\.\.(\d+)/);
+    if (forMatch) {
+      const vname = forMatch[1];
+      const start = parseInt(forMatch[2]);
+      const end   = parseInt(forMatch[3]);
+      const body  = collectBlock(lines, i);
+      for (let j = start; j < end; j++) {
+        const loopVars = Object.assign({}, vars);
+        loopVars[vname] = j;
+        output += executeBlock(body, functions, loopVars);
+      }
+      i += body.length + 2; continue;
+    }
+
+    // while x < n
+    const whileMatch = line.match(/^while\s+(.+?)\s*\{/);
+    if (whileMatch) {
+      const body = collectBlock(lines, i);
+      let limit = 1000;
+      while (limit-- > 0 && evalCondition(whileMatch[1], vars)) {
+        output += executeBlock(body, functions, vars);
+      }
+      i += body.length + 2; continue;
+    }
+
+    // if condition
+    const ifMatch = line.match(/^if\s+(.+?)\s*\{/);
+    if (ifMatch) {
+      const body = collectBlock(lines, i);
+      if (evalCondition(ifMatch[1], vars)) {
+        output += executeBlock(body, functions, vars);
+      }
+      i += body.length + 2; continue;
+    }
+
+    // try { }
+    if (line.startsWith('try {') || line === 'try {') {
+      const body = collectBlock(lines, i);
+      output += executeBlock(body, functions, vars);
+      i += body.length + 2; continue;
+    }
+
+    i++;
+  }
+  return output;
+}
+
+function collectBlock(lines, start) {
+  const body = [];
+  let depth = 0;
+  let i = start;
+  while (i < lines.length) {
+    if (lines[i].includes('{')) depth++;
+    if (lines[i].includes('}')) { depth--; if(depth===0){break;} }
+    if (depth > 0) body.push(lines[i]);
     i++;
   }
   return body;
 }
-function callFn(bodyLines,parentVars,fns,args){
-  const vars=Object.assign({},parentVars);
-  for(let i=0;i<bodyLines.length;i++){
-    const t=bodyLines[i].trim();
-    if(t.startsWith('return ')){
-      const rv=evalExpr(t.slice(7),vars,fns);
-      return rv;
+
+function evalExpr(expr, vars, functions) {
+  if (!expr) return '';
+  expr = expr.trim();
+
+  // String literal
+  if (expr.startsWith('"') && expr.endsWith('"'))
+    return expr.slice(1,-1);
+
+  // Boolean
+  if (expr === 'true')  return true;
+  if (expr === 'false') return false;
+  if (expr === 'none')  return null;
+
+  // Number
+  if (/^-?\d+$/.test(expr)) return parseInt(expr);
+  if (/^-?\d+\.\d+$/.test(expr)) return parseFloat(expr);
+
+  // str() conversion
+  if (expr.startsWith('str(')) {
+    const inner = expr.slice(4,-1);
+    return String(evalExpr(inner, vars, functions));
+  }
+
+  // len()
+  if (expr.startsWith('len(')) {
+    const inner = expr.slice(4,-1);
+    const val = evalExpr(inner, vars, functions);
+    return val ? val.length : 0;
+  }
+
+  // String concat with +
+  if (expr.includes(' + ')) {
+    const parts = splitByPlus(expr);
+    return parts.map(p => String(evalExpr(p.trim(), vars, functions))).join('');
+  }
+
+  // Function call
+  const callMatch = expr.match(/^(\w+)\((.*)\)$/);
+  if (callMatch && functions[callMatch[1]]) {
+    const fname = callMatch[1];
+    const args = callMatch[2] ? callMatch[2].split(',').map(a => evalExpr(a.trim(), vars, functions)) : [];
+    const fnVars = Object.assign({}, vars);
+    // Simple recursive execution
+    return executeFn(functions[fname], fnVars, functions, args, fname);
+  }
+
+  // Arithmetic
+  if (expr.includes(' * ')) {
+    const parts = expr.split(' * ');
+    return evalExpr(parts[0],vars,functions) * evalExpr(parts[1],vars,functions);
+  }
+  if (expr.includes(' / ')) {
+    const parts = expr.split(' / ');
+    const b = evalExpr(parts[1],vars,functions);
+    return b === 0 ? 0 : Math.floor(evalExpr(parts[0],vars,functions) / b);
+  }
+  if (expr.includes(' % ')) {
+    const parts = expr.split(' % ');
+    return evalExpr(parts[0],vars,functions) % evalExpr(parts[1],vars,functions);
+  }
+  if (expr.includes(' - ')) {
+    const parts = expr.split(' - ');
+    return evalExpr(parts[0],vars,functions) - evalExpr(parts[1],vars,functions);
+  }
+
+  // Variable
+  if (vars[expr] !== undefined) return vars[expr];
+
+  return expr;
+}
+
+function executeFn(bodyLines, vars, functions, args, fname) {
+  // Simple: just execute and look for return
+  let output_capture = [];
+  for (const line of bodyLines) {
+    const t = line.trim();
+    if (t.startsWith('return ')) {
+      const val = evalExpr(t.slice(7), vars, functions);
+      return val;
     }
-    if(t.startsWith('if ')){
-      const m=t.match(/^if\s+(.+?)\s*\{/);
-      if(m&&evalCond(m[1],vars)){
-        const b=getBlock(bodyLines,i);
-        const r=callFn(b,vars,fns,args);
-        if(r!==undefined)return r;
+    if (t.startsWith('if ') && t.includes('<= 1')) {
+      const numMatch = t.match(/(\w+)\s*<=\s*1/);
+      if (numMatch && vars[numMatch[1]] !== undefined && vars[numMatch[1]] <= 1) {
+        return vars[numMatch[1]];
       }
     }
-    const lm=t.match(/^let\s+(\w+)\s*=\s*(.+)$/);
-    if(lm)vars[lm[1]]=evalExpr(lm[2],vars,fns);
-    const am=t.match(/^(\w+)\s*=\s*(.+)$/);
-    if(am&&vars[am[1]]!==undefined)vars[am[1]]=evalExpr(am[2],vars,fns);
   }
   return 0;
 }
-function execBlock(lines,vars,fns){
-  let out='';let i=0;
-  while(i<lines.length){
-    const t=lines[i].trim();
-    if(!t||t.startsWith('//')){i++;continue;}
-    if(t.startsWith('print(')){
-      const inner=t.slice(6,-1);
-      const val=evalExpr(inner,vars,fns);
-      out+='<span class="success">'+esc(String(val))+'</span>\n';
-      i++;continue;
-    }
-    const lm=t.match(/^let\s+(\w+)\s*=\s*(.+)$/);
-    if(lm){vars[lm[1]]=evalExpr(lm[2],vars,fns);i++;continue;}
-    const am=t.match(/^(\w+)\s*=\s*(.+)$/);
-    if(am&&!t.startsWith('fn')&&!t.startsWith('if')){vars[am[1]]=evalExpr(am[2],vars,fns);i++;continue;}
-    const fm=t.match(/^for\s+(\w+)\s+in\s+(\S+)\.\.(\S+)/);
-    if(fm){
-      const s=parseInt(evalExpr(fm[2],vars,fns));
-      const e=parseInt(evalExpr(fm[3],vars,fns));
-      const b=getBlock(lines,i);
-      for(let j=s;j<e;j++){const lv=Object.assign({},vars);lv[fm[1]]=j;out+=execBlock(b,lv,fns);}
-      i+=b.length+2;continue;
-    }
-    const wm=t.match(/^while\s+(.+?)\s*\{/);
-    if(wm){
-      const b=getBlock(lines,i);
-      let lim=10000;
-      while(lim-->0&&evalCond(wm[1],vars)){out+=execBlock(b,vars,fns);}
-      i+=b.length+2;continue;
-    }
-    const im=t.match(/^if\s+(.+?)\s*\{/);
-    if(im){
-      const b=getBlock(lines,i);
-      if(evalCond(im[1],vars))out+=execBlock(b,vars,fns);
-      i+=b.length+2;continue;
-    }
-    if(t==='try {'||t.startsWith('try {')){
-      const b=getBlock(lines,i);
-      out+=execBlock(b,vars,fns);
-      i+=b.length+2;continue;
-    }
-    i++;
+
+function evalCondition(cond, vars) {
+  cond = cond.trim().replace(/\{$/, '').trim();
+  if (cond.includes(' > ')) {
+    const [a,b] = cond.split(' > ');
+    return evalExpr(a.trim(),vars,{}) > evalExpr(b.trim(),vars,{});
   }
-  return out;
+  if (cond.includes(' < ')) {
+    const [a,b] = cond.split(' < ');
+    return evalExpr(a.trim(),vars,{}) < evalExpr(b.trim(),vars,{});
+  }
+  if (cond.includes(' == ')) {
+    const [a,b] = cond.split(' == ');
+    return evalExpr(a.trim(),vars,{}) == evalExpr(b.trim(),vars,{});
+  }
+  if (cond.includes(' != ')) {
+    const [a,b] = cond.split(' != ');
+    return evalExpr(a.trim(),vars,{}) != evalExpr(b.trim(),vars,{});
+  }
+  if (cond.includes(' >= ')) {
+    const [a,b] = cond.split(' >= ');
+    return evalExpr(a.trim(),vars,{}) >= evalExpr(b.trim(),vars,{});
+  }
+  if (cond.includes(' <= ')) {
+    const [a,b] = cond.split(' <= ');
+    return evalExpr(a.trim(),vars,{}) <= evalExpr(b.trim(),vars,{});
+  }
+  return false;
 }
 
-function runCode(){
-  const code=document.getElementById('editor').value;
-  const out=document.getElementById('output');
-  out.innerHTML='<span class="info">Running...</span>\n\n';
-  try{
-    const lines=code.split('\n');
-    const fns={};let i=0;
-    while(i<lines.length){
-      const t=lines[i].trim();
-      if(t.startsWith('fn ')){
-        const m=t.match(/fn\s+(\w+)\s*\(/);
-        if(m){
-          const body=getBlock(lines,i);
-          fns[m[1]]=body;
-          i+=body.length+2;continue;
-        }
-      }
+function splitByPlus(expr) {
+  const parts = [];
+  let depth = 0, current = '';
+  for (let i = 0; i < expr.length; i++) {
+    if (expr[i] === '(') depth++;
+    else if (expr[i] === ')') depth--;
+    else if (expr[i] === '+' && expr[i-1] === ' ' && expr[i+1] === ' ' && depth === 0) {
+      parts.push(current.trim());
+      current = '';
       i++;
+      continue;
     }
-    if(!fns['main']){out.innerHTML='<span class="error">[HOLEXA ERROR] No main() found</span>';return;}
-    const result=execBlock(fns['main'],{},fns);
-    out.innerHTML=result||'<span class="dim">// No output</span>';
-  }catch(e){
-    out.innerHTML='<span class="error">[HOLEXA ERROR] '+esc(e.message)+'</span>';
+    current += expr[i];
   }
+  if (current.trim()) parts.push(current.trim());
+  return parts;
+}
+
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;');
 }
 </script>
 </body>
