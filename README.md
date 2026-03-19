@@ -26,7 +26,7 @@ MIT
 
 ## Creator
 
-**HOLEXA** was created by **Ayush Giri** in March 2025.
+**HOLEXA** was created by **Ayush Giri** in March 2026.
 
 "I wanted a language that is fast, safe, and readable. So I built one."
 — Ayush Giri, Creator of HOLEXA
