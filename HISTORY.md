@@ -133,4 +133,4 @@ The dragon flies further with more people.
 *I tried Go — too limited.*
 *So I built HOLEXA."*
 
-**— Ayush, Creator of HOLEXA**
+**— Ayush Giri, Creator of HOLEXA**
