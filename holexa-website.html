@@ -395,6 +395,7 @@ footer{
     <div class="sb-head">Tooling</div>
     <a class="sb-a" data-p="tools"      href="#" onclick="show('tools')">CLI Reference</a>
     <a class="sb-a" data-p="editors"    href="#" onclick="show('editors')">Editor Support</a>
+    <a class="sb-a" data-p="note" href="#" onclick="show('note')">⚠️ Important Note</a>
     <a class="sb-a" data-p="playground" href="#" onclick="show('playground')">Live Playground</a>
   </div>
 </aside>
@@ -1148,6 +1149,70 @@ fn main() {
 </div>
 
 </div><!-- wrap -->
+<!-- NOTE -->
+<div class="pg" id="pg-note">
+  <div class="bc"><span>Info</span><span>/</span><span>Important Note</span></div>
+  <h1 class="pt">⚠️ Important Note</h1>
+
+  <div class="note note-w" style="margin-bottom:16px">
+    <span class="note-icon">🕐</span>
+    <div class="note-body">
+      <strong>Live Playground Hours — India Time (IST)</strong><br><br>
+      🟢 <strong>Active:</strong> 2:00 PM — 8:00 PM IST<br>
+      🔴 <strong>Offline:</strong> Outside these hours<br><br>
+      During offline hours the server is not running.<br>
+      Please try again during active hours.
+    </div>
+  </div>
+
+  <div class="note note-i" style="margin-bottom:16px">
+    <span class="note-icon">🐢</span>
+    <div class="note-body">
+      <strong>Why is the Playground slow?</strong><br><br>
+      The playground runs on a real HOLEXA compiler hosted on an iPad server.
+      Every time you click Run, your code travels:<br><br>
+      <strong>Your Device → iPad Server → Back to You</strong><br><br>
+      This causes a <strong>1–4 second delay</strong> — completely normal!<br>
+      This is <strong>not a bug.</strong>
+    </div>
+  </div>
+
+  <div class="note note-t" style="margin-bottom:16px">
+    <span class="note-icon">⚡</span>
+    <div class="note-body">
+      <strong>Want instant execution?</strong><br><br>
+      Install HOLEXA locally and run code in zero time:<br><br>
+      <code>hlxc run hello.hlx</code><br><br>
+      Works in: <strong>VS Code · Vim · Neovim · Emacs · Sublime · IntelliJ</strong>
+    </div>
+  </div>
+
+  <div class="note note-i" style="margin-bottom:16px">
+    <span class="note-icon">📱</span>
+    <div class="note-body">
+      <strong>Built on iPad</strong><br><br>
+      HOLEXA was built <strong>100% on a normal iPad</strong> using iSH Shell.<br>
+      No MacBook. No PC. No expensive setup.<br><br>
+      A full compiler, package manager, 15+ libraries, and editor support —
+      all built on an iPad by <strong>AYUSHGIRI</strong>.<br><br>
+      <em>"If you have an idea, your device doesn't matter. Your determination does."</em>
+    </div>
+  </div>
+
+  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:20px;margin-top:8px">
+    <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:14px">📋 Quick Summary</div>
+    <div class="tw"><table>
+      <thead><tr><th>Feature</th><th>Playground</th><th>Local Install</th></tr></thead>
+      <tbody>
+        <tr><td>Speed</td><td>🐢 1–4 seconds</td><td>⚡ Instant</td></tr>
+        <tr><td>Hours</td><td>2PM–8PM IST</td><td>Always</td></tr>
+        <tr><td>Internet</td><td>✅ Required</td><td>❌ Not needed</td></tr>
+        <tr><td>Install</td><td>❌ Not needed</td><td>✅ Required</td></tr>
+        <tr><td>Compiler</td><td>✅ Real hlxc</td><td>✅ Real hlxc</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div>
 </main>
 </div><!-- layout -->
 
