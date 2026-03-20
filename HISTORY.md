@@ -124,7 +124,6 @@ HOLEXA was built **100% on a normal iPad** — no MacBook, no PC, no desktop.
 - iSH Shell — Linux terminal on iPad
 - gcc compiler running inside iSH
 - git for version control
-- Claude AI for guidance
 
 **What this means:**
 
