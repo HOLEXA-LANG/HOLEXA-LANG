@@ -115,6 +115,31 @@ HOLEXA believes that programming should be:
 
 ---
 
+## 🐉 The iPad Story
+
+HOLEXA was built **100% on a normal iPad** — no MacBook, no PC, no desktop.
+
+**Tools used:**
+- iPad (standard consumer device)
+- iSH Shell — Linux terminal on iPad
+- gcc compiler running inside iSH
+- git for version control
+- Claude AI for guidance
+
+**What this means:**
+
+Most people think you need an expensive computer to build a programming language.  
+HOLEXA proves that wrong.
+
+A full compiler written in C, a package manager, 15+ libraries,  
+editor support for 7 editors, a web playground, and a self-hosting compiler —  
+**all built on an iPad.**
+
+> *"If you have an idea, your device doesn't matter. Your determination does."*  
+> — AYUSHGIRI, Creator of HOLEXA
+
+---
+
 ## A Note to Future Contributors
 
 HOLEXA is open source and belongs to the community.
