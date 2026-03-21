@@ -1,10 +1,21 @@
-# 🚀 HOLEXA Programming Language
+<div align="center">
+  <img src="logo.png" alt="HOLEXA Logo" width="120" style="border-radius:50%">
 
-> Fast • Safe • Readable • Modern
+  # 🐉 HOLEXA Programming Language
+
+  **Code like a Dragon. Think like a Human.**
+
+  ![Version](https://img.shields.io/badge/version-1.0.0-blue)
+  ![License](https://img.shields.io/badge/license-MIT-green)
+  ![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Mac%20%7C%20Windows%20%7C%20iPad-lightgrey)
+  ![Launch](https://img.shields.io/badge/launch-March%2023%2C%202026-orange)
+</div>
+
+---
 
 HOLEXA is a next-generation programming language combining:
 - ⚡ Speed of C
-- 🛡️ Safety of Rust  
+- 🛡️ Safety of Rust
 - 📖 Readability of Python
 - 🔧 Simplicity of Go
 
@@ -12,24 +23,106 @@ HOLEXA is a next-generation programming language combining:
 ```hlx
 fn main() {
     print("Hello, World!")
+    print("Code like a Dragon!")
 }
 ```
 
+## Install
+```sh
+curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh
+```
+
 ## File Extension
-.hlx
+`.hlx`
+
+## Launch Date
+🚀 **March 23, 2026** — Official v1.0.0 Release
 
 ## Status
-🔨 Under active development — v1.0.0
+✅ Released — v1.0.0
 
 ## License
 MIT
 
 ## Creator
-
 **HOLEXA** was created by **Ayush Giri** in March 2026.
 
-"I wanted a language that is fast, safe, and readable. So I built one."
-— Ayush Giri, Creator of HOLEXA
+> "I wanted a language that is fast, safe, and readable. So I built one."
+> — Ayush Giri, Creator of HOLEXA
+
+---
+
+## 📁 File Structure
+```
+HOLEXA-LANG/
+├── compiler/
+│   ├── include/          # Header files
+│   │   ├── holexa.h
+│   │   ├── parser.h
+│   │   ├── semantic.h
+│   │   ├── interpreter.h
+│   │   └── codegen.h
+│   ├── src/              # Compiler source code
+│   │   ├── main.c
+│   │   ├── lexer.c
+│   │   ├── ast.c
+│   │   ├── parser.c
+│   │   ├── semantic.c
+│   │   ├── interpreter.c
+│   │   └── codegen.c
+│   └── Makefile
+├── stdlib/               # Standard Library (15 libraries)
+│   ├── math/
+│   ├── string/
+│   ├── fs/
+│   ├── http/
+│   ├── json/
+│   ├── crypto/
+│   ├── time/
+│   ├── random/
+│   ├── os/
+│   ├── net/
+│   ├── io/
+│   ├── list/
+│   ├── map/
+│   ├── process/
+│   └── index.hlx
+├── package-manager/      # hlxpm package manager
+├── tools/
+│   ├── hlxfmt/           # Code formatter
+│   ├── hlxlint/          # Code linter
+│   ├── hlxbuild/         # Project builder
+│   └── lsp/              # Language Server Protocol
+├── editor-support/       # 7 editors support
+│   ├── vscode/
+│   ├── vim/
+│   ├── neovim/
+│   ├── emacs/
+│   ├── sublime/
+│   ├── intellij/
+│   ├── atom/
+│   └── INSTALL.md
+├── self-hosting/         # HOLEXA compiler in HOLEXA
+│   ├── hlxc_lexer.hlx
+│   ├── hlxc_parser.hlx
+│   ├── hlxc_interpreter.hlx
+│   └── hlxc_selfhosted.hlx
+├── tests/                # Test suite
+│   ├── unit/
+│   ├── integration/
+│   ├── realworld/
+│   └── run_tests.sh
+├── docs/                 # Documentation
+├── examples/             # Example programs
+├── runtime/              # Runtime library
+├── index.html            # Official website
+├── docs.html             # Full documentation
+├── install.sh            # Universal installer
+├── logo.png              # HOLEXA logo
+├── LICENSE               # MIT License
+├── README.md             # This file
+└── HISTORY.md            # Language history
+```
 
 ---
 
@@ -37,15 +130,9 @@ MIT
 
 > **HOLEXA was built entirely on a normal iPad using iSH Shell.**
 
-No MacBook. No PC. No expensive setup.  
+No MacBook. No PC. No expensive setup.
 Just an iPad, determination, and a vision.
-
-This proves that **anyone, anywhere, with any device** can build something great.
-
-If a full programming language — with its own compiler, package manager, 
-standard library, and editor support — can be built on an iPad,  
-then **there are no excuses.**
 
 *Code like a Dragon. Think like a Human.* 🐉
 
----
+**github.com/HOLEXA-LANG/HOLEXA-LANG**
