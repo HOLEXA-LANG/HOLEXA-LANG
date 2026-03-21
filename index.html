@@ -429,72 +429,186 @@ footer{
   </div>
 </div>
 
-<!-- INSTALL -->
 <div class="pg" id="pg-install">
   <div class="bc"><span>Getting Started</span><span>/</span><span>Installation</span></div>
   <h1 class="pt">Installation</h1>
-  <p class="pd">Install HOLEXA on any platform. After installation you can write <code>.hlx</code> files and run them instantly with <code>hlxc run</code>.</p>
+  <p class="pd">Install HOLEXA on any device with one command. The installer automatically sets up the compiler, package manager, formatter, linter, and VS Code extension.</p>
 
-  <div class="note note-t" style="margin-bottom:16px">
-    <span class="note-icon">⚡</span>
-    <div class="note-body"><strong>One command installs everything</strong> — compiler, package manager, formatter, linter, and VS Code extension.</div>
+  <!-- PLATFORM CARDS -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin:20px 0;">
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#3fb950'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <span style="font-size:24px;">🐧</span>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);">Linux</div>
+          <div style="font-size:11px;color:var(--text3);">Ubuntu · Debian · Arch · Fedora</div>
+        </div>
+        <span style="margin-left:auto;background:rgba(63,185,80,0.1);border:1px solid rgba(63,185,80,0.3);color:var(--green);font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600;">RECOMMENDED</span>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:10px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);cursor:pointer;margin-bottom:8px;" onclick="cpPre(this)">curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</div>
+      <div style="font-size:11px;color:var(--text3);">Click command to copy · Requires: curl, git, gcc, make</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#3fb950'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <span style="font-size:24px;">🍎</span>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);">macOS</div>
+          <div style="font-size:11px;color:var(--text3);">macOS 11+ · Intel · Apple Silicon</div>
+        </div>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:10px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);cursor:pointer;margin-bottom:8px;" onclick="cpPre(this)">curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</div>
+      <div style="font-size:11px;color:var(--text3);">Click command to copy · Requires: Xcode Command Line Tools</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#3fb950'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <span style="font-size:24px;">🪟</span>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);">Windows</div>
+          <div style="font-size:11px;color:var(--text3);">Windows 10/11 · via WSL2</div>
+        </div>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:10px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);cursor:pointer;margin-bottom:8px;" onclick="cpPre(this)">wsl --install</div>
+      <div style="font-size:11px;color:var(--text3);">Run in PowerShell as Admin · Then use Linux command inside WSL</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#3fb950'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <span style="font-size:24px;">📱</span>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);">iPad</div>
+          <div style="font-size:11px;color:var(--text3);">iSH Shell · Alpine Linux</div>
+        </div>
+        <span style="margin-left:auto;background:rgba(188,140,255,0.1);border:1px solid rgba(188,140,255,0.3);color:var(--purple);font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600;">BUILT HERE</span>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:10px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);cursor:pointer;margin-bottom:8px;" onclick="cpPre(this)">apk add curl git gcc make && curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</div>
+      <div style="font-size:11px;color:var(--text3);">HOLEXA itself was built on iPad 🐉</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#3fb950'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <span style="font-size:24px;">🤖</span>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);">Android</div>
+          <div style="font-size:11px;color:var(--text3);">Termux · Android 7+</div>
+        </div>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:10px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);cursor:pointer;margin-bottom:8px;" onclick="cpPre(this)">pkg install curl git clang make && curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</div>
+      <div style="font-size:11px;color:var(--text3);">Install Termux from F-Droid first (not Play Store)</div>
+    </div>
+
   </div>
 
-  <div class="ig">
-    <div class="ic"><div class="ict">🐧 Linux</div><pre onclick="cpPre(this)">curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</pre></div>
-    <div class="ic"><div class="ict">🍎 macOS</div><pre onclick="cpPre(this)">curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</pre></div>
-    <div class="ic"><div class="ict">📱 iPad (iSH)</div><pre onclick="cpPre(this)">apk add curl git gcc make
-curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</pre></div>
-    <div class="ic"><div class="ict">🪟 Windows (WSL)</div><pre onclick="cpPre(this)">wsl --install
-# Restart your computer
-# Open Ubuntu from Start Menu
-# Then run the Linux command above</pre></div>
-  </div>
+  <!-- STEP BY STEP -->
+  <h3 class="h3">Step-by-Step Guide</h3>
 
-  <h3 class="h3">Step by Step — First Program</h3>
-
-  <h4 class="h4">Step 1 — Verify installation</h4>
+  <!-- LINUX -->
+  <h4 class="h4">🐧 Linux — Full Steps</h4>
   <div class="cb">
-    <div class="ct"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cf">bash</span><button class="cc" onclick="cc(this)">Copy</button></div>
-    <pre><span class="sh">hlxc --version</span>
-<span class="sh2"># Should show: HOLEXA Compiler v1.0.0</span></pre>
+    <div class="cb-top"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="code-fname">bash</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="sh2"># Step 1: Install build tools</span>
+<span class="sh">sudo apt-get update</span>
+<span class="sh">sudo apt-get install -y curl git gcc make</span>
+
+<span class="sh2"># Step 2: Run the installer</span>
+<span class="sh">curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</span>
+
+<span class="sh2"># Step 3: Verify installation</span>
+<span class="sh">hlxc --version</span>
+<span class="sh2"># Output: HOLEXA Compiler v1.0.0</span>
+
+<span class="sh2"># Step 4: Run your first program</span>
+<span class="sh">echo 'fn main() { print("Hello HOLEXA!") }' > hello.hlx</span>
+<span class="sh">hlxc run hello.hlx</span>
+<span class="sh2"># Output: Hello HOLEXA!</span></pre>
   </div>
 
-  <h4 class="h4">Step 2 — Create your first file</h4>
+  <!-- MACOS -->
+  <h4 class="h4">🍎 macOS — Full Steps</h4>
   <div class="cb">
-    <div class="ct"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cf">bash</span><button class="cc" onclick="cc(this)">Copy</button></div>
-    <pre><span class="sh2"># Create a new file</span>
+    <div class="cb-top"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="code-fname">bash</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="sh2"># Step 1: Install Xcode Command Line Tools</span>
+<span class="sh">xcode-select --install</span>
+
+<span class="sh2"># Step 2: Run the installer</span>
+<span class="sh">curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</span>
+
+<span class="sh2"># Step 3: Verify</span>
+<span class="sh">hlxc --version</span></pre>
+  </div>
+
+  <!-- WINDOWS -->
+  <h4 class="h4">🪟 Windows — Full Steps</h4>
+  <div class="cb">
+    <div class="cb-top"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="code-fname">PowerShell (Run as Administrator)</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="sh2"># Step 1: Open PowerShell as Administrator</span>
+<span class="sh2"># (Right click Start → Windows PowerShell (Admin))</span>
+
+<span class="sh2"># Step 2: Install WSL2</span>
+<span class="sh">wsl --install</span>
+
+<span class="sh2"># Step 3: Restart your computer</span>
+
+<span class="sh2"># Step 4: Open Ubuntu from Start Menu</span>
+
+<span class="sh2"># Step 5: Inside Ubuntu terminal — run this:</span>
+<span class="sh">curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</span>
+
+<span class="sh2"># Step 6: Verify</span>
+<span class="sh">hlxc --version</span></pre>
+  </div>
+
+  <!-- IPAD -->
+  <h4 class="h4">📱 iPad (iSH Shell) — Full Steps</h4>
+  <div class="cb">
+    <div class="cb-top"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="code-fname">iSH Shell</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="sh2"># Step 1: Install iSH Shell from App Store</span>
+<span class="sh2"># Search "iSH Shell" → Install (Free)</span>
+
+<span class="sh2"># Step 2: Open iSH and install build tools</span>
+<span class="sh">apk update</span>
+<span class="sh">apk add curl git gcc make python3</span>
+
+<span class="sh2"># Step 3: Run the installer</span>
+<span class="sh">curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</span>
+
+<span class="sh2"># Step 4: Verify</span>
+<span class="sh">hlxc --version</span>
+
+<span class="sh2"># Step 5: Write your first program</span>
 <span class="sh">nano hello.hlx</span>
-<span class="sh2"># Or use any editor: VS Code, Vim, etc.</span></pre>
+<span class="sh">hlxc run hello.hlx</span></pre>
   </div>
 
-  <h4 class="h4">Step 3 — Write HOLEXA code</h4>
+  <!-- ANDROID -->
+  <h4 class="h4">🤖 Android (Termux) — Full Steps</h4>
   <div class="cb">
-    <div class="ct"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cf">hello.hlx</span><button class="cc" onclick="cc(this)">Copy</button></div>
-    <pre><span class="kw">fn</span> <span class="fn">main</span>() {
-    <span class="fn">print</span>(<span class="st">"Hello, World!"</span>)
-    <span class="fn">print</span>(<span class="st">"Code like a Dragon!"</span>)
-}</pre>
+    <div class="cb-top"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="code-fname">Termux</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="sh2"># Step 1: Install Termux from F-Droid</span>
+<span class="sh2"># https://f-droid.org → Search "Termux" → Install</span>
+<span class="sh2"># (Do NOT use Play Store version — it is outdated)</span>
+
+<span class="sh2"># Step 2: Open Termux and install build tools</span>
+<span class="sh">pkg update && pkg upgrade</span>
+<span class="sh">pkg install curl git clang make python</span>
+
+<span class="sh2"># Step 3: Run the installer</span>
+<span class="sh">curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</span>
+
+<span class="sh2"># Step 4: Verify</span>
+<span class="sh">hlxc --version</span>
+
+<span class="sh2"># Step 5: Write and run your first program</span>
+<span class="sh">nano hello.hlx</span>
+<span class="sh">hlxc run hello.hlx</span></pre>
   </div>
 
-  <h4 class="h4">Step 4 — Run it</h4>
+  <!-- MANUAL -->
+  <h3 class="h3">Manual Install from Source</h3>
   <div class="cb">
-    <div class="ct"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cf">bash</span><button class="cc" onclick="cc(this)">Copy</button></div>
-    <pre><span class="sh">hlxc run hello.hlx</span>
-
-<span class="sh2"># Output:</span>
-<span class="sh2"># Hello, World!</span>
-<span class="sh2"># Code like a Dragon!</span></pre>
-  </div>
-
-  <div class="note note-i" style="margin-top:20px">
-    <span class="note-icon">🎉</span>
-    <div class="note-body"><strong>That's it!</strong> You just ran your first HOLEXA program. Now explore the <a href="#" onclick="show('syntax')">Language Guide</a> to learn more.</div>
-  </div>
-
-  <h3 class="h3">Manual Install (From Source)</h3>
-  <div class="cb">
-    <div class="ct"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cf">bash</span><button class="cc" onclick="cc(this)">Copy</button></div>
+    <div class="cb-top"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="code-fname">bash</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
     <pre><span class="sh2"># Step 1: Clone repository</span>
 <span class="sh">git clone https://github.com/HOLEXA-LANG/HOLEXA-LANG.git</span>
 <span class="sh">cd HOLEXA-LANG</span>
@@ -502,57 +616,52 @@ curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/instal
 <span class="sh2"># Step 2: Build compiler</span>
 <span class="sh">cd compiler && make</span>
 
-<span class="sh2"># Step 3: Install to system</span>
+<span class="sh2"># Step 3: Install to system PATH</span>
 <span class="sh">sudo cp hlxc /usr/local/bin/hlxc</span>
 <span class="sh">sudo cp ../package-manager/hlxpm /usr/local/bin/hlxpm</span>
 <span class="sh">sudo cp ../tools/hlxfmt/hlxfmt /usr/local/bin/hlxfmt</span>
 <span class="sh">sudo cp ../tools/hlxlint/hlxlint /usr/local/bin/hlxlint</span>
 
-<span class="sh2"># Step 4: Verify everything works</span>
+<span class="sh2"># Step 4: Verify all tools</span>
 <span class="sh">hlxc --version</span>
 <span class="sh">hlxpm --version</span>
-<span class="sh">echo "Installation complete!"</span></pre>
+<span class="sh">hlxfmt --version</span>
+<span class="sh">echo "All tools installed!"</span></pre>
   </div>
 
-  <h3 class="h3">VS Code Extension Setup</h3>
-  <div class="cb">
-    <div class="ct"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cf">bash</span><button class="cc" onclick="cc(this)">Copy</button></div>
-    <pre><span class="sh2"># Clone if not already done</span>
-<span class="sh">git clone https://github.com/HOLEXA-LANG/HOLEXA-LANG.git</span>
-
-<span class="sh2"># Copy extension to VS Code</span>
-<span class="sh">cp -r HOLEXA-LANG/editor-support/vscode ~/.vscode/extensions/holexa-lang</span>
-
-<span class="sh2"># Restart VS Code</span>
-<span class="sh2"># Open any .hlx file — Dragon logo + colors appear!</span></pre>
-  </div>
-
-  <h3 class="h3">All Tools Installed</h3>
+  <!-- TOOLS TABLE -->
+  <h3 class="h3">What Gets Installed</h3>
   <div class="tw"><table>
-    <thead><tr><th>Tool</th><th>Command</th><th>What it does</th></tr></thead>
+    <thead><tr><th>Tool</th><th>Command</th><th>Description</th></tr></thead>
     <tbody>
-      <tr><td><code>hlxc</code></td><td>hlxc run hello.hlx</td><td>Run a HOLEXA program</td></tr>
-      <tr><td><code>hlxc</code></td><td>hlxc build hello.hlx</td><td>Compile to binary</td></tr>
-      <tr><td><code>hlxc</code></td><td>hlxc --version</td><td>Show version</td></tr>
-      <tr><td><code>hlxpm</code></td><td>hlxpm install math</td><td>Install a package</td></tr>
-      <tr><td><code>hlxpm</code></td><td>hlxpm create myapp</td><td>Create new project</td></tr>
-      <tr><td><code>hlxfmt</code></td><td>hlxfmt hello.hlx</td><td>Auto-format code</td></tr>
-      <tr><td><code>hlxlint</code></td><td>hlxlint hello.hlx</td><td>Check code quality</td></tr>
-      <tr><td><code>hlxbuild</code></td><td>hlxbuild run</td><td>Build and run project</td></tr>
+      <tr><td><code>hlxc</code></td><td>hlxc run file.hlx</td><td>Run a HOLEXA program instantly</td></tr>
+      <tr><td><code>hlxc</code></td><td>hlxc build file.hlx</td><td>Compile program to native binary</td></tr>
+      <tr><td><code>hlxc</code></td><td>hlxc check file.hlx</td><td>Check syntax without running</td></tr>
+      <tr><td><code>hlxpm</code></td><td>hlxpm install math</td><td>Install packages from registry</td></tr>
+      <tr><td><code>hlxpm</code></td><td>hlxpm create myapp</td><td>Create a new HOLEXA project</td></tr>
+      <tr><td><code>hlxfmt</code></td><td>hlxfmt file.hlx</td><td>Auto-format code to style guide</td></tr>
+      <tr><td><code>hlxlint</code></td><td>hlxlint file.hlx</td><td>Check for code quality issues</td></tr>
+      <tr><td><code>hlxbuild</code></td><td>hlxbuild run</td><td>Build and run full project</td></tr>
     </tbody>
   </table></div>
 
-  <h3 class="h3">Common Errors & Fixes</h3>
+  <!-- ERRORS -->
+  <h3 class="h3">Common Errors &amp; Fixes</h3>
   <div class="tw"><table>
-    <thead><tr><th>Error</th><th>Fix</th></tr></thead>
+    <thead><tr><th>Error</th><th>Cause</th><th>Fix</th></tr></thead>
     <tbody>
-      <tr><td>hlxc: command not found</td><td>Run install script again or check PATH</td></tr>
-      <tr><td>make: gcc not found</td><td>Install gcc: apt install gcc or apk add gcc</td></tr>
-      <tr><td>Permission denied</td><td>Add sudo before cp command</td></tr>
-      <tr><td>Parse failed</td><td>Check syntax — missing { } or fn keyword</td></tr>
-      <tr><td>Undefined variable</td><td>Declare with let before using</td></tr>
+      <tr><td><code>hlxc: command not found</code></td><td>PATH not updated</td><td>Run: <code>export PATH=$PATH:/usr/local/bin</code></td></tr>
+      <tr><td><code>gcc not found</code></td><td>Build tools missing</td><td>Linux: <code>apt install gcc</code> · iPad: <code>apk add gcc</code> · Android: <code>pkg install clang</code></td></tr>
+      <tr><td><code>Permission denied</code></td><td>Need sudo</td><td>Add <code>sudo</code> before <code>cp</code> command</td></tr>
+      <tr><td><code>make: not found</code></td><td>Make missing</td><td><code>apt install make</code> or <code>pkg install make</code></td></tr>
+      <tr><td><code>curl: not found</code></td><td>Curl missing</td><td><code>apt install curl</code> or <code>pkg install curl</code></td></tr>
     </tbody>
   </table></div>
+
+  <div class="note note-t">
+    <span class="note-icon">🎉</span>
+    <div class="note-body"><strong>Installation complete!</strong> Now run <code>hlxc run hello.hlx</code> and start coding like a Dragon! 🐉</div>
+  </div>
 </div>
 
 <!-- QUICK START -->
@@ -1115,59 +1224,111 @@ curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/instal
 <div class="pg" id="pg-editors">
   <div class="bc"><span>Tooling</span><span>/</span><span>Editors</span></div>
   <h1 class="pt">Editor Support</h1>
-  <p class="pd">Syntax highlighting, auto-complete, and error detection in every major editor.</p>
-  <div class="tw" style="margin-bottom:20px"><table>
-    <thead><tr><th>Editor</th><th>Status</th><th>Features</th><th>Install</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><strong style="color:var(--cyan)">VS Code</strong></td>
-        <td><span class="bg bg-g">✓ Full</span></td>
-        <td>Syntax highlighting, auto-complete, Dragon logo, Ctrl+Shift+R to run, format on save</td>
-        <td><code>cp -r vscode ~/.vscode/extensions/holexa-lang</code></td>
-      </tr>
-      <tr>
-        <td><strong style="color:var(--cyan)">Vim</strong></td>
-        <td><span class="bg bg-g">✓ Ready</span></td>
-        <td>Syntax highlighting, filetype detection, auto-indent</td>
-        <td><code>cp holexa.vim ~/.vim/syntax/</code></td>
-      </tr>
-      <tr>
-        <td><strong style="color:var(--cyan)">Neovim</strong></td>
-        <td><span class="bg bg-g">✓ LSP</span></td>
-        <td>Full LSP support, syntax highlighting, auto-complete</td>
-        <td><code>cp holexa.lua ~/.config/nvim/lua/</code></td>
-      </tr>
-      <tr>
-        <td><strong style="color:var(--cyan)">Emacs</strong></td>
-        <td><span class="bg bg-g">✓ Ready</span></td>
-        <td>Major mode, syntax highlighting, indentation</td>
-        <td><code>(load "holexa-mode.el")</code></td>
-      </tr>
-      <tr>
-        <td><strong style="color:var(--cyan)">Sublime Text</strong></td>
-        <td><span class="bg bg-g">✓ Ready</span></td>
-        <td>Syntax highlighting, completions, snippets</td>
-        <td><code>cp HOLEXA.sublime-syntax Packages/User/</code></td>
-      </tr>
-      <tr>
-        <td><strong style="color:var(--cyan)">IntelliJ / JetBrains</strong></td>
-        <td><span class="bg bg-g">✓ Ready</span></td>
-        <td>File type support, syntax highlighting</td>
-        <td>Settings → File Types → Import holexa.xml</td>
-      </tr>
-      <tr>
-        <td><strong style="color:var(--cyan)">Atom</strong></td>
-        <td><span class="bg bg-g">✓ Ready</span></td>
-        <td>Grammar support, syntax highlighting</td>
-        <td><code>cp holexa.cson ~/.atom/packages/</code></td>
-      </tr>
-    </tbody>
-  </table></div>
-  <h3 class="h3">VS Code — Quick Setup</h3>
-  <div class="cb"><div class="ct"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cf">bash</span><button class="cc" onclick="cc(this)">Copy</button></div>
-  <pre><span class="sh">git clone https://github.com/HOLEXA-LANG/HOLEXA-LANG.git</span>
+  <p class="pd">HOLEXA has official support for 7 major code editors with syntax highlighting, auto-complete, error detection, and more.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:20px 0;">
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#58a6ff'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+        <div style="width:36px;height:36px;background:#007acc;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🔵</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);">VS Code</div>
+          <div style="font-size:11px;color:var(--green);font-weight:600;">✓ Full Support</div>
+        </div>
+        <span style="margin-left:auto;background:rgba(63,185,80,0.1);border:1px solid rgba(63,185,80,0.3);color:var(--green);font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600;">RECOMMENDED</span>
+      </div>
+      <div style="font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:12px;">Syntax highlighting · Auto-complete · Dragon theme · Ctrl+Shift+R to run · Format on save</div>
+      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);">cp -r editor-support/vscode ~/.vscode/extensions/holexa-lang</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#58a6ff'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+        <div style="width:36px;height:36px;background:#1d9a1d;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🟢</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);">Vim</div>
+          <div style="font-size:11px;color:var(--green);font-weight:600;">✓ Supported</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:12px;">Syntax highlighting · Filetype detection · Auto-indent</div>
+      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);">cp holexa.vim ~/.vim/syntax/</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#58a6ff'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+        <div style="width:36px;height:36px;background:#5c2d91;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🟣</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);">Neovim</div>
+          <div style="font-size:11px;color:var(--cyan);font-weight:600;">✓ LSP Ready</div>
+        </div>
+        <span style="margin-left:auto;background:rgba(79,195,247,0.1);border:1px solid rgba(79,195,247,0.3);color:var(--cyan);font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600;">LSP</span>
+      </div>
+      <div style="font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:12px;">Full LSP support · Highlighting · Auto-complete · Error detection</div>
+      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);">cp holexa.lua ~/.config/nvim/lua/</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#58a6ff'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+        <div style="width:36px;height:36px;background:#7f5af0;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🟤</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);">Emacs</div>
+          <div style="font-size:11px;color:var(--green);font-weight:600;">✓ Supported</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:12px;">Major mode · Syntax highlighting · Smart indentation</div>
+      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);">(load "holexa-mode.el")</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#58a6ff'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+        <div style="width:36px;height:36px;background:#ff8c00;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🟠</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);">Sublime Text</div>
+          <div style="font-size:11px;color:var(--green);font-weight:600;">✓ Supported</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:12px;">Syntax highlighting · Code snippets · Auto-completions</div>
+      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);">cp HOLEXA.sublime-syntax Packages/User/</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#58a6ff'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+        <div style="width:36px;height:36px;background:#fe2d55;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🔴</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);">IntelliJ / JetBrains</div>
+          <div style="font-size:11px;color:var(--green);font-weight:600;">✓ Supported</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:12px;">File type support · Syntax highlighting · Code structure</div>
+      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);">Settings → File Types → Import holexa.xml</div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#58a6ff'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+        <div style="width:36px;height:36px;background:#40a9ff;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🔵</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);">Atom</div>
+          <div style="font-size:11px;color:var(--green);font-weight:600;">✓ Supported</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:12px;">Grammar support · Syntax highlighting · File detection</div>
+      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);">cp holexa.cson ~/.atom/packages/</div>
+    </div>
+
+  </div>
+
+  <h3 class="h3">VS Code — Full Setup Guide</h3>
+  <div class="cb">
+    <div class="cb-top"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="code-fname">bash</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+    <pre><span class="sh2"># Step 1: Clone the repository</span>
+<span class="sh">git clone https://github.com/HOLEXA-LANG/HOLEXA-LANG.git</span>
+
+<span class="sh2"># Step 2: Copy extension to VS Code</span>
 <span class="sh">cp -r HOLEXA-LANG/editor-support/vscode ~/.vscode/extensions/holexa-lang</span>
-<span class="sh2"># Restart VS Code — Dragon logo and colors appear! 🐉</span></pre></div>
+
+<span class="sh2"># Step 3: Restart VS Code</span>
+<span class="sh2"># Open any .hlx file — Dragon logo and colors appear!</span>
+<span class="sh2"># Press Ctrl+Shift+R to run the file directly</span></pre>
+  </div>
 </div>
 
 <!-- PLAYGROUND -->
