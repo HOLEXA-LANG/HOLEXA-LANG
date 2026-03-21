@@ -60,7 +60,8 @@ That idea became **HOLEXA**.
 | March 18, 2026 | Editor support (7 editors + VS Code) |
 | March 18, 2026 | All tests passing — zero errors |
 | March 18, 2026 | Self-hosting complete |
-| **March 18, 2026** | **🐉 HOLEXA v1.0.0 — Official Release!** |
+| March 18, 2026 | Final test and error solving |
+| **March 23, 2026** | **🐉 HOLEXA v1.0.0 — Official Release!** |
 
 **Total development time: 4 days** 🚀
 
@@ -135,7 +136,7 @@ editor support for 7 editors, a web playground, and a self-hosting compiler —
 **all built on an iPad.**
 
 > *"If you have an idea, your device doesn't matter. Your determination does."*  
-> — AYUSHGIRI, Creator of HOLEXA
+> — AYUSH GIRI, Creator of HOLEXA
 
 ---
 
