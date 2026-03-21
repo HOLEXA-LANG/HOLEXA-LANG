@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOLEXA — Complete Documentation v1.0.0</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d1117;--bg2:#161b22;--bg3:#21262d;--bg4:#30363d;
+  --border:#30363d;--border2:#21262d;
+  --text:#e6edf3;--text2:#8b949e;--text3:#6e7681;
+  --blue:#58a6ff;--blue2:#1f6feb;
+  --green:#3fb950;--green2:#238636;
+  --orange:#d29922;--red:#f85149;--purple:#bc8cff;
+  --cyan:#79c0ff;--yellow:#e3b341;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px;}
+
+/* HEADER */
+.doc-header{
+  background:var(--bg2);border-bottom:2px solid var(--blue2);
+  padding:32px 48px;display:flex;align-items:center;gap:20px;
+  position:sticky;top:0;z-index:100;
+}
+.doc-logo{
+  width:52px;height:52px;border-radius:50%;overflow:hidden;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;flex-shrink:0;
+  border:2px solid rgba(88,166,255,0.4);
+}
+.doc-logo img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.doc-header-text h1{font-size:28px;font-weight:800;color:var(--text);letter-spacing:-0.5px;}
+.doc-header-text h1 span{color:var(--blue);}
+.doc-header-text p{font-size:13px;color:var(--text2);margin-top:2px;font-family:'JetBrains Mono',monospace;}
+.doc-header-right{margin-left:auto;text-align:right;}
+.doc-header-right .ver{font-size:12px;color:var(--blue);font-family:'JetBrains Mono',monospace;background:rgba(88,166,255,0.1);border:1px solid rgba(88,166,255,0.3);padding:3px 10px;border-radius:20px;}
+.doc-header-right .by{font-size:11px;color:var(--text3);margin-top:4px;}
+
+/* LAYOUT */
+.doc-layout{display:flex;min-height:calc(100vh - 100px);}
+
+/* SIDEBAR */
+.doc-sidebar{
+  width:260px;min-width:260px;background:var(--bg2);
+  border-right:1px solid var(--border);position:sticky;
+  top:100px;height:calc(100vh - 100px);overflow-y:auto;padding:16px 0;
+}
+.sb-section{margin-bottom:4px;}
+.sb-title{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase;padding:8px 16px 3px;}
+.sb-link{display:block;padding:5px 16px;color:var(--text2);text-decoration:none;font-size:12px;border-left:2px solid transparent;transition:all 0.15s;}
+.sb-link:hover{color:var(--text);background:rgba(255,255,255,0.03);}
+.sb-link.active{color:var(--blue);background:rgba(88,166,255,0.06);border-left-color:var(--blue);}
+.sb-div{height:1px;background:var(--border);margin:6px 16px;}
+
+/* MAIN CONTENT */
+.doc-main{flex:1;max-width:900px;padding:48px 48px 120px;}
+
+/* COVER */
+.cover{
+  background:linear-gradient(135deg,var(--bg2) 0%,var(--bg3) 100%);
+  border:1px solid var(--border);border-radius:12px;
+  padding:48px;margin-bottom:48px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.cover::before{
+  content:'';position:absolute;top:-100px;right:-100px;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(88,166,255,0.06) 0%,transparent 70%);
+}
+.cover-logo{
+  width:80px;height:80px;border-radius:50%;margin:0 auto 20px;
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:40px;overflow:hidden;
+  border:3px solid rgba(88,166,255,0.4);
+  box-shadow:0 0 40px rgba(88,166,255,0.2);
+}
+.cover-logo img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+.cover h1{font-size:48px;font-weight:800;letter-spacing:-2px;margin-bottom:8px;}
+.cover h1 span{background:linear-gradient(135deg,var(--blue),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.cover-tagline{font-size:18px;color:var(--text2);margin-bottom:6px;}
+.cover-meta{font-size:13px;color:var(--text3);font-family:'JetBrains Mono',monospace;margin-bottom:24px;}
+.cover-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:24px;}
+.cover-pill{background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:500;}
+.cover-install{
+  background:var(--bg3);border:1px solid var(--border);border-radius:8px;
+  padding:12px 20px;display:inline-flex;align-items:center;gap:10px;
+  font-family:'JetBrains Mono',monospace;font-size:13px;cursor:pointer;
+  transition:border-color 0.2s;max-width:560px;width:100%;
+}
+.cover-install:hover{border-color:var(--blue);}
+.ci-dollar{color:var(--green);}
+.ci-cmd{color:var(--text);flex:1;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ci-copy{color:var(--text3);font-size:12px;}
+
+/* TOC */
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0;}
+.toc-item{
+  background:var(--bg2);border:1px solid var(--border);border-radius:6px;
+  padding:10px 14px;text-decoration:none;color:var(--text2);
+  font-size:13px;transition:all 0.15s;display:flex;align-items:center;gap:8px;
+}
+.toc-item:hover{color:var(--blue);border-color:var(--blue2);background:rgba(88,166,255,0.04);}
+.toc-num{color:var(--blue);font-weight:700;font-family:'JetBrains Mono',monospace;font-size:11px;min-width:24px;}
+
+/* SECTIONS */
+.doc-section{margin-bottom:64px;scroll-margin-top:20px;}
+h2.ch{font-size:24px;font-weight:700;color:var(--text);letter-spacing:-0.4px;margin-bottom:4px;display:flex;align-items:center;gap:10px;}
+h2.ch .ch-num{color:var(--blue);font-family:'JetBrains Mono',monospace;font-size:14px;background:rgba(88,166,255,0.1);border:1px solid rgba(88,166,255,0.2);padding:2px 8px;border-radius:4px;}
+.ch-hr{height:1px;background:var(--border);margin:8px 0 20px;}
+h3.sh{font-size:17px;font-weight:600;color:var(--text);margin:24px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border2);}
+h4.sh4{font-size:14px;font-weight:600;color:var(--orange);margin:16px 0 6px;}
+p.para{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:12px;}
+
+/* CODE BLOCKS */
+.cb{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:12px 0;}
+.cb-top{display:flex;align-items:center;padding:7px 14px;background:var(--bg3);border-bottom:1px solid var(--border);gap:8px;}
+.cb-dots{display:flex;gap:5px;}
+.cb-dot{width:10px;height:10px;border-radius:50%;}
+.cdr{background:#ff5f57;}.cdy{background:#febc2e;}.cdg{background:#28c840;}
+.cb-fname{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);}
+.cb-copy{margin-left:auto;background:none;border:1px solid var(--border);color:var(--text3);padding:2px 10px;border-radius:4px;font-size:11px;cursor:pointer;transition:all 0.15s;}
+.cb-copy:hover{border-color:var(--blue);color:var(--blue);}
+.cb pre{padding:16px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.65;color:var(--text2);}
+.kw{color:#ff7b72;font-weight:500;}
+.fn{color:#d2a8ff;}
+.st{color:#a5d6ff;}
+.nu{color:#79c0ff;}
+.cm{color:#6e7681;font-style:italic;}
+.ty{color:#ffa657;}
+.sh-g{color:#3fb950;}
+.sh-d{color:#6e7681;}
+
+/* INLINE CODE */
+code{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:1px 6px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);}
+
+/* TABLES */
+.tw{overflow-x:auto;margin:12px 0;border:1px solid var(--border);border-radius:8px;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead tr{background:var(--bg3);}
+th{padding:8px 14px;text-align:left;font-size:11px;font-weight:600;color:var(--text2);border-bottom:1px solid var(--border);}
+td{padding:8px 14px;border-bottom:1px solid var(--border2);color:var(--text2);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+tr:nth-child(even) td{background:rgba(255,255,255,0.01);}
+tr:hover td{background:rgba(88,166,255,0.03);}
+
+/* BADGES */
+.badge{display:inline-block;padding:1px 8px;border-radius:20px;font-size:11px;font-weight:600;}
+.bb{background:rgba(88,166,255,0.12);color:var(--blue);}
+.bg-g{background:rgba(63,185,80,0.12);color:var(--green);}
+.bo{background:rgba(210,153,34,0.12);color:var(--orange);}
+.bp{background:rgba(188,140,255,0.12);color:var(--purple);}
+
+/* CALLOUTS */
+.note{display:flex;gap:12px;padding:12px 16px;border-radius:8px;margin:14px 0;border:1px solid;}
+.note-i{background:rgba(88,166,255,0.05);border-color:rgba(88,166,255,0.2);}
+.note-t{background:rgba(63,185,80,0.05);border-color:rgba(63,185,80,0.2);}
+.note-w{background:rgba(210,153,34,0.05);border-color:rgba(210,153,34,0.2);}
+.note-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.note-body{font-size:13px;color:var(--text2);line-height:1.6;}
+.note-body strong{color:var(--text);}
+.note-body a{color:var(--blue);text-decoration:none;}
+
+/* FEATURE CARDS */
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin:14px 0;}
+.fc-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px;transition:all 0.2s;}
+.fc-card:hover{border-color:var(--bg4);transform:translateY(-2px);}
+.fc-icon{font-size:20px;margin-bottom:6px;}
+.fc-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.fc-desc{font-size:12px;color:var(--text3);line-height:1.5;}
+
+/* TIMELINE */
+.timeline{margin:16px 0;}
+.tl-item{display:flex;gap:16px;margin-bottom:12px;align-items:flex-start;}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:4px;}
+.tl-date{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);min-width:110px;flex-shrink:0;}
+.tl-text{font-size:13px;color:var(--text2);}
+
+/* INSTALL CARDS */
+.ic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:14px 0;}
+.ic-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px;}
+.ic-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px;}
+.ic-card pre{background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;font-size:11px;color:var(--green);font-family:'JetBrains Mono',monospace;cursor:pointer;transition:border-color 0.15s;line-height:1.5;}
+.ic-card pre:hover{border-color:var(--blue);}
+
+/* EDITOR CARDS */
+.ed-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin:14px 0;}
+.ed-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;transition:all 0.15s;}
+.ed-card:hover{border-color:var(--bg4);}
+.ed-icon{font-size:24px;margin-bottom:6px;}
+.ed-name{font-size:12px;font-weight:600;color:var(--text);}
+.ed-status{font-size:11px;color:var(--green);margin-top:2px;}
+
+/* FOOTER */
+.doc-footer{
+  background:var(--bg2);border-top:1px solid var(--border);
+  padding:24px 48px;display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:12px;
+}
+.doc-footer-l{font-size:13px;color:var(--text3);}
+.doc-footer-l strong{color:var(--text2);}
+.doc-footer-l a{color:var(--blue);text-decoration:none;}
+.doc-footer-r{display:flex;gap:16px;}
+.doc-footer-r a{color:var(--text3);text-decoration:none;font-size:12px;transition:color 0.15s;}
+.doc-footer-r a:hover{color:var(--text);}
+
+/* MOBILE */
+@media(max-width:768px){
+  .doc-sidebar{display:none;}
+  .doc-main{padding:24px 16px 80px;}
+  .toc-grid{grid-template-columns:1fr;}
+  .doc-header{padding:16px;}
+  .cover{padding:24px;}
+  .cover h1{font-size:32px;}
+}
+
+/* PRINT */
+@media print{
+  .doc-sidebar,.doc-header{display:none;}
+  .doc-main{padding:20px;}
+  body{background:#fff;color:#000;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="doc-header">
+  <div class="doc-logo">
+    <img src="logo.png" alt="HOLEXA" onerror="this.parentElement.innerHTML='🐉'">
+  </div>
+  <div class="doc-header-text">
+    <h1><span>HOLEXA</span> Programming Language</h1>
+    <p>Complete Developer Documentation · github.com/HOLEXA-LANG/HOLEXA-LANG</p>
+  </div>
+  <div class="doc-header-right">
+    <div class="ver">v1.0.0</div>
+    <div class="by">by AYUSHGIRI · March 2026</div>
+  </div>
+</header>
+
+<div class="doc-layout">
+
+<!-- SIDEBAR -->
+<aside class="doc-sidebar">
+  <div class="sb-section">
+    <div class="sb-title">Overview</div>
+    <a class="sb-link" href="#cover">Cover</a>
+    <a class="sb-link" href="#toc">Contents</a>
+  </div>
+  <div class="sb-div"></div>
+  <div class="sb-section">
+    <div class="sb-title">Introduction</div>
+    <a class="sb-link" href="#ch1">1. Introduction</a>
+    <a class="sb-link" href="#ch2">2. Story of HOLEXA</a>
+    <a class="sb-link" href="#ch3">3. Installation</a>
+    <a class="sb-link" href="#ch4">4. First Program</a>
+  </div>
+  <div class="sb-div"></div>
+  <div class="sb-section">
+    <div class="sb-title">Language Guide</div>
+    <a class="sb-link" href="#ch5">5. Syntax Overview</a>
+    <a class="sb-link" href="#ch6">6. Variables & Types</a>
+    <a class="sb-link" href="#ch7">7. Functions</a>
+    <a class="sb-link" href="#ch8">8. Control Flow</a>
+    <a class="sb-link" href="#ch9">9. Loops</a>
+    <a class="sb-link" href="#ch10">10. Classes</a>
+    <a class="sb-link" href="#ch11">11. Error Handling</a>
+    <a class="sb-link" href="#ch12">12. Strings</a>
+    <a class="sb-link" href="#ch13">13. Recursion</a>
+  </div>
+  <div class="sb-div"></div>
+  <div class="sb-section">
+    <div class="sb-title">Standard Library</div>
+    <a class="sb-link" href="#ch14">14. Stdlib Overview</a>
+    <a class="sb-link" href="#ch15">15. math</a>
+    <a class="sb-link" href="#ch16">16. string</a>
+    <a class="sb-link" href="#ch17">17. fs</a>
+    <a class="sb-link" href="#ch18">18. http & json</a>
+  </div>
+  <div class="sb-div"></div>
+  <div class="sb-section">
+    <div class="sb-title">Tooling</div>
+    <a class="sb-link" href="#ch19">19. CLI Tools</a>
+    <a class="sb-link" href="#ch20">20. Editor Support</a>
+  </div>
+  <div class="sb-div"></div>
+  <div class="sb-section">
+    <div class="sb-title">Advanced</div>
+    <a class="sb-link" href="#ch21">21. Integration</a>
+    <a class="sb-link" href="#ch22">22. Advanced Examples</a>
+    <a class="sb-link" href="#ch23">23. Quick Reference</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="doc-main">
+
+<!-- COVER -->
+<div id="cover" class="cover">
+  <div class="cover-logo">
+    <img src="logo.png" alt="HOLEXA" onerror="this.parentElement.innerHTML='🐉'">
+  </div>
+  <h1><span>HOLEXA</span></h1>
+  <p class="cover-tagline">Code like a Dragon. Think like a Human.</p>
+  <p class="cover-meta">Complete Developer Documentation · v1.0.0 · March 2026 · by AYUSHGIRI</p>
+  <div class="cover-pills">
+    <span class="cover-pill">⚡ Fast like C</span>
+    <span class="cover-pill">🛡️ Safe like Rust</span>
+    <span class="cover-pill">📖 Readable like Python</span>
+    <span class="cover-pill">🔧 Simple like Go</span>
+    <span class="cover-pill">🌐 Cross Platform</span>
+    <span class="cover-pill">🐉 Self-Hosting</span>
+  </div>
+  <div class="cover-install" onclick="cpText(this,'curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh')">
+    <span class="ci-dollar">$</span>
+    <span class="ci-cmd">curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</span>
+    <span class="ci-copy">⎘ Copy</span>
+  </div>
+</div>
+
+<!-- TOC -->
+<div id="toc" class="doc-section">
+  <h2 class="ch"><span class="ch-num">TOC</span> Table of Contents</h2>
+  <div class="ch-hr"></div>
+  <div class="toc-grid">
+    <a class="toc-item" href="#ch1"><span class="toc-num">01</span> Introduction &amp; Philosophy</a>
+    <a class="toc-item" href="#ch2"><span class="toc-num">02</span> The Story of HOLEXA</a>
+    <a class="toc-item" href="#ch3"><span class="toc-num">03</span> Installation Guide</a>
+    <a class="toc-item" href="#ch4"><span class="toc-num">04</span> Your First Program</a>
+    <a class="toc-item" href="#ch5"><span class="toc-num">05</span> Syntax Overview</a>
+    <a class="toc-item" href="#ch6"><span class="toc-num">06</span> Variables &amp; Types</a>
+    <a class="toc-item" href="#ch7"><span class="toc-num">07</span> Functions</a>
+    <a class="toc-item" href="#ch8"><span class="toc-num">08</span> Control Flow</a>
+    <a class="toc-item" href="#ch9"><span class="toc-num">09</span> Loops</a>
+    <a class="toc-item" href="#ch10"><span class="toc-num">10</span> Classes &amp; Objects</a>
+    <a class="toc-item" href="#ch11"><span class="toc-num">11</span> Error Handling</a>
+    <a class="toc-item" href="#ch12"><span class="toc-num">12</span> Strings &amp; Conversion</a>
+    <a class="toc-item" href="#ch13"><span class="toc-num">13</span> Recursion</a>
+    <a class="toc-item" href="#ch14"><span class="toc-num">14</span> Standard Library</a>
+    <a class="toc-item" href="#ch15"><span class="toc-num">15</span> math Library</a>
+    <a class="toc-item" href="#ch16"><span class="toc-num">16</span> string Library</a>
+    <a class="toc-item" href="#ch17"><span class="toc-num">17</span> fs Library</a>
+    <a class="toc-item" href="#ch18"><span class="toc-num">18</span> http &amp; json</a>
+    <a class="toc-item" href="#ch19"><span class="toc-num">19</span> CLI Tools</a>
+    <a class="toc-item" href="#ch20"><span class="toc-num">20</span> Editor Support</a>
+    <a class="toc-item" href="#ch21"><span class="toc-num">21</span> Integration Guide</a>
+    <a class="toc-item" href="#ch22"><span class="toc-num">22</span> Advanced Examples</a>
+    <a class="toc-item" href="#ch23"><span class="toc-num">23</span> Quick Reference</a>
+  </div>
+</div>
+
+<!-- CH1: INTRODUCTION -->
+<div id="ch1" class="doc-section">
+  <h2 class="ch"><span class="ch-num">01</span> Introduction &amp; Philosophy</h2>
+  <div class="ch-hr"></div>
+  <p class="para">HOLEXA is a modern, open-source programming language designed from the ground up to be fast, safe, readable, and simple. It combines the best ideas from the world's most successful languages into one cohesive, powerful tool for developers of all levels.</p>
+  <p class="para">HOLEXA was built with one core belief: <strong>programming should be powerful without being painful.</strong> Every feature exists to help you write better code faster, with fewer bugs and more clarity.</p>
+
+  <h3 class="sh">Design Goals</h3>
+  <div class="fc-grid">
+    <div class="fc-card"><div class="fc-icon">⚡</div><div class="fc-title">Fast like C</div><div class="fc-desc">Compiled to native code. Zero overhead runtime. Performance-critical applications run at full speed.</div></div>
+    <div class="fc-card"><div class="fc-icon">🛡️</div><div class="fc-title">Safe like Rust</div><div class="fc-desc">Memory safety guaranteed. No null pointer crashes, no buffer overflows, no undefined behavior.</div></div>
+    <div class="fc-card"><div class="fc-icon">📖</div><div class="fc-title">Readable like Python</div><div class="fc-desc">Clean, expressive syntax. Code reads like English. Easy to learn, easy to maintain.</div></div>
+    <div class="fc-card"><div class="fc-icon">🔧</div><div class="fc-title">Simple like Go</div><div class="fc-desc">Minimal complexity. One obvious way to do things. Fast compilation. Clear error messages.</div></div>
+    <div class="fc-card"><div class="fc-icon">🌐</div><div class="fc-title">Cross Platform</div><div class="fc-desc">Linux, macOS, Windows, iPad. Write once, run everywhere with no changes.</div></div>
+    <div class="fc-card"><div class="fc-icon">🐉</div><div class="fc-title">Self-Hosting</div><div class="fc-desc">The HOLEXA compiler is written in HOLEXA itself — a mark of a mature, complete language.</div></div>
+  </div>
+
+  <h3 class="sh">Who is HOLEXA for?</h3>
+  <p class="para">HOLEXA is designed for developers who want a language that is both powerful and approachable. Whether you are a beginner learning programming for the first time, or an experienced developer building production systems, HOLEXA scales with your needs.</p>
+  <div class="note note-t">
+    <span class="note-icon">💡</span>
+    <div class="note-body"><strong>If you know Python</strong>, you already know most of HOLEXA's syntax. The transition is smooth and natural.</div>
+  </div>
+</div>
+
+<!-- CH2: STORY -->
+<div id="ch2" class="doc-section">
+  <h2 class="ch"><span class="ch-num">02</span> The Story of HOLEXA</h2>
+  <div class="ch-hr"></div>
+  <p class="para">Every great programming language has an origin story. HOLEXA's story begins with one developer's frustration and one powerful vision.</p>
+
+  <h3 class="sh">The Journey</h3>
+  <p class="para">The creator, AYUSHGIRI, tried many programming languages before building HOLEXA:</p>
+  <div class="tw"><table>
+    <thead><tr><th>Language</th><th>What was good</th><th>What was frustrating</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Python</strong></td><td>Readable, friendly, easy to learn</td><td>Slow for performance-critical work</td></tr>
+      <tr><td><strong>C</strong></td><td>Blazing fast, full control</td><td>Memory crashes, unsafe, hard to debug</td></tr>
+      <tr><td><strong>Rust</strong></td><td>Safe and fast</td><td>Extremely steep learning curve</td></tr>
+      <tr><td><strong>Go</strong></td><td>Simple, clean, fast compilation</td><td>Limitations for ambitious projects</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note note-i" style="margin:16px 0">
+    <span class="note-icon">💭</span>
+    <div class="note-body">"Why does every language solve some problems but create new ones? What if I built my own language — one that has it all?" — AYUSHGIRI, Creator of HOLEXA</div>
+  </div>
+
+  <h3 class="sh">Development Timeline</h3>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">March 15, 2026</div><div class="tl-text">Project started — Language design and specification. 25 language features defined.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">March 16, 2026</div><div class="tl-text">First compiler built in C (hlxc). Lexer, Parser, and AST complete.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">March 17, 2026</div><div class="tl-text">Semantic analysis, Interpreter running. First programs executed successfully.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">March 17, 2026</div><div class="tl-text">Standard Library with 15+ libraries. Package Manager (hlxpm) complete.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">March 18, 2026</div><div class="tl-text">Documentation complete. Editor support for 7 editors. All tests passing — zero errors.</div></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">March 18, 2026</div><div class="tl-text">Self-hosting achieved — HOLEXA compiler written in HOLEXA itself.</div></div>
+    <div class="tl-item"><div class="tl-dot" style="background:var(--blue)"></div><div class="tl-date" style="color:var(--blue)">March 18, 2026</div><div class="tl-text" style="color:var(--text)"><strong>🎉 HOLEXA v1.0.0 — Official Public Release!</strong></div></div>
+  </div>
+
+  <div class="note note-w">
+    <span class="note-icon">📱</span>
+    <div class="note-body"><strong>Built on iPad</strong> — HOLEXA was built 100% on a normal iPad using iSH Shell. No MacBook, no PC, no expensive setup. A full compiler, package manager, 15+ libraries, and editor support for 7 editors — all built on an iPad. <em>"If you have an idea, your device doesn't matter. Your determination does."</em></div>
+  </div>
+</div>
+
+<!-- CH3: INSTALLATION -->
+<div id="ch3" class="doc-section">
+  <h2 class="ch"><span class="ch-num">03</span> Installation Guide</h2>
+  <div class="ch-hr"></div>
+  <p class="para">HOLEXA can be installed on any major platform with a single command. The installer automatically downloads, compiles, and sets up everything you need.</p>
+
+  <div class="note note-t">
+    <span class="note-icon">⚡</span>
+    <div class="note-body"><strong>One command installs everything:</strong> compiler (hlxc), package manager (hlxpm), formatter (hlxfmt), linter (hlxlint), and VS Code extension.</div>
+  </div>
+
+  <div class="ic-grid">
+    <div class="ic-card"><div class="ic-title">🐧 Linux</div><pre onclick="cpPre(this)">curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</pre></div>
+    <div class="ic-card"><div class="ic-title">🍎 macOS</div><pre onclick="cpPre(this)">curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</pre></div>
+    <div class="ic-card"><div class="ic-title">📱 iPad (iSH)</div><pre onclick="cpPre(this)">apk add curl git gcc make
+curl -fsSL .../install.sh | sh</pre></div>
+    <div class="ic-card"><div class="ic-title">🪟 Windows (WSL)</div><pre onclick="cpPre(this)">wsl --install
+# Restart computer
+# Open Ubuntu, then run Linux command</pre></div>
+  </div>
+
+  <h3 class="sh">Step-by-Step: Linux / macOS</h3>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">bash</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="sh-d"># Step 1: Install dependencies (if needed)</span>
+<span class="sh-d"># Ubuntu/Debian:</span>
+<span class="sh-g">sudo apt-get update && sudo apt-get install -y git gcc make curl</span>
+<span class="sh-d"># macOS:</span>
+<span class="sh-g">xcode-select --install</span>
+
+<span class="sh-d"># Step 2: Run the installer</span>
+<span class="sh-g">curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</span>
+
+<span class="sh-d"># Step 3: Verify installation</span>
+<span class="sh-g">hlxc --version</span>
+<span class="sh-d"># Should show: HOLEXA Compiler v1.0.0</span></pre>
+  </div>
+
+  <h3 class="sh">Step-by-Step: Windows</h3>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">PowerShell (Administrator)</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="sh-d"># Step 1: Open PowerShell as Administrator</span>
+<span class="sh-d"># Step 2: Install WSL</span>
+<span class="sh-g">wsl --install</span>
+
+<span class="sh-d"># Step 3: Restart your computer</span>
+
+<span class="sh-d"># Step 4: Open Ubuntu from Start Menu</span>
+
+<span class="sh-d"># Step 5: Run the Linux install command inside Ubuntu</span>
+<span class="sh-g">curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</span></pre>
+  </div>
+
+  <h3 class="sh">Step-by-Step: iPad (iSH Shell)</h3>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">iSH Shell</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="sh-d"># Step 1: Install iSH Shell from App Store</span>
+
+<span class="sh-d"># Step 2: Install build tools</span>
+<span class="sh-g">apk update && apk add curl git gcc make python3</span>
+
+<span class="sh-d"># Step 3: Run installer</span>
+<span class="sh-g">curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</span>
+
+<span class="sh-d"># Step 4: Verify</span>
+<span class="sh-g">hlxc --version</span></pre>
+  </div>
+
+  <h3 class="sh">Manual Install from Source</h3>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">bash</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="sh-g">git clone https://github.com/HOLEXA-LANG/HOLEXA-LANG.git</span>
+<span class="sh-g">cd HOLEXA-LANG/compiler</span>
+<span class="sh-g">make clean && make</span>
+<span class="sh-g">sudo cp hlxc /usr/local/bin/hlxc</span>
+<span class="sh-g">sudo cp ../package-manager/hlxpm /usr/local/bin/hlxpm</span>
+<span class="sh-g">sudo cp ../tools/hlxfmt/hlxfmt /usr/local/bin/hlxfmt</span>
+<span class="sh-g">sudo cp ../tools/hlxlint/hlxlint /usr/local/bin/hlxlint</span>
+<span class="sh-g">hlxc --version</span></pre>
+  </div>
+
+  <h3 class="sh">Common Errors &amp; Fixes</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Error</th><th>Cause</th><th>Fix</th></tr></thead>
+    <tbody>
+      <tr><td><code>hlxc: command not found</code></td><td>PATH not updated</td><td>Run: <code>export PATH=$PATH:/usr/local/bin</code></td></tr>
+      <tr><td><code>gcc not found</code></td><td>Build tools missing</td><td><code>apt install gcc</code> or <code>apk add gcc</code></td></tr>
+      <tr><td><code>Permission denied</code></td><td>Missing sudo</td><td>Add <code>sudo</code> before <code>cp</code> command</td></tr>
+      <tr><td><code>make: error</code></td><td>Missing make tool</td><td><code>apt install make</code></td></tr>
+      <tr><td><code>Parse failed</code></td><td>Syntax error in code</td><td>Check for missing <code>{ }</code> or <code>fn</code> keyword</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<!-- CH4: FIRST PROGRAM -->
+<div id="ch4" class="doc-section">
+  <h2 class="ch"><span class="ch-num">04</span> Your First Program</h2>
+  <div class="ch-hr"></div>
+  <p class="para">Once HOLEXA is installed, you can write and run programs immediately. HOLEXA programs use the <code>.hlx</code> file extension.</p>
+
+  <h4 class="sh4">Step 1 — Create a file</h4>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">bash</span></div>
+    <pre><span class="sh-g">nano hello.hlx</span>
+<span class="sh-d"># Or: code hello.hlx (VS Code)</span>
+<span class="sh-d"># Or: vim hello.hlx</span></pre>
+  </div>
+
+  <h4 class="sh4">Step 2 — Write your code</h4>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">hello.hlx</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="cm">// My first HOLEXA program</span>
+<span class="kw">fn</span> <span class="fn">main</span>() {
+    <span class="fn">print</span>(<span class="st">"Hello, World!"</span>)
+    <span class="fn">print</span>(<span class="st">"Code like a Dragon!"</span>)
+}</pre>
+  </div>
+
+  <h4 class="sh4">Step 3 — Run it</h4>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">Terminal</span></div>
+    <pre><span class="sh-g">hlxc run hello.hlx</span>
+
+<span class="sh-d"># Output:</span>
+<span class="sh-d"># Hello, World!</span>
+<span class="sh-d"># Code like a Dragon!</span></pre>
+  </div>
+
+  <div class="note note-t">
+    <span class="note-icon">🎉</span>
+    <div class="note-body"><strong>You just ran your first HOLEXA program!</strong> Now explore the rest of this guide to learn the full language.</div>
+  </div>
+</div>
+
+<!-- CH5: SYNTAX -->
+<div id="ch5" class="doc-section">
+  <h2 class="ch"><span class="ch-num">05</span> Syntax Overview</h2>
+  <div class="ch-hr"></div>
+  <p class="para">HOLEXA has a clean, expressive syntax inspired by Python, Go, and Rust. If you know Python, you already know most of HOLEXA.</p>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">overview.hlx</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="cm">// Variables</span>
+<span class="kw">let</span>   name   = <span class="st">"HOLEXA"</span>
+<span class="kw">let</span>   count  = <span class="nu">42</span>
+<span class="kw">let</span>   pi     = <span class="nu">3.14</span>
+<span class="kw">let</span>   active = <span class="kw">true</span>
+<span class="kw">const</span> MAX    = <span class="nu">100</span>
+
+<span class="cm">// Function</span>
+<span class="kw">fn</span> <span class="fn">add</span>(a: <span class="ty">Int</span>, b: <span class="ty">Int</span>) -> <span class="ty">Int</span> {
+    <span class="kw">return</span> a + b
+}
+
+<span class="cm">// Class</span>
+<span class="kw">class</span> <span class="ty">Dragon</span> {
+    name:  <span class="ty">String</span>
+    power: <span class="ty">Int</span>
+}
+
+<span class="cm">// Loops</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="nu">0</span>..<span class="nu">10</span> { <span class="fn">print</span>(<span class="fn">str</span>(i)) }
+<span class="kw">while</span> active   { <span class="fn">print</span>(<span class="st">"running"</span>) }
+
+<span class="cm">// Error handling</span>
+<span class="kw">try</span> {
+    <span class="fn">print</span>(<span class="st">"safe code"</span>)
+} <span class="kw">catch</span> err {
+    <span class="fn">print</span>(err)
+}</pre>
+  </div>
+</div>
+
+<!-- CH6: VARIABLES -->
+<div id="ch6" class="doc-section">
+  <h2 class="ch"><span class="ch-num">06</span> Variables &amp; Types</h2>
+  <div class="ch-hr"></div>
+  <p class="para">HOLEXA is statically typed with full type inference. You declare variables with <code>let</code> (mutable) or <code>const</code> (immutable).</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Type</th><th>Keyword</th><th>Example</th><th>Size</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge bb">Int</span></td><td>Int</td><td>let x = 42</td><td>64-bit</td><td>Integer number</td></tr>
+      <tr><td><span class="badge bb">Float</span></td><td>Float</td><td>let f = 3.14</td><td>64-bit</td><td>Decimal number</td></tr>
+      <tr><td><span class="badge bg-g">String</span></td><td>String</td><td>let s = "hello"</td><td>Dynamic</td><td>UTF-8 text</td></tr>
+      <tr><td><span class="badge bo">Bool</span></td><td>Bool</td><td>let b = true</td><td>1-bit</td><td>true or false</td></tr>
+      <tr><td><span class="badge bp">None</span></td><td>None</td><td>let n = none</td><td>N/A</td><td>No value (null)</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">variables.hlx</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="kw">fn</span> <span class="fn">main</span>() {
+    <span class="kw">let</span> x     = <span class="nu">42</span>          <span class="cm">// Int</span>
+    <span class="kw">let</span> name  = <span class="st">"Dragon"</span>    <span class="cm">// String</span>
+    <span class="kw">let</span> pi    = <span class="nu">3.14159</span>    <span class="cm">// Float</span>
+    <span class="kw">let</span> flag  = <span class="kw">true</span>        <span class="cm">// Bool</span>
+    <span class="kw">const</span> MAX = <span class="nu">100</span>         <span class="cm">// Cannot reassign</span>
+
+    <span class="cm">// Reassignment (only for let)</span>
+    x = x + <span class="nu">1</span>             <span class="cm">// x is now 43</span>
+
+    <span class="cm">// String concatenation with +</span>
+    <span class="kw">let</span> msg = <span class="st">"Hello "</span> + name + <span class="st">"!"</span>
+    <span class="fn">print</span>(msg)             <span class="cm">// Hello Dragon!</span>
+
+    <span class="cm">// Operators</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(<span class="nu">10</span> + <span class="nu">5</span>))    <span class="cm">// 15</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(<span class="nu">10</span> - <span class="nu">3</span>))    <span class="cm">// 7</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(<span class="nu">4</span> * <span class="nu">5</span>))     <span class="cm">// 20</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(<span class="nu">10</span> / <span class="nu">3</span>))    <span class="cm">// 3 (integer)</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(<span class="nu">10</span> % <span class="nu">3</span>))    <span class="cm">// 1 (remainder)</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(<span class="nu">2</span> ** <span class="nu">10</span>))   <span class="cm">// 1024 (power)</span>
+}</pre>
+  </div>
+</div>
+
+<!-- CH7: FUNCTIONS -->
+<div id="ch7" class="doc-section">
+  <h2 class="ch"><span class="ch-num">07</span> Functions</h2>
+  <div class="ch-hr"></div>
+  <p class="para">Functions are defined with the <code>fn</code> keyword. They support type annotations, return types, multiple parameters, and full recursion.</p>
+
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">functions.hlx</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="cm">// Basic function — returns a String</span>
+<span class="kw">fn</span> <span class="fn">greet</span>(name: <span class="ty">String</span>) -> <span class="ty">String</span> {
+    <span class="kw">return</span> <span class="st">"Hello "</span> + name + <span class="st">"!"</span>
+}
+
+<span class="cm">// Multiple parameters</span>
+<span class="kw">fn</span> <span class="fn">add</span>(a: <span class="ty">Int</span>, b: <span class="ty">Int</span>) -> <span class="ty">Int</span> {
+    <span class="kw">return</span> a + b
+}
+
+<span class="cm">// Boolean return value</span>
+<span class="kw">fn</span> <span class="fn">is_even</span>(n: <span class="ty">Int</span>) -> <span class="ty">Bool</span> {
+    <span class="kw">if</span> n % <span class="nu">2</span> == <span class="nu">0</span> { <span class="kw">return</span> <span class="kw">true</span> }
+    <span class="kw">return</span> <span class="kw">false</span>
+}
+
+<span class="cm">// No return value (void)</span>
+<span class="kw">fn</span> <span class="fn">log</span>(msg: <span class="ty">String</span>) {
+    <span class="fn">print</span>(<span class="st">"[LOG] "</span> + msg)
+}
+
+<span class="cm">// Recursive function</span>
+<span class="kw">fn</span> <span class="fn">factorial</span>(n: <span class="ty">Int</span>) -> <span class="ty">Int</span> {
+    <span class="kw">if</span> n <= <span class="nu">1</span> { <span class="kw">return</span> <span class="nu">1</span> }
+    <span class="kw">return</span> n * <span class="fn">factorial</span>(n - <span class="nu">1</span>)
+}
+
+<span class="kw">fn</span> <span class="fn">main</span>() {
+    <span class="fn">print</span>(<span class="fn">greet</span>(<span class="st">"Dragon"</span>))           <span class="cm">// Hello Dragon!</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(<span class="fn">add</span>(<span class="nu">10</span>, <span class="nu">20</span>)))          <span class="cm">// 30</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(<span class="fn">is_even</span>(<span class="nu">4</span>)))          <span class="cm">// true</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(<span class="fn">is_even</span>(<span class="nu">7</span>)))          <span class="cm">// false</span>
+    <span class="fn">log</span>(<span class="st">"Program started"</span>)           <span class="cm">// [LOG] Program started</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(<span class="fn">factorial</span>(<span class="nu">5</span>)))        <span class="cm">// 120</span>
+}</pre>
+  </div>
+</div>
+
+<!-- CH8: CONTROL FLOW -->
+<div id="ch8" class="doc-section">
+  <h2 class="ch"><span class="ch-num">08</span> Control Flow</h2>
+  <div class="ch-hr"></div>
+  <p class="para">HOLEXA supports complete conditional control with if, else if, and else blocks.</p>
+
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">control.hlx</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="kw">fn</span> <span class="fn">grade</span>(score: <span class="ty">Int</span>) -> <span class="ty">String</span> {
+    <span class="kw">if</span> score >= <span class="nu">90</span> {
+        <span class="kw">return</span> <span class="st">"A+"</span>
+    } <span class="kw">else if</span> score >= <span class="nu">80</span> {
+        <span class="kw">return</span> <span class="st">"A"</span>
+    } <span class="kw">else if</span> score >= <span class="nu">70</span> {
+        <span class="kw">return</span> <span class="st">"B"</span>
+    } <span class="kw">else if</span> score >= <span class="nu">60</span> {
+        <span class="kw">return</span> <span class="st">"C"</span>
+    } <span class="kw">else</span> {
+        <span class="kw">return</span> <span class="st">"F"</span>
+    }
+}
+
+<span class="kw">fn</span> <span class="fn">main</span>() {
+    <span class="fn">print</span>(<span class="fn">grade</span>(<span class="nu">95</span>))   <span class="cm">// A+</span>
+    <span class="fn">print</span>(<span class="fn">grade</span>(<span class="nu">75</span>))   <span class="cm">// B</span>
+    <span class="fn">print</span>(<span class="fn">grade</span>(<span class="nu">45</span>))   <span class="cm">// F</span>
+
+    <span class="cm">// Logical operators</span>
+    <span class="kw">let</span> x = <span class="nu">42</span>
+    <span class="kw">if</span> x > <span class="nu">10</span> <span class="kw">and</span> x < <span class="nu">100</span> {
+        <span class="fn">print</span>(<span class="st">"x is between 10 and 100"</span>)
+    }
+
+    <span class="kw">if</span> x < <span class="nu">0</span> <span class="kw">or</span> x > <span class="nu">1000</span> {
+        <span class="fn">print</span>(<span class="st">"x is out of range"</span>)
+    } <span class="kw">else</span> {
+        <span class="fn">print</span>(<span class="st">"x is in range"</span>)
+    }
+
+    <span class="kw">if</span> <span class="kw">not</span> (x == <span class="nu">0</span>) {
+        <span class="fn">print</span>(<span class="st">"x is not zero"</span>)
+    }
+}</pre>
+  </div>
+</div>
+
+<!-- CH9: LOOPS -->
+<div id="ch9" class="doc-section">
+  <h2 class="ch"><span class="ch-num">09</span> Loops</h2>
+  <div class="ch-hr"></div>
+
+  <h3 class="sh">for Loop (Range-based)</h3>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">loops.hlx</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="kw">fn</span> <span class="fn">main</span>() {
+    <span class="cm">// Basic for loop — 0 to 4 (end is exclusive)</span>
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="nu">0</span>..<span class="nu">5</span> {
+        <span class="fn">print</span>(<span class="st">"i = "</span> + <span class="fn">str</span>(i))
+    }
+
+    <span class="cm">// Sum 1 to 100</span>
+    <span class="kw">let</span> sum = <span class="nu">0</span>
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="nu">1</span>..<span class="nu">101</span> {
+        sum = sum + i
+    }
+    <span class="fn">print</span>(<span class="st">"Sum = "</span> + <span class="fn">str</span>(sum))   <span class="cm">// 5050</span>
+
+    <span class="cm">// Nested loops — multiplication table</span>
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="nu">1</span>..<span class="nu">4</span> {
+        <span class="kw">for</span> j <span class="kw">in</span> <span class="nu">1</span>..<span class="nu">4</span> {
+            <span class="fn">print</span>(<span class="fn">str</span>(i) + <span class="st">" x "</span> + <span class="fn">str</span>(j) + <span class="st">" = "</span> + <span class="fn">str</span>(i * j))
+        }
+    }
+
+    <span class="cm">// while loop</span>
+    <span class="kw">let</span> x = <span class="nu">0</span>
+    <span class="kw">while</span> x < <span class="nu">5</span> {
+        <span class="fn">print</span>(<span class="st">"x = "</span> + <span class="fn">str</span>(x))
+        x = x + <span class="nu">1</span>
+    }
+
+    <span class="cm">// Countdown</span>
+    <span class="kw">let</span> n = <span class="nu">5</span>
+    <span class="kw">while</span> n > <span class="nu">0</span> {
+        <span class="fn">print</span>(<span class="fn">str</span>(n) + <span class="st">"..."</span>)
+        n = n - <span class="nu">1</span>
+    }
+    <span class="fn">print</span>(<span class="st">"Blastoff!"</span>)
+}</pre>
+  </div>
+</div>
+
+<!-- CH10: CLASSES -->
+<div id="ch10" class="doc-section">
+  <h2 class="ch"><span class="ch-num">10</span> Classes &amp; Objects</h2>
+  <div class="ch-hr"></div>
+  <p class="para">HOLEXA supports full object-oriented programming with classes, fields, methods, and the <code>self</code> keyword.</p>
+
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">classes.hlx</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="kw">class</span> <span class="ty">Dragon</span> {
+    name:   <span class="ty">String</span>
+    power:  <span class="ty">Int</span>
+    alive:  <span class="ty">Bool</span>
+
+    <span class="cm">// Constructor method</span>
+    <span class="kw">fn</span> <span class="fn">new</span>(name: <span class="ty">String</span>, power: <span class="ty">Int</span>) -> <span class="ty">Dragon</span> {
+        <span class="kw">return</span> Dragon {
+            name:  name,
+            power: power,
+            alive: <span class="kw">true</span>
+        }
+    }
+
+    <span class="cm">// Method using self to access fields</span>
+    <span class="kw">fn</span> <span class="fn">roar</span>(<span class="kw">self</span>) -> <span class="ty">String</span> {
+        <span class="kw">return</span> <span class="kw">self</span>.name + <span class="st">" ROARS with power "</span> + <span class="fn">str</span>(<span class="kw">self</span>.power) + <span class="st">"!"</span>
+    }
+
+    <span class="kw">fn</span> <span class="fn">is_legendary</span>(<span class="kw">self</span>) -> <span class="ty">Bool</span> {
+        <span class="kw">return</span> <span class="kw">self</span>.power > <span class="nu">9000</span>
+    }
+
+    <span class="kw">fn</span> <span class="fn">describe</span>(<span class="kw">self</span>) -> <span class="ty">String</span> {
+        <span class="kw">return</span> <span class="st">"Dragon["</span> + <span class="kw">self</span>.name + <span class="st">", power="</span> + <span class="fn">str</span>(<span class="kw">self</span>.power) + <span class="st">"]"</span>
+    }
+}
+
+<span class="kw">fn</span> <span class="fn">main</span>() {
+    <span class="kw">let</span> d = Dragon.<span class="fn">new</span>(<span class="st">"HOLEXA"</span>, <span class="nu">9999</span>)
+    <span class="fn">print</span>(d.<span class="fn">roar</span>())                       <span class="cm">// HOLEXA ROARS with power 9999!</span>
+    <span class="fn">print</span>(d.<span class="fn">describe</span>())                   <span class="cm">// Dragon[HOLEXA, power=9999]</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(d.<span class="fn">is_legendary</span>()))           <span class="cm">// true</span>
+
+    <span class="kw">let</span> d2 = Dragon.<span class="fn">new</span>(<span class="st">"Fire"</span>, <span class="nu">5000</span>)
+    <span class="fn">print</span>(d2.<span class="fn">roar</span>())                      <span class="cm">// Fire ROARS with power 5000!</span>
+}</pre>
+  </div>
+</div>
+
+<!-- CH11: ERRORS -->
+<div id="ch11" class="doc-section">
+  <h2 class="ch"><span class="ch-num">11</span> Error Handling</h2>
+  <div class="ch-hr"></div>
+  <p class="para">HOLEXA uses try/catch for safe error handling. Programs never crash silently — all errors are catchable.</p>
+
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">errors.hlx</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="kw">fn</span> <span class="fn">divide</span>(a: <span class="ty">Int</span>, b: <span class="ty">Int</span>) -> <span class="ty">Int</span> {
+    <span class="kw">if</span> b == <span class="nu">0</span> {
+        <span class="fn">print</span>(<span class="st">"[ERROR] Division by zero!"</span>)
+        <span class="kw">return</span> <span class="nu">0</span>
+    }
+    <span class="kw">return</span> a / b
+}
+
+<span class="kw">fn</span> <span class="fn">main</span>() {
+    <span class="cm">// try/catch block</span>
+    <span class="kw">try</span> {
+        <span class="fn">print</span>(<span class="fn">str</span>(<span class="fn">divide</span>(<span class="nu">10</span>, <span class="nu">2</span>)))   <span class="cm">// 5</span>
+        <span class="fn">print</span>(<span class="fn">str</span>(<span class="fn">divide</span>(<span class="nu">10</span>, <span class="nu">0</span>)))   <span class="cm">// [ERROR] + 0</span>
+        <span class="fn">print</span>(<span class="st">"Code continues!"</span>)
+    } <span class="kw">catch</span> err {
+        <span class="fn">print</span>(<span class="st">"Caught: "</span> + err)
+    }
+
+    <span class="cm">// Nested try/catch</span>
+    <span class="kw">try</span> {
+        <span class="kw">try</span> {
+            <span class="fn">print</span>(<span class="st">"inner try"</span>)
+        } <span class="kw">catch</span> inner_err {
+            <span class="fn">print</span>(<span class="st">"inner catch: "</span> + inner_err)
+        }
+        <span class="fn">print</span>(<span class="st">"outer try continues"</span>)
+    } <span class="kw">catch</span> outer_err {
+        <span class="fn">print</span>(<span class="st">"outer catch: "</span> + outer_err)
+    }
+
+    <span class="fn">print</span>(<span class="st">"Program completed!"</span>)
+}</pre>
+  </div>
+</div>
+
+<!-- CH12: STRINGS -->
+<div id="ch12" class="doc-section">
+  <h2 class="ch"><span class="ch-num">12</span> Strings &amp; Type Conversion</h2>
+  <div class="ch-hr"></div>
+  <div class="tw"><table>
+    <thead><tr><th>Function</th><th>Input</th><th>Returns</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td><code>str(n)</code></td><td>Any</td><td>String</td><td>str(42) → "42"</td></tr>
+      <tr><td><code>int(s)</code></td><td>String/Float</td><td>Int</td><td>int("42") → 42</td></tr>
+      <tr><td><code>float(s)</code></td><td>String/Int</td><td>Float</td><td>float("3.14") → 3.14</td></tr>
+      <tr><td><code>len(s)</code></td><td>String</td><td>Int</td><td>len("hello") → 5</td></tr>
+      <tr><td><code>abs(n)</code></td><td>Number</td><td>Number</td><td>abs(-5) → 5</td></tr>
+      <tr><td><code>sqrt(n)</code></td><td>Number</td><td>Float</td><td>sqrt(16) → 4.0</td></tr>
+      <tr><td><code>type(v)</code></td><td>Any</td><td>String</td><td>type(42) → "Int"</td></tr>
+      <tr><td><code>a + b</code></td><td>String</td><td>String</td><td>"Hi" + "!" → "Hi!"</td></tr>
+    </tbody>
+  </table></div>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">strings.hlx</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="kw">fn</span> <span class="fn">main</span>() {
+    <span class="kw">let</span> s = <span class="st">"Hello HOLEXA"</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(<span class="fn">len</span>(s)))         <span class="cm">// 12</span>
+
+    <span class="cm">// Concatenation</span>
+    <span class="kw">let</span> result = <span class="st">""</span>
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="nu">0</span>..<span class="nu">5</span> {
+        result = result + <span class="fn">str</span>(i) + <span class="st">" "</span>
+    }
+    <span class="fn">print</span>(result)              <span class="cm">// 0 1 2 3 4</span>
+
+    <span class="cm">// Type conversion</span>
+    <span class="kw">let</span> n   = <span class="fn">int</span>(<span class="st">"42"</span>)
+    <span class="kw">let</span> f   = <span class="fn">float</span>(<span class="st">"3.14"</span>)
+    <span class="kw">let</span> ns  = <span class="fn">str</span>(<span class="nu">42</span>)
+    <span class="fn">print</span>(<span class="fn">str</span>(n * <span class="nu">2</span>))          <span class="cm">// 84</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(f * <span class="nu">2</span>))          <span class="cm">// 6.28</span>
+    <span class="fn">print</span>(<span class="st">"Number: "</span> + ns)      <span class="cm">// Number: 42</span>
+}</pre>
+  </div>
+</div>
+
+<!-- CH13: RECURSION -->
+<div id="ch13" class="doc-section">
+  <h2 class="ch"><span class="ch-num">13</span> Recursion</h2>
+  <div class="ch-hr"></div>
+  <p class="para">HOLEXA fully supports recursive functions. No special syntax needed — just call the function within itself.</p>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">recursion.hlx</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="kw">fn</span> <span class="fn">factorial</span>(n: <span class="ty">Int</span>) -> <span class="ty">Int</span> {
+    <span class="kw">if</span> n <= <span class="nu">1</span> { <span class="kw">return</span> <span class="nu">1</span> }
+    <span class="kw">return</span> n * <span class="fn">factorial</span>(n - <span class="nu">1</span>)
+}
+
+<span class="kw">fn</span> <span class="fn">fibonacci</span>(n: <span class="ty">Int</span>) -> <span class="ty">Int</span> {
+    <span class="kw">if</span> n <= <span class="nu">1</span> { <span class="kw">return</span> n }
+    <span class="kw">return</span> <span class="fn">fibonacci</span>(n - <span class="nu">1</span>) + <span class="fn">fibonacci</span>(n - <span class="nu">2</span>)
+}
+
+<span class="kw">fn</span> <span class="fn">power</span>(base: <span class="ty">Int</span>, exp: <span class="ty">Int</span>) -> <span class="ty">Int</span> {
+    <span class="kw">if</span> exp == <span class="nu">0</span> { <span class="kw">return</span> <span class="nu">1</span> }
+    <span class="kw">return</span> base * <span class="fn">power</span>(base, exp - <span class="nu">1</span>)
+}
+
+<span class="kw">fn</span> <span class="fn">main</span>() {
+    <span class="fn">print</span>(<span class="st">"Factorials:"</span>)
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="nu">1</span>..<span class="nu">8</span> {
+        <span class="fn">print</span>(<span class="fn">str</span>(i) + <span class="st">"! = "</span> + <span class="fn">str</span>(<span class="fn">factorial</span>(i)))
+    }
+    <span class="fn">print</span>(<span class="st">"Fibonacci:"</span>)
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="nu">0</span>..<span class="nu">10</span> {
+        <span class="fn">print</span>(<span class="st">"fib("</span> + <span class="fn">str</span>(i) + <span class="st">") = "</span> + <span class="fn">str</span>(<span class="fn">fibonacci</span>(i)))
+    }
+    <span class="fn">print</span>(<span class="st">"Powers: 2^10 = "</span> + <span class="fn">str</span>(<span class="fn">power</span>(<span class="nu">2</span>, <span class="nu">10</span>)))
+}</pre>
+  </div>
+</div>
+
+<!-- CH14: STDLIB -->
+<div id="ch14" class="doc-section">
+  <h2 class="ch"><span class="ch-num">14</span> Standard Library Overview</h2>
+  <div class="ch-hr"></div>
+  <div class="tw"><table>
+    <thead><tr><th>Library</th><th>Import</th><th>Count</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge bb">math</span></td><td>import math</td><td>12+</td><td>Math functions and constants</td></tr>
+      <tr><td><span class="badge bg-g">string</span></td><td>import string</td><td>20+</td><td>Advanced string manipulation</td></tr>
+      <tr><td><span class="badge bo">fs</span></td><td>import fs</td><td>15+</td><td>File system — read, write, delete</td></tr>
+      <tr><td><span class="badge bb">http</span></td><td>import http</td><td>10+</td><td>HTTP client and server</td></tr>
+      <tr><td><span class="badge bg-g">json</span></td><td>import json</td><td>8+</td><td>JSON parse and stringify</td></tr>
+      <tr><td><span class="badge bo">crypto</span></td><td>import crypto</td><td>9+</td><td>Hashing and encryption</td></tr>
+      <tr><td><span class="badge bb">time</span></td><td>import time</td><td>10+</td><td>Date, time, and timers</td></tr>
+      <tr><td><span class="badge bg-g">random</span></td><td>import random</td><td>8+</td><td>Random number generation</td></tr>
+      <tr><td><span class="badge bo">os</span></td><td>import os</td><td>12+</td><td>Operating system interface</td></tr>
+      <tr><td><span class="badge bb">net</span></td><td>import net</td><td>10+</td><td>TCP/UDP networking</td></tr>
+      <tr><td><span class="badge bg-g">io</span></td><td>import io</td><td>10+</td><td>Input/output streams</td></tr>
+      <tr><td><span class="badge bo">list</span></td><td>import list</td><td>15+</td><td>List and array operations</td></tr>
+      <tr><td><span class="badge bb">map</span></td><td>import map</td><td>10+</td><td>Hash map / dictionary</td></tr>
+      <tr><td><span class="badge bg-g">process</span></td><td>import process</td><td>7+</td><td>Process management</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<!-- CH15: MATH -->
+<div id="ch15" class="doc-section">
+  <h2 class="ch"><span class="ch-num">15</span> math Library</h2>
+  <div class="ch-hr"></div>
+  <div class="tw"><table>
+    <thead><tr><th>Function</th><th>Returns</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>math.abs(n)</code></td><td>Number</td><td>Absolute value</td></tr>
+      <tr><td><code>math.sqrt(n)</code></td><td>Float</td><td>Square root</td></tr>
+      <tr><td><code>math.pow(b,e)</code></td><td>Float</td><td>b raised to power e</td></tr>
+      <tr><td><code>math.max(a,b)</code></td><td>Number</td><td>Larger value</td></tr>
+      <tr><td><code>math.min(a,b)</code></td><td>Number</td><td>Smaller value</td></tr>
+      <tr><td><code>math.floor(n)</code></td><td>Int</td><td>Round down</td></tr>
+      <tr><td><code>math.ceil(n)</code></td><td>Int</td><td>Round up</td></tr>
+      <tr><td><code>math.round(n)</code></td><td>Int</td><td>Round to nearest</td></tr>
+      <tr><td><code>math.log(n)</code></td><td>Float</td><td>Natural logarithm</td></tr>
+      <tr><td><code>math.sin(n)</code></td><td>Float</td><td>Sine (radians)</td></tr>
+      <tr><td><code>math.cos(n)</code></td><td>Float</td><td>Cosine (radians)</td></tr>
+      <tr><td><code>math.PI</code></td><td>Float</td><td>3.14159265358979</td></tr>
+      <tr><td><code>math.E</code></td><td>Float</td><td>2.71828182845904</td></tr>
+      <tr><td><code>math.TAU</code></td><td>Float</td><td>6.28318530717958</td></tr>
+    </tbody>
+  </table></div>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">math_example.hlx</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="kw">import</span> math
+
+<span class="kw">fn</span> <span class="fn">main</span>() {
+    <span class="fn">print</span>(<span class="fn">str</span>(math.<span class="fn">sqrt</span>(<span class="nu">16</span>)))       <span class="cm">// 4.0</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(math.<span class="fn">pow</span>(<span class="nu">2</span>, <span class="nu">10</span>)))    <span class="cm">// 1024.0</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(math.<span class="fn">abs</span>(-<span class="nu">42</span>)))      <span class="cm">// 42</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(math.PI))              <span class="cm">// 3.14159...</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(math.<span class="fn">max</span>(<span class="nu">10</span>, <span class="nu">20</span>)))   <span class="cm">// 20</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(math.<span class="fn">floor</span>(<span class="nu">3.7</span>)))    <span class="cm">// 3</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(math.<span class="fn">ceil</span>(<span class="nu">3.2</span>)))     <span class="cm">// 4</span>
+}</pre>
+  </div>
+</div>
+
+<!-- CH16: STRING -->
+<div id="ch16" class="doc-section">
+  <h2 class="ch"><span class="ch-num">16</span> string Library</h2>
+  <div class="ch-hr"></div>
+  <div class="tw"><table>
+    <thead><tr><th>Function</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>string.upper(s)</code></td><td>Convert to uppercase</td></tr>
+      <tr><td><code>string.lower(s)</code></td><td>Convert to lowercase</td></tr>
+      <tr><td><code>string.trim(s)</code></td><td>Remove leading/trailing whitespace</td></tr>
+      <tr><td><code>string.split(s, d)</code></td><td>Split by delimiter</td></tr>
+      <tr><td><code>string.join(arr, d)</code></td><td>Join array with delimiter</td></tr>
+      <tr><td><code>string.replace(s, a, b)</code></td><td>Replace all occurrences</td></tr>
+      <tr><td><code>string.contains(s, sub)</code></td><td>Check if contains substring</td></tr>
+      <tr><td><code>string.starts_with(s, p)</code></td><td>Check prefix</td></tr>
+      <tr><td><code>string.ends_with(s, p)</code></td><td>Check suffix</td></tr>
+      <tr><td><code>string.reverse(s)</code></td><td>Reverse the string</td></tr>
+      <tr><td><code>string.repeat(s, n)</code></td><td>Repeat string n times</td></tr>
+      <tr><td><code>string.pad_left(s, n)</code></td><td>Left-pad to length n</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<!-- CH17: FS -->
+<div id="ch17" class="doc-section">
+  <h2 class="ch"><span class="ch-num">17</span> fs Library</h2>
+  <div class="ch-hr"></div>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">fs_example.hlx</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="kw">import</span> fs
+
+<span class="kw">fn</span> <span class="fn">main</span>() {
+    <span class="cm">// Write a file</span>
+    fs.<span class="fn">write</span>(<span class="st">"data.txt"</span>, <span class="st">"Hello HOLEXA!\nLine 2\nLine 3"</span>)
+
+    <span class="cm">// Read a file</span>
+    <span class="kw">let</span> content = fs.<span class="fn">read</span>(<span class="st">"data.txt"</span>)
+    <span class="fn">print</span>(content)
+
+    <span class="cm">// Check existence</span>
+    <span class="kw">let</span> exists = fs.<span class="fn">exists</span>(<span class="st">"data.txt"</span>)
+    <span class="fn">print</span>(<span class="st">"Exists: "</span> + <span class="fn">str</span>(exists))
+
+    <span class="cm">// Append to file</span>
+    fs.<span class="fn">append</span>(<span class="st">"data.txt"</span>, <span class="st">"\nLine 4"</span>)
+
+    <span class="cm">// Delete file</span>
+    fs.<span class="fn">delete</span>(<span class="st">"data.txt"</span>)
+    <span class="fn">print</span>(<span class="st">"File deleted"</span>)
+}</pre>
+  </div>
+</div>
+
+<!-- CH18: HTTP & JSON -->
+<div id="ch18" class="doc-section">
+  <h2 class="ch"><span class="ch-num">18</span> http &amp; json Libraries</h2>
+  <div class="ch-hr"></div>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">http_json.hlx</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="kw">import</span> http
+<span class="kw">import</span> json
+
+<span class="kw">fn</span> <span class="fn">main</span>() {
+    <span class="cm">// HTTP GET request</span>
+    <span class="kw">let</span> res = http.<span class="fn">get</span>(<span class="st">"https://api.example.com/data"</span>)
+    <span class="fn">print</span>(<span class="st">"Status: "</span> + <span class="fn">str</span>(res.status))
+    <span class="fn">print</span>(res.body)
+
+    <span class="cm">// HTTP POST request</span>
+    <span class="kw">let</span> payload = <span class="st">'{"name":"HOLEXA","version":1}'</span>
+    <span class="kw">let</span> r = http.<span class="fn">post</span>(<span class="st">"https://api.example.com"</span>, payload)
+    <span class="fn">print</span>(r.body)
+
+    <span class="cm">// JSON parsing</span>
+    <span class="kw">let</span> raw  = <span class="st">'{"name":"Dragon","power":9999}'</span>
+    <span class="kw">let</span> data = json.<span class="fn">parse</span>(raw)
+    <span class="fn">print</span>(data.name)                <span class="cm">// Dragon</span>
+    <span class="fn">print</span>(<span class="fn">str</span>(data.power))          <span class="cm">// 9999</span>
+
+    <span class="cm">// JSON stringify</span>
+    <span class="kw">let</span> out = json.<span class="fn">stringify</span>(data)
+    <span class="fn">print</span>(out)
+}</pre>
+  </div>
+</div>
+
+<!-- CH19: TOOLS -->
+<div id="ch19" class="doc-section">
+  <h2 class="ch"><span class="ch-num">19</span> CLI Tools</h2>
+  <div class="ch-hr"></div>
+
+  <h3 class="sh">hlxc — Compiler</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Command</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>hlxc run file.hlx</code></td><td>Run a HOLEXA program directly</td></tr>
+      <tr><td><code>hlxc build file.hlx</code></td><td>Compile to native binary</td></tr>
+      <tr><td><code>hlxc check file.hlx</code></td><td>Check syntax without running</td></tr>
+      <tr><td><code>hlxc --version</code></td><td>Show version information</td></tr>
+      <tr><td><code>hlxc --help</code></td><td>Show all options</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 class="sh">hlxpm — Package Manager</h3>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">bash</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="sh-g">hlxpm install math</span>           <span class="sh-d"># Install a package</span>
+<span class="sh-g">hlxpm install http json</span>      <span class="sh-d"># Install multiple</span>
+<span class="sh-g">hlxpm create myapp</span>           <span class="sh-d"># Create new project</span>
+<span class="sh-g">hlxpm list</span>                   <span class="sh-d"># List installed</span>
+<span class="sh-g">hlxpm search crypto</span>          <span class="sh-d"># Search registry</span>
+<span class="sh-g">hlxpm update</span>                 <span class="sh-d"># Update all packages</span>
+<span class="sh-g">hlxpm info math</span>              <span class="sh-d"># Show package details</span>
+<span class="sh-g">hlxpm remove math</span>            <span class="sh-d"># Uninstall package</span></pre>
+  </div>
+
+  <h3 class="sh">hlxfmt &amp; hlxlint</h3>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">bash</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="sh-g">hlxfmt hello.hlx</span>             <span class="sh-d"># Auto-format code</span>
+<span class="sh-g">hlxfmt --check hello.hlx</span>     <span class="sh-d"># Check without modifying</span>
+<span class="sh-g">hlxlint hello.hlx</span>            <span class="sh-d"># Check code quality</span>
+<span class="sh-g">hlxlint --fix hello.hlx</span>      <span class="sh-d"># Auto-fix issues</span></pre>
+  </div>
+</div>
+
+<!-- CH20: EDITORS -->
+<div id="ch20" class="doc-section">
+  <h2 class="ch"><span class="ch-num">20</span> Editor Support</h2>
+  <div class="ch-hr"></div>
+  <p class="para">HOLEXA has official support for 7 major code editors.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Editor</th><th>Status</th><th>Features</th><th>Install Command</th></tr></thead>
+    <tbody>
+      <tr><td><strong>VS Code</strong></td><td><span class="badge bg-g">✓ Full</span></td><td>Highlighting, autocomplete, logo, run shortcut</td><td><code>cp -r vscode ~/.vscode/extensions/holexa-lang</code></td></tr>
+      <tr><td><strong>Vim</strong></td><td><span class="badge bg-g">✓ Ready</span></td><td>Syntax highlighting, filetype detect</td><td><code>cp holexa.vim ~/.vim/syntax/</code></td></tr>
+      <tr><td><strong>Neovim</strong></td><td><span class="badge bg-g">✓ LSP</span></td><td>Full LSP, highlighting, autocomplete</td><td><code>cp holexa.lua ~/.config/nvim/lua/</code></td></tr>
+      <tr><td><strong>Emacs</strong></td><td><span class="badge bg-g">✓ Ready</span></td><td>Major mode, indentation</td><td><code>(load "holexa-mode.el")</code></td></tr>
+      <tr><td><strong>Sublime Text</strong></td><td><span class="badge bg-g">✓ Ready</span></td><td>Highlighting, snippets</td><td><code>cp HOLEXA.sublime-syntax Packages/User/</code></td></tr>
+      <tr><td><strong>IntelliJ / JetBrains</strong></td><td><span class="badge bg-g">✓ Ready</span></td><td>File type, highlighting</td><td>Settings → File Types → Import holexa.xml</td></tr>
+      <tr><td><strong>Atom</strong></td><td><span class="badge bg-g">✓ Ready</span></td><td>Grammar, highlighting</td><td><code>cp holexa.cson ~/.atom/packages/</code></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 class="sh">VS Code — Detailed Setup</h3>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">bash</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="sh-g">git clone https://github.com/HOLEXA-LANG/HOLEXA-LANG.git</span>
+<span class="sh-g">cp -r HOLEXA-LANG/editor-support/vscode ~/.vscode/extensions/holexa-lang</span>
+<span class="sh-d"># Restart VS Code</span>
+<span class="sh-d"># Open any .hlx file — Dragon logo and syntax colors appear!</span>
+<span class="sh-d"># Ctrl+Shift+R to run current file</span></pre>
+  </div>
+</div>
+
+<!-- CH21: INTEGRATION -->
+<div id="ch21" class="doc-section">
+  <h2 class="ch"><span class="ch-num">21</span> Integration Guide</h2>
+  <div class="ch-hr"></div>
+  <p class="para">HOLEXA works alongside other programming languages through shell integration and process communication.</p>
+
+  <h3 class="sh">HOLEXA with Python</h3>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">bridge.py</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="sh-d">import subprocess, tempfile, os</span>
+
+<span class="sh-d">def run_holexa(code: str) -> str:</span>
+<span class="sh-d">    """Run HOLEXA code from Python and return output"""</span>
+<span class="sh-d">    with tempfile.NamedTemporaryFile(suffix='.hlx', mode='w', delete=False) as f:</span>
+<span class="sh-d">        f.write(code)</span>
+<span class="sh-d">        fname = f.name</span>
+<span class="sh-d">    try:</span>
+<span class="sh-d">        result = subprocess.run(</span>
+<span class="sh-d">            ['hlxc', 'run', fname],</span>
+<span class="sh-d">            capture_output=True, text=True, timeout=10</span>
+<span class="sh-d">        )</span>
+<span class="sh-d">        return result.stdout</span>
+<span class="sh-d">    finally:</span>
+<span class="sh-d">        os.unlink(fname)</span>
+
+<span class="sh-d">output = run_holexa('''</span>
+<span class="sh-d">fn main() {</span>
+<span class="sh-d">    for i in 0..10 {</span>
+<span class="sh-d">        print(str(i * i))</span>
+<span class="sh-d">    }</span>
+<span class="sh-d">}</span>
+<span class="sh-d">''')</span>
+<span class="sh-d">print("HOLEXA output:", output)</span></pre>
+  </div>
+
+  <h3 class="sh">HOLEXA with JavaScript / Node.js</h3>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">bridge.js</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="sh-d">const { execSync } = require('child_process');</span>
+<span class="sh-d">const fs = require('fs');</span>
+
+<span class="sh-d">function runHolexa(code) {</span>
+<span class="sh-d">    fs.writeFileSync('/tmp/temp.hlx', code);</span>
+<span class="sh-d">    try {</span>
+<span class="sh-d">        return execSync('hlxc run /tmp/temp.hlx').toString();</span>
+<span class="sh-d">    } catch(e) {</span>
+<span class="sh-d">        return e.stderr.toString();</span>
+<span class="sh-d">    }</span>
+<span class="sh-d">}</span>
+
+<span class="sh-d">const output = runHolexa(`</span>
+<span class="sh-d">fn main() {</span>
+<span class="sh-d">    for i in 1..6 {</span>
+<span class="sh-d">        print(str(i) + "! = " + str(i))</span>
+<span class="sh-d">    }</span>
+<span class="sh-d">}</span>
+<span class="sh-d">`);</span>
+<span class="sh-d">console.log(output);</span></pre>
+  </div>
+
+  <h3 class="sh">HOLEXA with C</h3>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">extern.hlx</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="cm">// Declare external C functions</span>
+<span class="kw">extern</span> <span class="kw">fn</span> <span class="fn">printf</span>(fmt: <span class="ty">String</span>) -> <span class="ty">Int</span>
+<span class="kw">extern</span> <span class="kw">fn</span> <span class="fn">strlen</span>(s: <span class="ty">String</span>) -> <span class="ty">Int</span>
+
+<span class="kw">fn</span> <span class="fn">main</span>() {
+    <span class="fn">print</span>(<span class="st">"HOLEXA + C integration"</span>)
+    <span class="fn">print</span>(<span class="st">"Build: hlxc build file.hlx -o file.o"</span>)
+    <span class="fn">print</span>(<span class="st">"Link:  gcc file.o mylib.c -o program"</span>)
+}</pre>
+  </div>
+</div>
+
+<!-- CH22: ADVANCED EXAMPLES -->
+<div id="ch22" class="doc-section">
+  <h2 class="ch"><span class="ch-num">22</span> Advanced Examples</h2>
+  <div class="ch-hr"></div>
+
+  <h3 class="sh">Prime Number Sieve</h3>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">primes.hlx</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="kw">fn</span> <span class="fn">is_prime</span>(n: <span class="ty">Int</span>) -> <span class="ty">Bool</span> {
+    <span class="kw">if</span> n < <span class="nu">2</span> { <span class="kw">return</span> <span class="kw">false</span> }
+    <span class="kw">if</span> n == <span class="nu">2</span> { <span class="kw">return</span> <span class="kw">true</span> }
+    <span class="kw">if</span> n % <span class="nu">2</span> == <span class="nu">0</span> { <span class="kw">return</span> <span class="kw">false</span> }
+    <span class="kw">let</span> i = <span class="nu">3</span>
+    <span class="kw">while</span> i * i <= n {
+        <span class="kw">if</span> n % i == <span class="nu">0</span> { <span class="kw">return</span> <span class="kw">false</span> }
+        i = i + <span class="nu">2</span>
+    }
+    <span class="kw">return</span> <span class="kw">true</span>
+}
+
+<span class="kw">fn</span> <span class="fn">count_primes</span>(limit: <span class="ty">Int</span>) -> <span class="ty">Int</span> {
+    <span class="kw">let</span> count = <span class="nu">0</span>
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="nu">2</span>..(limit + <span class="nu">1</span>) {
+        <span class="kw">if</span> <span class="fn">is_prime</span>(i) {
+            count = count + <span class="nu">1</span>
+        }
+    }
+    <span class="kw">return</span> count
+}
+
+<span class="kw">fn</span> <span class="fn">main</span>() {
+    <span class="fn">print</span>(<span class="st">"Prime numbers up to 50:"</span>)
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="nu">2</span>..<span class="nu">51</span> {
+        <span class="kw">if</span> <span class="fn">is_prime</span>(i) {
+            <span class="fn">print</span>(<span class="st">"  "</span> + <span class="fn">str</span>(i))
+        }
+    }
+    <span class="fn">print</span>(<span class="st">"Total primes up to 100: "</span> + <span class="fn">str</span>(<span class="fn">count_primes</span>(<span class="nu">100</span>)))
+}</pre>
+  </div>
+
+  <h3 class="sh">Scientific Calculator</h3>
+  <div class="cb">
+    <div class="cb-top"><div class="cb-dots"><div class="cb-dot cdr"></div><div class="cb-dot cdy"></div><div class="cb-dot cdg"></div></div><span class="cb-fname">calculator.hlx</span><button class="cb-copy" onclick="cpCode(this)">Copy</button></div>
+    <pre><span class="kw">fn</span> <span class="fn">calculate</span>(a: <span class="ty">Int</span>, op: <span class="ty">String</span>, b: <span class="ty">Int</span>) -> <span class="ty">Int</span> {
+    <span class="kw">if</span> op == <span class="st">"+"</span> { <span class="kw">return</span> a + b }
+    <span class="kw">if</span> op == <span class="st">"-"</span> { <span class="kw">return</span> a - b }
+    <span class="kw">if</span> op == <span class="st">"*"</span> { <span class="kw">return</span> a * b }
+    <span class="kw">if</span> op == <span class="st">"/"</span> {
+        <span class="kw">if</span> b == <span class="nu">0</span> {
+            <span class="fn">print</span>(<span class="st">"[ERROR] Division by zero!"</span>)
+            <span class="kw">return</span> <span class="nu">0</span>
+        }
+        <span class="kw">return</span> a / b
+    }
+    <span class="kw">if</span> op == <span class="st">"%"</span> { <span class="kw">return</span> a % b }
+    <span class="fn">print</span>(<span class="st">"[ERROR] Unknown operator: "</span> + op)
+    <span class="kw">return</span> <span class="nu">0</span>
+}
+
+<span class="kw">fn</span> <span class="fn">main</span>() {
+    <span class="fn">print</span>(<span class="st">"Calculator Demo:"</span>)
+    <span class="fn">print</span>(<span class="st">"10 + 5  = "</span> + <span class="fn">str</span>(<span class="fn">calculate</span>(<span class="nu">10</span>, <span class="st">"+"</span>, <span class="nu">5</span>)))
+    <span class="fn">print</span>(<span class="st">"10 - 3  = "</span> + <span class="fn">str</span>(<span class="fn">calculate</span>(<span class="nu">10</span>, <span class="st">"-"</span>, <span class="nu">3</span>)))
+    <span class="fn">print</span>(<span class="st">"4 * 5   = "</span> + <span class="fn">str</span>(<span class="fn">calculate</span>(<span class="nu">4</span>,  <span class="st">"*"</span>, <span class="nu">5</span>)))
+    <span class="fn">print</span>(<span class="st">"10 / 3  = "</span> + <span class="fn">str</span>(<span class="fn">calculate</span>(<span class="nu">10</span>, <span class="st">"/"</span>, <span class="nu">3</span>)))
+    <span class="fn">print</span>(<span class="st">"10 % 3  = "</span> + <span class="fn">str</span>(<span class="fn">calculate</span>(<span class="nu">10</span>, <span class="st">"%"</span>, <span class="nu">3</span>)))
+    <span class="fn">print</span>(<span class="st">"10 / 0  = "</span> + <span class="fn">str</span>(<span class="fn">calculate</span>(<span class="nu">10</span>, <span class="st">"/"</span>, <span class="nu">0</span>)))
+}</pre>
+  </div>
+</div>
+
+<!-- CH23: QUICK REFERENCE -->
+<div id="ch23" class="doc-section">
+  <h2 class="ch"><span class="ch-num">23</span> Quick Reference Card</h2>
+  <div class="ch-hr"></div>
+
+  <h3 class="sh">Built-in Functions</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Function</th><th>Returns</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>print(value)</code></td><td>None</td><td>Print to console with newline</td></tr>
+      <tr><td><code>str(n)</code></td><td>String</td><td>Convert any value to string</td></tr>
+      <tr><td><code>int(s)</code></td><td>Int</td><td>Convert to integer</td></tr>
+      <tr><td><code>float(s)</code></td><td>Float</td><td>Convert to float</td></tr>
+      <tr><td><code>len(s)</code></td><td>Int</td><td>String length</td></tr>
+      <tr><td><code>abs(n)</code></td><td>Number</td><td>Absolute value</td></tr>
+      <tr><td><code>sqrt(n)</code></td><td>Float</td><td>Square root</td></tr>
+      <tr><td><code>pow(b,e)</code></td><td>Float</td><td>Power function</td></tr>
+      <tr><td><code>max(a,b)</code></td><td>Number</td><td>Maximum of two values</td></tr>
+      <tr><td><code>min(a,b)</code></td><td>Number</td><td>Minimum of two values</td></tr>
+      <tr><td><code>type(v)</code></td><td>String</td><td>Type name of value</td></tr>
+      <tr><td><code>input(prompt)</code></td><td>String</td><td>Read user input</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 class="sh">Keywords</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Keyword</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><code>fn</code></td><td>Define a function</td></tr>
+      <tr><td><code>let</code></td><td>Declare mutable variable</td></tr>
+      <tr><td><code>const</code></td><td>Declare immutable constant</td></tr>
+      <tr><td><code>return</code></td><td>Return value from function</td></tr>
+      <tr><td><code>if / else if / else</code></td><td>Conditional branches</td></tr>
+      <tr><td><code>for / in</code></td><td>Range-based loop</td></tr>
+      <tr><td><code>while</code></td><td>Condition-based loop</td></tr>
+      <tr><td><code>class</code></td><td>Define a class</td></tr>
+      <tr><td><code>self</code></td><td>Current class instance</td></tr>
+      <tr><td><code>try / catch</code></td><td>Error handling</td></tr>
+      <tr><td><code>import</code></td><td>Load a library</td></tr>
+      <tr><td><code>true / false</code></td><td>Boolean values</td></tr>
+      <tr><td><code>none</code></td><td>No value (null)</td></tr>
+      <tr><td><code>and / or / not</code></td><td>Logical operators</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- FINAL SECTION -->
+  <div style="margin-top:48px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border);border-radius:12px;padding:32px;text-align:center;">
+    <div style="font-size:48px;margin-bottom:12px;">🐉</div>
+    <h2 style="font-size:28px;font-weight:800;color:var(--text);margin-bottom:8px;">HOLEXA v1.0.0</h2>
+    <p style="font-size:16px;color:var(--blue);font-weight:600;margin-bottom:8px;">Code like a Dragon. Think like a Human.</p>
+    <p style="font-size:13px;color:var(--text3);margin-bottom:4px;">Created by <strong style="color:var(--text2)">AYUSHGIRI</strong> · March 2026</p>
+    <p style="font-size:13px;color:var(--text3);margin-bottom:4px;">Built 100% on iPad · Open Source · MIT License</p>
+    <p style="margin-top:16px;"><a href="https://github.com/HOLEXA-LANG/HOLEXA-LANG" style="color:var(--blue);text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:13px;">github.com/HOLEXA-LANG/HOLEXA-LANG</a></p>
+  </div>
+</div>
+
+</main>
+</div>
+
+<!-- FOOTER -->
+<footer class="doc-footer">
+  <div class="doc-footer-l">
+    <strong>HOLEXA v1.0.0</strong> — Complete Documentation ·
+    Created by <strong>AYUSHGIRI</strong> · March 2026 ·
+    <a href="https://github.com/HOLEXA-LANG/HOLEXA-LANG">GitHub</a>
+  </div>
+  <div class="doc-footer-r">
+    <a href="https://github.com/HOLEXA-LANG/HOLEXA-LANG">Repository</a>
+    <a href="https://github.com/HOLEXA-LANG/HOLEXA-LANG/issues">Issues</a>
+    <a href="https://ko-fi.com/holexalang">Sponsor</a>
+  </div>
+</footer>
+
+<script>
+// Copy functions
+function cpText(el, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    const ico = el.querySelector('.ci-copy');
+    if(ico){ico.textContent='✓ Copied!';setTimeout(()=>ico.textContent='⎘ Copy',2000);}
+  });
+}
+function cpCode(btn) {
+  const pre = btn.closest('.cb')?.querySelector('pre');
+  if(!pre) return;
+  navigator.clipboard.writeText((pre.innerText||pre.textContent).trim()).then(()=>{
+    btn.textContent='Copied!';btn.style.color='var(--green)';
+    setTimeout(()=>{btn.textContent='Copy';btn.style.color='';},2000);
+  });
+}
+function cpPre(el) {
+  navigator.clipboard.writeText((el.innerText||el.textContent).trim()).then(()=>{
+    el.style.outline='1px solid var(--green)';
+    setTimeout(()=>el.style.outline='',2000);
+  });
+}
+
+// Active sidebar on scroll
+const sections = document.querySelectorAll('.doc-section, #cover, #toc');
+const links = document.querySelectorAll('.sb-link');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.sb-link[href="#${e.target.id}"]`);
+      if(active) active.classList.add('active');
+    }
+  });
+}, {threshold:0.3, rootMargin:'-20px 0px -60% 0px'});
+sections.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>
