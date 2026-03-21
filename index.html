@@ -1115,14 +1115,53 @@ curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/instal
   <div class="bc"><span>Tooling</span><span>/</span><span>Editors</span></div>
   <h1 class="pt">Editor Support</h1>
   <p class="pd">Syntax highlighting, auto-complete, and error detection in every major editor.</p>
-  <div class="eg">
-    <div class="ec"><div class="ei">🔵</div><div class="en">VS Code</div><div class="es">✓ Full Support</div></div>
-    <div class="ec"><div class="ei">🟢</div><div class="en">Vim</div><div class="es">✓ Supported</div></div>
-    <div class="ec"><div class="ei">🟣</div><div class="en">Neovim</div><div class="es">✓ LSP Ready</div></div>
-    <div class="ec"><div class="ei">🟤</div><div class="en">Emacs</div><div class="es">✓ Supported</div></div>
-    <div class="ec"><div class="ei">🟠</div><div class="en">Sublime</div><div class="es">✓ Supported</div></div>
-    <div class="ec"><div class="ei">🔴</div><div class="en">IntelliJ</div><div class="es">✓ Supported</div></div>
-  </div>
+  <div class="tw" style="margin-bottom:20px"><table>
+    <thead><tr><th>Editor</th><th>Status</th><th>Features</th><th>Install</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong style="color:var(--cyan)">VS Code</strong></td>
+        <td><span class="bg bg-g">✓ Full</span></td>
+        <td>Syntax highlighting, auto-complete, Dragon logo, Ctrl+Shift+R to run, format on save</td>
+        <td><code>cp -r vscode ~/.vscode/extensions/holexa-lang</code></td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--cyan)">Vim</strong></td>
+        <td><span class="bg bg-g">✓ Ready</span></td>
+        <td>Syntax highlighting, filetype detection, auto-indent</td>
+        <td><code>cp holexa.vim ~/.vim/syntax/</code></td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--cyan)">Neovim</strong></td>
+        <td><span class="bg bg-g">✓ LSP</span></td>
+        <td>Full LSP support, syntax highlighting, auto-complete</td>
+        <td><code>cp holexa.lua ~/.config/nvim/lua/</code></td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--cyan)">Emacs</strong></td>
+        <td><span class="bg bg-g">✓ Ready</span></td>
+        <td>Major mode, syntax highlighting, indentation</td>
+        <td><code>(load "holexa-mode.el")</code></td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--cyan)">Sublime Text</strong></td>
+        <td><span class="bg bg-g">✓ Ready</span></td>
+        <td>Syntax highlighting, completions, snippets</td>
+        <td><code>cp HOLEXA.sublime-syntax Packages/User/</code></td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--cyan)">IntelliJ / JetBrains</strong></td>
+        <td><span class="bg bg-g">✓ Ready</span></td>
+        <td>File type support, syntax highlighting</td>
+        <td>Settings → File Types → Import holexa.xml</td>
+      </tr>
+      <tr>
+        <td><strong style="color:var(--cyan)">Atom</strong></td>
+        <td><span class="bg bg-g">✓ Ready</span></td>
+        <td>Grammar support, syntax highlighting</td>
+        <td><code>cp holexa.cson ~/.atom/packages/</code></td>
+      </tr>
+    </tbody>
+  </table></div>
   <h3 class="h3">VS Code — Quick Setup</h3>
   <div class="cb"><div class="ct"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cf">bash</span><button class="cc" onclick="cc(this)">Copy</button></div>
   <pre><span class="sh">git clone https://github.com/HOLEXA-LANG/HOLEXA-LANG.git</span>
