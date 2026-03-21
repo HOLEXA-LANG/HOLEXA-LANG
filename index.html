@@ -1228,107 +1228,85 @@ footer{
 
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:20px 0;">
 
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#58a6ff'" onmouseout="this.style.borderColor='var(--border)'">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
-        <div style="width:36px;height:36px;background:#007acc;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🔵</div>
-        <div>
-          <div style="font-size:14px;font-weight:700;color:var(--text);">VS Code</div>
-          <div style="font-size:11px;color:var(--green);font-weight:600;">✓ Full Support</div>
-        </div>
-        <span style="margin-left:auto;background:rgba(63,185,80,0.1);border:1px solid rgba(63,185,80,0.3);color:var(--green);font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600;">RECOMMENDED</span>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+        <span style="font-size:18px;font-weight:800;color:var(--text);">VS Code</span>
+        <span style="background:rgba(63,185,80,0.1);border:1px solid rgba(63,185,80,0.3);color:var(--green);font-size:10px;padding:2px 10px;border-radius:20px;font-weight:600;">RECOMMENDED</span>
       </div>
-      <div style="font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:12px;">Syntax highlighting · Auto-complete · Dragon theme · Ctrl+Shift+R to run · Format on save</div>
-      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);">cp -r editor-support/vscode ~/.vscode/extensions/holexa-lang</div>
+      <div style="font-size:12px;color:var(--text3);line-height:1.7;margin-bottom:12px;">Syntax highlighting &nbsp;·&nbsp; Auto-complete &nbsp;·&nbsp; Dragon theme &nbsp;·&nbsp; Ctrl+Shift+R to run &nbsp;·&nbsp; Format on save</div>
+      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);cursor:pointer;" onclick="cpPre(this)">cp -r editor-support/vscode ~/.vscode/extensions/holexa-lang</div>
     </div>
 
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#58a6ff'" onmouseout="this.style.borderColor='var(--border)'">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
-        <div style="width:36px;height:36px;background:#1d9a1d;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🟢</div>
-        <div>
-          <div style="font-size:14px;font-weight:700;color:var(--text);">Vim</div>
-          <div style="font-size:11px;color:var(--green);font-weight:600;">✓ Supported</div>
-        </div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+        <span style="font-size:18px;font-weight:800;color:var(--text);">Vim</span>
+        <span style="background:rgba(88,166,255,0.1);border:1px solid rgba(88,166,255,0.3);color:var(--blue);font-size:10px;padding:2px 10px;border-radius:20px;font-weight:600;">SUPPORTED</span>
       </div>
-      <div style="font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:12px;">Syntax highlighting · Filetype detection · Auto-indent</div>
-      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);">cp holexa.vim ~/.vim/syntax/</div>
+      <div style="font-size:12px;color:var(--text3);line-height:1.7;margin-bottom:12px;">Syntax highlighting &nbsp;·&nbsp; Filetype detection &nbsp;·&nbsp; Auto-indent</div>
+      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);cursor:pointer;" onclick="cpPre(this)">cp holexa.vim ~/.vim/syntax/</div>
     </div>
 
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#58a6ff'" onmouseout="this.style.borderColor='var(--border)'">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
-        <div style="width:36px;height:36px;background:#5c2d91;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🟣</div>
-        <div>
-          <div style="font-size:14px;font-weight:700;color:var(--text);">Neovim</div>
-          <div style="font-size:11px;color:var(--cyan);font-weight:600;">✓ LSP Ready</div>
-        </div>
-        <span style="margin-left:auto;background:rgba(79,195,247,0.1);border:1px solid rgba(79,195,247,0.3);color:var(--cyan);font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600;">LSP</span>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+        <span style="font-size:18px;font-weight:800;color:var(--text);">Neovim</span>
+        <span style="background:rgba(188,140,255,0.1);border:1px solid rgba(188,140,255,0.3);color:var(--purple);font-size:10px;padding:2px 10px;border-radius:20px;font-weight:600;">LSP READY</span>
       </div>
-      <div style="font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:12px;">Full LSP support · Highlighting · Auto-complete · Error detection</div>
-      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);">cp holexa.lua ~/.config/nvim/lua/</div>
+      <div style="font-size:12px;color:var(--text3);line-height:1.7;margin-bottom:12px;">Full LSP support &nbsp;·&nbsp; Highlighting &nbsp;·&nbsp; Auto-complete &nbsp;·&nbsp; Error detection</div>
+      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);cursor:pointer;" onclick="cpPre(this)">cp holexa.lua ~/.config/nvim/lua/</div>
     </div>
 
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#58a6ff'" onmouseout="this.style.borderColor='var(--border)'">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
-        <div style="width:36px;height:36px;background:#7f5af0;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🟤</div>
-        <div>
-          <div style="font-size:14px;font-weight:700;color:var(--text);">Emacs</div>
-          <div style="font-size:11px;color:var(--green);font-weight:600;">✓ Supported</div>
-        </div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+        <span style="font-size:18px;font-weight:800;color:var(--text);">Emacs</span>
+        <span style="background:rgba(88,166,255,0.1);border:1px solid rgba(88,166,255,0.3);color:var(--blue);font-size:10px;padding:2px 10px;border-radius:20px;font-weight:600;">SUPPORTED</span>
       </div>
-      <div style="font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:12px;">Major mode · Syntax highlighting · Smart indentation</div>
-      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);">(load "holexa-mode.el")</div>
+      <div style="font-size:12px;color:var(--text3);line-height:1.7;margin-bottom:12px;">Major mode &nbsp;·&nbsp; Syntax highlighting &nbsp;·&nbsp; Smart indentation</div>
+      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);cursor:pointer;" onclick="cpPre(this)">(load "holexa-mode.el")</div>
     </div>
 
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#58a6ff'" onmouseout="this.style.borderColor='var(--border)'">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
-        <div style="width:36px;height:36px;background:#ff8c00;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🟠</div>
-        <div>
-          <div style="font-size:14px;font-weight:700;color:var(--text);">Sublime Text</div>
-          <div style="font-size:11px;color:var(--green);font-weight:600;">✓ Supported</div>
-        </div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+        <span style="font-size:18px;font-weight:800;color:var(--text);">Sublime Text</span>
+        <span style="background:rgba(88,166,255,0.1);border:1px solid rgba(88,166,255,0.3);color:var(--blue);font-size:10px;padding:2px 10px;border-radius:20px;font-weight:600;">SUPPORTED</span>
       </div>
-      <div style="font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:12px;">Syntax highlighting · Code snippets · Auto-completions</div>
-      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);">cp HOLEXA.sublime-syntax Packages/User/</div>
+      <div style="font-size:12px;color:var(--text3);line-height:1.7;margin-bottom:12px;">Syntax highlighting &nbsp;·&nbsp; Code snippets &nbsp;·&nbsp; Auto-completions</div>
+      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);cursor:pointer;" onclick="cpPre(this)">cp HOLEXA.sublime-syntax Packages/User/</div>
     </div>
 
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#58a6ff'" onmouseout="this.style.borderColor='var(--border)'">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
-        <div style="width:36px;height:36px;background:#fe2d55;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🔴</div>
-        <div>
-          <div style="font-size:14px;font-weight:700;color:var(--text);">IntelliJ / JetBrains</div>
-          <div style="font-size:11px;color:var(--green);font-weight:600;">✓ Supported</div>
-        </div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+        <span style="font-size:18px;font-weight:800;color:var(--text);">IntelliJ / JetBrains</span>
+        <span style="background:rgba(88,166,255,0.1);border:1px solid rgba(88,166,255,0.3);color:var(--blue);font-size:10px;padding:2px 10px;border-radius:20px;font-weight:600;">SUPPORTED</span>
       </div>
-      <div style="font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:12px;">File type support · Syntax highlighting · Code structure</div>
-      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);">Settings → File Types → Import holexa.xml</div>
+      <div style="font-size:12px;color:var(--text3);line-height:1.7;margin-bottom:12px;">File type support &nbsp;·&nbsp; Syntax highlighting &nbsp;·&nbsp; Code structure</div>
+      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);cursor:pointer;" onclick="cpPre(this)">Settings → File Types → Import holexa.xml</div>
     </div>
 
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='#58a6ff'" onmouseout="this.style.borderColor='var(--border)'">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
-        <div style="width:36px;height:36px;background:#40a9ff;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🔵</div>
-        <div>
-          <div style="font-size:14px;font-weight:700;color:var(--text);">Atom</div>
-          <div style="font-size:11px;color:var(--green);font-weight:600;">✓ Supported</div>
-        </div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:18px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--blue)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+        <span style="font-size:18px;font-weight:800;color:var(--text);">Atom</span>
+        <span style="background:rgba(88,166,255,0.1);border:1px solid rgba(88,166,255,0.3);color:var(--blue);font-size:10px;padding:2px 10px;border-radius:20px;font-weight:600;">SUPPORTED</span>
       </div>
-      <div style="font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:12px;">Grammar support · Syntax highlighting · File detection</div>
-      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);">cp holexa.cson ~/.atom/packages/</div>
+      <div style="font-size:12px;color:var(--text3);line-height:1.7;margin-bottom:12px;">Grammar support &nbsp;·&nbsp; Syntax highlighting &nbsp;·&nbsp; File detection</div>
+      <div style="background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);cursor:pointer;" onclick="cpPre(this)">cp holexa.cson ~/.atom/packages/</div>
     </div>
 
   </div>
 
-  <h3 class="h3">VS Code — Full Setup Guide</h3>
+  <h3 class="h3">VS Code — Full Setup</h3>
   <div class="cb">
     <div class="cb-top"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="code-fname">bash</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
     <pre><span class="sh2"># Step 1: Clone the repository</span>
 <span class="sh">git clone https://github.com/HOLEXA-LANG/HOLEXA-LANG.git</span>
 
-<span class="sh2"># Step 2: Copy extension to VS Code</span>
+<span class="sh2"># Step 2: Install the extension</span>
 <span class="sh">cp -r HOLEXA-LANG/editor-support/vscode ~/.vscode/extensions/holexa-lang</span>
 
 <span class="sh2"># Step 3: Restart VS Code</span>
-<span class="sh2"># Open any .hlx file — Dragon logo and colors appear!</span>
-<span class="sh2"># Press Ctrl+Shift+R to run the file directly</span></pre>
+<span class="sh2"># Open any .hlx file — Dragon logo and syntax colors appear!</span>
+<span class="sh2"># Press Ctrl+Shift+R to run current file directly</span></pre>
   </div>
+
 </div>
 
 <!-- PLAYGROUND -->
