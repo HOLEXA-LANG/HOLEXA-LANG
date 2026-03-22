@@ -379,16 +379,26 @@ footer{
 <main class="main">
 <div class="wrap">
 
-<!-- HOME -->
+<!-- HOME — Replace this entire section in index.html -->
+<!-- Find: <div class="pg on" id="pg-home"> -->
+<!-- Replace until closing </div> of pg-home -->
+
 <div class="pg on" id="pg-home">
+
+  <!-- HERO -->
   <div class="hero">
     <div class="hero-logo">
       <img src="logo.png" alt="HOLEXA" onerror="this.parentElement.innerHTML='🐉'">
     </div>
-    <div class="hero-tag">🚀 v1.0.0 — Released March 2026</div>
+    <div class="hero-tag">🚀 v1.0.0 — Launched March 23, 2026</div>
     <h1 class="hero-h1"><span>HOLEXA</span><br>Programming Language</h1>
     <p class="hero-sub">Code like a Dragon. Think like a Human.</p>
-    <p class="hero-meta">Created by Ayush Giri &nbsp;·&nbsp; 🚀 Launched March 23, 2026 &nbsp;·&nbsp; MIT License &nbsp;·&nbsp; Open Source</p>
+    <p style="font-size:14px;color:var(--text2);margin-bottom:16px;line-height:1.7;">
+      HOLEXA is a <strong style="color:var(--text);">modern, open-source programming language</strong> built from scratch —
+      combining the speed of C, safety of Rust, readability of Python, and simplicity of Go
+      into one clean and powerful language.
+    </p>
+    <p class="hero-meta">by Ayush Giri &nbsp;·&nbsp; March 23, 2026 &nbsp;·&nbsp; MIT License &nbsp;·&nbsp; Open Source</p>
     <div class="hero-pills">
       <span class="pill">⚡ Fast like C</span>
       <span class="pill">🛡️ Safe like Rust</span>
@@ -397,38 +407,124 @@ footer{
       <span class="pill">🌐 Cross Platform</span>
       <span class="pill">🐉 Self-Hosting</span>
     </div>
+
+    <!-- INSTALL BOX -->
     <div class="install-box" onclick="cpInstall(this)">
       <span class="i-dollar">$</span>
       <span class="i-cmd">curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</span>
       <span class="i-copy">⎘ Copy</span>
     </div>
+    <p style="font-size:11px;color:var(--text3);margin-top:8px;">
+      Works on Linux · macOS · Windows · iPad · Android
+    </p>
+
+    <!-- CTA BUTTONS -->
+    <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;">
+      <a href="#" onclick="show('quickstart')" style="background:linear-gradient(135deg,var(--green2),#00b248);color:#000;padding:8px 20px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;transition:opacity 0.15s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">⚡ Get Started</a>
+      <a href="#" onclick="show('playground')" style="background:var(--bg3);color:var(--text);padding:8px 20px;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;border:1px solid var(--border2);transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--cyan)'" onmouseout="this.style.borderColor='var(--border2)'">🎮 Try Playground</a>
+      <a href="https://github.com/HOLEXA-LANG/HOLEXA-LANG" target="_blank" style="background:var(--bg3);color:var(--text2);padding:8px 20px;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;border:1px solid var(--border2);transition:border-color 0.15s;" onmouseover="this.style.borderColor='var(--cyan)'" onmouseout="this.style.borderColor='var(--border2)'">⭐ Star on GitHub</a>
+    </div>
   </div>
 
+  <!-- WHAT IS HOLEXA -->
+  <div style="margin-bottom:32px;">
+    <h3 class="h3">What is HOLEXA?</h3>
+    <p class="para">HOLEXA is a compiled, statically-typed programming language with a clean and expressive syntax. It is designed to be approachable for beginners while being powerful enough for advanced developers. Whether you are building a CLI tool, a web server, or a complex algorithm — HOLEXA handles it all.</p>
+    <p class="para">Unlike other languages that force you to choose between speed and safety, or between simplicity and power — HOLEXA gives you everything in one place.</p>
+  </div>
+
+  <!-- FEATURE CARDS -->
   <div class="fc">
-    <div class="fcard"><div class="fi">⚡</div><div class="ft">Lightning Fast</div><div class="fd">Compiled to native code. Zero overhead runtime performance.</div></div>
-    <div class="fcard"><div class="fi">🛡️</div><div class="ft">Memory Safe</div><div class="fd">No null pointers, no buffer overflows. Safe by design.</div></div>
-    <div class="fcard"><div class="fi">📖</div><div class="ft">Readable Syntax</div><div class="fd">Clean Python-inspired syntax. Easy to learn and write.</div></div>
-    <div class="fcard"><div class="fi">🌐</div><div class="ft">Cross Platform</div><div class="fd">Linux, Mac, Windows, iPad. One codebase, runs everywhere.</div></div>
-    <div class="fcard"><div class="fi">📦</div><div class="ft">Rich Stdlib</div><div class="fd">15+ built-in libraries: math, http, fs, json, crypto and more.</div></div>
-    <div class="fcard"><div class="fi">🐉</div><div class="ft">Self-Hosting</div><div class="fd">HOLEXA compiler is written in HOLEXA itself.</div></div>
+    <div class="fcard"><div class="fi">⚡</div><div class="ft">Lightning Fast</div><div class="fd">Compiled to native code. Zero overhead runtime. Blazing performance out of the box.</div></div>
+    <div class="fcard"><div class="fi">🛡️</div><div class="ft">Memory Safe</div><div class="fd">No null pointers, no buffer overflows, no undefined behavior. Safe by design.</div></div>
+    <div class="fcard"><div class="fi">📖</div><div class="ft">Easy to Read</div><div class="fd">Clean Python-inspired syntax. If you know Python, you already know most of HOLEXA.</div></div>
+    <div class="fcard"><div class="fi">🌐</div><div class="ft">Cross Platform</div><div class="fd">Linux, Mac, Windows, iPad, Android. One codebase runs everywhere.</div></div>
+    <div class="fcard"><div class="fi">📦</div><div class="ft">Rich Stdlib</div><div class="fd">15+ built-in libraries covering math, http, fs, json, crypto, and more.</div></div>
+    <div class="fcard"><div class="fi">🐉</div><div class="ft">Self-Hosting</div><div class="fd">The HOLEXA compiler is written in HOLEXA itself — a mark of a complete language.</div></div>
   </div>
 
-  <h3 class="h3">Hello World</h3>
+  <!-- GET STARTED -->
+  <h3 class="h3">Get Started in 3 Steps</h3>
+
+  <h4 class="h4">Step 1 — Install HOLEXA</h4>
+  <div class="cb">
+    <div class="ct"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cf">bash</span><button class="cc" onclick="cc(this)">Copy</button></div>
+    <pre><span class="sh2"># One command installs everything</span>
+<span class="sh-g">curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh</span>
+
+<span class="sh2"># Verify installation</span>
+<span class="sh-g">hlxc --version</span>
+<span class="sh2"># HOLEXA Compiler v1.0.0</span></pre>
+  </div>
+
+  <h4 class="h4">Step 2 — Write your first program</h4>
   <div class="cb">
     <div class="ct"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cf">hello.hlx</span><button class="cc" onclick="cc(this)">Copy</button></div>
-    <pre><span class="cm">// Hello World in HOLEXA</span>
+    <pre><span class="cm">// Your first HOLEXA program</span>
+<span class="kw">fn</span> <span class="fn">greet</span>(name: <span class="ty">String</span>) -> <span class="ty">String</span> {
+    <span class="kw">return</span> <span class="st">"Hello "</span> + name + <span class="st">"!"</span>
+}
+
 <span class="kw">fn</span> <span class="fn">main</span>() {
-    <span class="fn">print</span>(<span class="st">"Hello, World!"</span>)
-    <span class="fn">print</span>(<span class="st">"Code like a Dragon!"</span>)
+    <span class="fn">print</span>(<span class="fn">greet</span>(<span class="st">"World"</span>))
+    <span class="fn">print</span>(<span class="fn">greet</span>(<span class="st">"Dragon"</span>))
+
+    <span class="cm">// Loop example</span>
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="nu">0</span>..<span class="nu">5</span> {
+        <span class="fn">print</span>(<span class="st">"Count: "</span> + <span class="fn">str</span>(i))
+    }
 }</pre>
+  </div>
+
+  <h4 class="h4">Step 3 — Run it</h4>
+  <div class="cb">
+    <div class="ct"><div class="dots"><div class="d dr"></div><div class="d dy"></div><div class="d dg"></div></div><span class="cf">bash</span><button class="cc" onclick="cc(this)">Copy</button></div>
+    <pre><span class="sh-g">hlxc run hello.hlx</span>
+
+<span class="sh2"># Output:</span>
+<span class="sh2"># Hello World!</span>
+<span class="sh2"># Hello Dragon!</span>
+<span class="sh2"># Count: 0</span>
+<span class="sh2"># Count: 1 ...</span></pre>
   </div>
 
   <div class="note note-t">
     <span class="note-icon">💡</span>
-    <div class="note-body"><strong>Try it live</strong> — <a href="#" onclick="show('playground')">Open the Playground</a> to run HOLEXA code directly in your browser.</div>
+    <div class="note-body">
+      <strong>No install needed?</strong> —
+      <a href="#" onclick="show('playground')" style="color:var(--cyan)">Open the Playground</a>
+      and run HOLEXA code directly in your browser. No setup required!
+    </div>
   </div>
-</div>
 
+  <!-- QUICK COMPARISON -->
+  <h3 class="h3">Why HOLEXA?</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Feature</th><th>C</th><th>Python</th><th>Rust</th><th style="color:var(--cyan);">HOLEXA</th></tr></thead>
+    <tbody>
+      <tr><td>Speed</td><td>✅ Fast</td><td>❌ Slow</td><td>✅ Fast</td><td style="color:var(--green);">✅ Fast</td></tr>
+      <tr><td>Memory Safe</td><td>❌ No</td><td>✅ Yes</td><td>✅ Yes</td><td style="color:var(--green);">✅ Yes</td></tr>
+      <tr><td>Easy to Learn</td><td>❌ Hard</td><td>✅ Easy</td><td>❌ Hard</td><td style="color:var(--green);">✅ Easy</td></tr>
+      <tr><td>Clean Syntax</td><td>❌ No</td><td>✅ Yes</td><td>⚠️ Complex</td><td style="color:var(--green);">✅ Yes</td></tr>
+      <tr><td>Cross Platform</td><td>⚠️ Manual</td><td>✅ Yes</td><td>✅ Yes</td><td style="color:var(--green);">✅ Yes</td></tr>
+    </tbody>
+  </table></div>
+
+  <!-- BUILT ON IPAD -->
+  <div style="background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border2);border-radius:8px;padding:24px;margin-top:24px;text-align:center;">
+    <div style="font-size:32px;margin-bottom:8px;">📱</div>
+    <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px;">Built 100% on a Normal iPad</div>
+    <div style="font-size:13px;color:var(--text2);line-height:1.7;max-width:500px;margin:0 auto;">
+      HOLEXA was built entirely on an iPad using iSH Shell — no MacBook, no PC.
+      A full compiler, 15+ libraries, and editor support for 7 editors — all from an iPad.
+      <br><br>
+      <em style="color:var(--text3);">"If you have an idea, your device doesn't matter. Your determination does."</em>
+      <br>
+      <strong style="color:var(--text2);">— Ayush Giri, Creator of HOLEXA</strong>
+    </div>
+  </div>
+
+</div>
 <div class="pg" id="pg-install">
   <div class="bc"><span>Getting Started</span><span>/</span><span>Installation</span></div>
   <h1 class="pt">Installation</h1>
@@ -466,7 +562,7 @@ footer{
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
         <span style="font-size:24px;">🪟</span>
         <div>
-          <div style="font-size:14px;font-weight:700;color:var(--text);">Windows</div>
+          <div style="font-size:14px;font-weight:700;color:var(--text);">Windows</div>        
           <div style="font-size:11px;color:var(--text3);">Windows 10/11 · via WSL2</div>
         </div>
       </div>
