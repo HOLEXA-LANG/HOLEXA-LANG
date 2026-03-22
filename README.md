@@ -186,8 +186,8 @@ fn main() {
 |----------|------|-------------|
 | 🌐 **Website** | [holexa-lang.github.io/HOLEXA-LANG](https://holexa-lang.github.io/HOLEXA-LANG/) | Official website with playground |
 | 📖 **Full Docs** | [docs.html](https://holexa-lang.github.io/HOLEXA-LANG/docs.html) | Complete 32-chapter documentation |
-| 📦 **Installation** | [#install](#-install) | Install on any device |
-| ⚡ **Quick Start** | [#quick-start](#-quick-start) | Start coding in 5 minutes |
+| 📦 **Installation** | [#install](INSTALL.md) | Install on any device |
+| ⚡ **Quick Start** | [#quick-start](https://holexa-lang.github.io/HOLEXA-LANG/docs.html) | Start coding in 5 minutes |
 | 📜 **Language Spec** | [docs/HOLEXA-SPEC.md](docs/HOLEXA-SPEC.md) | Full language specification |
 | 🔧 **Compiler Guide** | [docs/guide/COMPILER.md](docs/guide/COMPILER.md) | Compiler internals |
 | 📦 **Package Manager** | [docs/guide/HLXPM.md](docs/guide/HLXPM.md) | hlxpm guide |
