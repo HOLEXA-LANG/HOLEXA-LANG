@@ -5,7 +5,7 @@
 
 <br><br>
 
-< img src="logo.png" alt="HOLEXA Logo" width="30" height="30" HOLEXA
+< img src="logo.png" alt="HOLEXA Logo" width="30" height="30"> HOLEXA
 
 ### A Modern, Open-Source Programming Language
 
