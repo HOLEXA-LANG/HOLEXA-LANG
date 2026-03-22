@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="circle.png" alt="HOLEXA Logo" width="180" height="180" 
+<img src="logo.png" alt="HOLEXA Logo" width="180" height="180" 
      style="border-radius:50%;border:3px solid #58a6ff;padding:4px;box-shadow:0 0 20px rgba(88,166,255,0.3);">
 
 <br><br>
