@@ -249,123 +249,179 @@ HOLEXA works in 7 major code editors with full syntax highlighting, autocomplete
 
 ---
 
+...
 ## 📁 Project Structure
 
-```
-📦 HOLEXA-LANG
-┣ 📂 .github                              # GitHub configuration
-┃ ┣ 📜 FUNDING.yml                        # Sponsor / donation links
-┃ ┗ 📂 workflows
-┃   ┗ 📜 deploy.yml                       # GitHub Actions auto-deploy
+📦 HOLEXA-LANG/
 ┃
-┣ 📂 compiler                             # HOLEXA Compiler (written in C)
-┃ ┣ 📜 Makefile                           # Build file — run: make
-┃ ┣ 📜 hlxc                               # Compiled binary
-┃ ┣ 📂 include                            # Header files
-┃ ┃ ┣ 📜 codegen.h                        # Code generator interface
-┃ ┃ ┣ 📜 holexa.h                         # Core types and structures
-┃ ┃ ┣ 📜 interpreter.h                    # Interpreter interface
-┃ ┃ ┣ 📜 parser.h                         # Parser interface
-┃ ┃ ┗ 📜 semantic.h                       # Semantic analyzer interface
-┃ ┗ 📂 src                                # Compiler source code
-┃   ┣ 📜 ast.c                            # Abstract Syntax Tree builder
-┃   ┣ 📜 codegen.c                        # Code generator / IR output
-┃   ┣ 📜 interpreter.c                    # Tree-walking interpreter
-┃   ┣ 📜 lexer.c                          # Tokenizer — code → tokens
-┃   ┣ 📜 main.c                           # Entry point
-┃   ┣ 📜 parser.c                         # Parser — tokens → AST
-┃   ┗ 📜 semantic.c                       # Type checking and validation
+┣ 📂 .github/                                  # GitHub configuration
+┃ ┣ 📜 FUNDING.yml                             # Sponsor & donation links (Ko-fi, GitHub Sponsors)
+┃ ┗ 📂 workflows/
+┃   ┗ 📜 deploy.yml                            # GitHub Actions — auto-deploy to GitHub Pages
 ┃
-┣ 📂 stdlib                               # Standard Library (14 libraries)
-┃ ┣ 📜 index.hlx                          # Stdlib registry
-┃ ┣ 📂 math/      📄 math.hlx             # abs, sqrt, pow, sin, cos, PI
-┃ ┣ 📂 string/    📄 string.hlx           # upper, lower, trim, split
-┃ ┣ 📂 fs/        📄 fs.hlx               # read, write, delete, exists
-┃ ┣ 📂 http/      📄 http.hlx             # get, post, server
-┃ ┣ 📂 json/      📄 json.hlx             # parse, stringify
-┃ ┣ 📂 crypto/    📄 crypto.hlx           # hash, encrypt, sha256
-┃ ┣ 📂 time/      📄 time.hlx             # now, date, sleep, format
-┃ ┣ 📂 random/    📄 random.hlx           # int, float, seed
-┃ ┣ 📂 os/        📄 os.hlx               # env, args, platform
-┃ ┣ 📂 net/       📄 net.hlx              # tcp, udp, socket
-┃ ┣ 📂 list/      📄 list.hlx             # push, pop, sort, filter
-┃ ┣ 📂 map/       📄 map.hlx              # set, get, keys, values
-┃ ┣ 📂 io/        📄 io.hlx               # stdin, stdout, streams
-┃ ┗ 📂 process/   📄 process.hlx          # spawn, kill, pid, wait
+┣ 📂 compiler/                                 # HOLEXA Compiler — written in C
+┃ ┣ 📜 Makefile                                # Build instructions — run: make
+┃ ┣ ⚙️  hlxc                                   # Compiled compiler binary — run: hlxc run file.hlx
+┃ ┣ 📂 include/                                # C header files
+┃ ┃ ┣ 📜 holexa.h                              # Core types, structs, and definitions
+┃ ┃ ┣ 📜 parser.h                              # Parser interface
+┃ ┃ ┣ 📜 semantic.h                            # Semantic analyzer interface
+┃ ┃ ┣ 📜 interpreter.h                         # Interpreter interface
+┃ ┃ ┗ 📜 codegen.h                             # Code generator interface
+┃ ┗ 📂 src/                                    # Compiler source code
+┃   ┣ 📜 main.c                                # Entry point — reads .hlx files
+┃   ┣ 📜 lexer.c                               # Lexer — splits source code into tokens
+┃   ┣ 📜 ast.c                                 # Abstract Syntax Tree builder
+┃   ┣ 📜 parser.c                              # Parser — converts tokens into AST
+┃   ┣ 📜 semantic.c                            # Semantic analysis — type checking & validation
+┃   ┣ 📜 interpreter.c                         # Tree-walking interpreter — executes AST
+┃   ┗ 📜 codegen.c                             # Code generator — AST to IR/native output
 ┃
-┣ 📂 package-manager                      # hlxpm — Package Manager
-┃ ┗ 📜 hlxpm                              # Binary (hlxpm install / create)
+┣ 📂 stdlib/                                   # Standard Library — 14 built-in libraries
+┃ ┣ 📜 index.hlx                               # Stdlib registry — lists all libraries
+┃ ┣ 📂 math/
+┃ ┃ ┗ 📜 math.hlx                              # abs, sqrt, pow, sin, cos, floor, ceil, PI, E
+┃ ┣ 📂 string/
+┃ ┃ ┗ 📜 string.hlx                            # upper, lower, trim, split, replace, contains
+┃ ┣ 📂 fs/
+┃ ┃ ┗ 📜 fs.hlx                                # read, write, append, delete, exists, mkdir
+┃ ┣ 📂 http/
+┃ ┃ ┗ 📜 http.hlx                              # get, post, put, delete — HTTP client
+┃ ┣ 📂 json/
+┃ ┃ ┗ 📜 json.hlx                              # parse, stringify, pretty, valid
+┃ ┣ 📂 crypto/
+┃ ┃ ┗ 📜 crypto.hlx                            # sha256, md5, base64_encode, uuid
+┃ ┣ 📂 time/
+┃ ┃ ┗ 📜 time.hlx                              # now, date, datetime, sleep, elapsed
+┃ ┣ 📂 random/
+┃ ┃ ┗ 📜 random.hlx                            # int, float, seed
+┃ ┣ 📂 os/
+┃ ┃ ┗ 📜 os.hlx                                # env, args, platform, exec, cwd, home
+┃ ┣ 📂 net/
+┃ ┃ ┗ 📜 net.hlx                               # tcp_connect, tcp_send, udp_send, hostname
+┃ ┣ 📂 list/
+┃ ┃ ┗ 📜 list.hlx                              # push, pop, get, set, sort, contains, len
+┃ ┣ 📂 map/
+┃ ┃ ┗ 📜 map.hlx                               # set, get, has, delete, keys, values, len
+┃ ┣ 📂 io/
+┃ ┃ ┗ 📜 io.hlx                                # write, writeln, read_line, error, flush
+┃ ┗ 📂 process/
+┃   ┗ 📜 process.hlx                           # spawn, run, output, kill, wait, pid, exit
 ┃
-┣ 📂 packages                             # Package Registry
-┃ ┗ 📜 registry.json                      # All available packages
+┣ 📂 package-manager/                          # hlxpm — HOLEXA Package Manager
+┃ ┗ ⚙️  hlxpm                                  # Binary — hlxpm install / create / update
 ┃
-┣ 📂 tools                                # Developer Tools
-┃ ┣ 📂 hlxfmt/    📄 hlxfmt              # Code formatter
-┃ ┣ 📂 hlxlint/   📄 hlxlint             # Code linter
-┃ ┣ 📂 hlxbuild/  📄 hlxbuild            # Project builder
-┃ ┗ 📂 lsp/       📄 hlx-lsp             # Language Server Protocol
+┣ 📂 packages/                                 # Package Registry
+┃ ┗ 📜 registry.json                           # List of all available packages & versions
 ┃
-┣ 📂 editor-support                       # Support for 7 Code Editors
-┃ ┣ 📜 INSTALL.md                         # Editor setup guide
-┃ ┣ 📂 vscode/                            # VS Code Extension (Full)
-┃ ┃ ┣ 📜 package.json · extension.js · snippets.json · logo.png
-┃ ┃ ┣ 📂 syntaxes/ 📄 holexa.tmLanguage.json
-┃ ┃ ┗ 📂 themes/   📄 dragon-dark.json
-┃ ┣ 📂 vim/        📄 holexa.vim · ftdetect.vim
-┃ ┣ 📂 neovim/     📄 holexa.lua
-┃ ┣ 📂 emacs/      📄 holexa-mode.el
-┃ ┣ 📂 sublime/    📄 HOLEXA.sublime-syntax · completions
-┃ ┣ 📂 intellij/   📄 holexa.xml
-┃ ┗ 📂 atom/       📄 holexa.cson
+┣ 📂 tools/                                    # Developer Tools
+┃ ┣ 📂 hlxfmt/
+┃ ┃ ┗ ⚙️  hlxfmt                               # Code formatter — hlxfmt file.hlx
+┃ ┣ 📂 hlxlint/
+┃ ┃ ┗ ⚙️  hlxlint                              # Code linter — hlxlint file.hlx
+┃ ┣ 📂 hlxbuild/
+┃ ┃ ┗ ⚙️  hlxbuild                             # Project builder — hlxbuild run
+┃ ┗ 📂 lsp/
+┃   ┗ ⚙️  hlx-lsp                              # Language Server Protocol — for editor support
 ┃
-┣ 📂 self-hosting                         # Compiler written in HOLEXA
-┃ ┣ 📜 hlxc_lexer.hlx                    # Lexer in HOLEXA
-┃ ┣ 📜 hlxc_parser.hlx                   # Parser in HOLEXA
-┃ ┣ 📜 hlxc_interpreter.hlx              # Interpreter in HOLEXA
-┃ ┗ 📜 hlxc_selfhosted.hlx               # Full compiler in HOLEXA
+┣ 📂 editor-support/                           # Syntax highlighting for 7 code editors
+┃ ┣ 📜 INSTALL.md                              # Step-by-step setup guide for all editors
+┃ ┣ 📂 vscode/                                 # VS Code Extension — Full Support
+┃ ┃ ┣ 📜 package.json                          # Extension metadata & config
+┃ ┃ ┣ 📜 extension.js                          # Extension logic — run, build, format commands
+┃ ┃ ┣ 📜 language-configuration.json           # Brackets, comments, auto-close config
+┃ ┃ ┣ 📜 snippets.json                         # Code snippets (fn, let, for, class...)
+┃ ┃ ┣ 📜 LICENSE                               # MIT License for extension
+┃ ┃ ┣ 🖼️  logo.png                             # HOLEXA Dragon logo for VS Code
+┃ ┃ ┣ 📂 syntaxes/
+┃ ┃ ┃ ┗ 📜 holexa.tmLanguage.json              # TextMate grammar — syntax highlighting rules
+┃ ┃ ┗ 📂 themes/
+┃ ┃   ┗ 📜 dragon-dark.json                    # HOLEXA Dragon Dark color theme
+┃ ┣ 📂 vim/
+┃ ┃ ┣ 📜 holexa.vim                            # Vim syntax highlighting rules
+┃ ┃ ┗ 📜 ftdetect.vim                          # Vim filetype detection for .hlx files
+┃ ┣ 📂 neovim/
+┃ ┃ ┗ 📜 holexa.lua                            # Neovim LSP config + highlighting
+┃ ┣ 📂 emacs/
+┃ ┃ ┗ 📜 holexa-mode.el                        # Emacs major mode for HOLEXA
+┃ ┣ 📂 sublime/
+┃ ┃ ┣ 📜 HOLEXA.sublime-syntax                 # Sublime Text syntax highlighting
+┃ ┃ ┗ 📜 HOLEXA.sublime-completions            # Sublime Text auto-completions
+┃ ┣ 📂 intellij/
+┃ ┃ ┗ 📜 holexa.xml                            # IntelliJ / JetBrains file type config
+┃ ┗ 📂 atom/
+┃   ┗ 📜 holexa.cson                           # Atom editor grammar
 ┃
-┣ 📂 tests                                # Complete Test Suite
-┃ ┣ 📜 final_test.hlx                     # Final test — all pass ✅
-┃ ┣ 📜 run_tests.sh                       # Run all tests
-┃ ┣ 📂 unit/                              # Unit tests
-┃ ┃ ┣ 📜 test_variables.hlx · test_functions.hlx · test_loops.hlx
-┃ ┃ ┣ 📜 test_conditions.hlx · test_strings.hlx
-┃ ┣ 📂 integration/                       # Integration tests
-┃ ┃ ┣ 📜 test_algorithms.hlx · test_class.hlx · test_error.hlx
-┃ ┗ 📂 realworld/
-┃   ┗ 📜 task_manager.hlx
+┣ 📂 self-hosting/                             # HOLEXA compiler written in HOLEXA itself
+┃ ┣ 📜 hlxc_lexer.hlx                         # Lexer — written in HOLEXA
+┃ ┣ 📜 hlxc_parser.hlx                        # Parser — written in HOLEXA
+┃ ┣ 📜 hlxc_interpreter.hlx                   # Interpreter — written in HOLEXA
+┃ ┗ 📜 hlxc_selfhosted.hlx                    # Full self-hosted compiler pipeline
 ┃
-┣ 📂 examples                             # Example Programs
-┃ ┣ 📜 stdlib_test.hlx                    # Standard library examples
-┃ ┣ 📂 basic/      📄 hello.hlx           # Hello World
-┃ ┗ 📂 advanced/   📄 dragon.hlx          # Dragon class demo
+┣ 📂 tests/                                    # Complete Test Suite — 100+ tests, 0 failures
+┃ ┣ 📜 final_test.hlx                          # Full integration test — all features
+┃ ┣ 📜 run_tests.sh                            # Script to run all tests at once
+┃ ┣ 📂 unit/                                   # Unit tests — one feature at a time
+┃ ┃ ┣ 📜 test_variables.hlx                    # Tests: let, const, types
+┃ ┃ ┣ 📜 test_functions.hlx                    # Tests: fn, return, parameters
+┃ ┃ ┣ 📜 test_loops.hlx                        # Tests: for, while
+┃ ┃ ┣ 📜 test_conditions.hlx                   # Tests: if, else if, else
+┃ ┃ ┗ 📜 test_strings.hlx                      # Tests: str, len, concatenation
+┃ ┣ 📂 integration/                            # Integration tests — multiple features together
+┃ ┃ ┣ 📜 test_algorithms.hlx                   # Tests: sorting, searching, math algorithms
+┃ ┃ ┣ 📜 test_class.hlx                        # Tests: class, self, methods
+┃ ┃ ┗ 📜 test_error.hlx                        # Tests: try, catch, error handling
+┃ ┗ 📂 realworld/                              # Real-world program tests
+┃   ┗ 📜 task_manager.hlx                      # A complete task manager app
 ┃
-┣ 📂 docs                                 # Technical Documentation
-┃ ┣ 📜 HOLEXA-SPEC.md                     # Full language specification
-┃ ┣ 📂 guide/      COMPILER · HLXPM · LANGUAGE · TOOLS
-┃ ┣ 📂 syntax/     GRAMMAR · HOLEXA-SYNTAX
-┃ ┣ 📂 stdlib/     README.md
-┃ ┣ 📂 api/        README.md
-┃ ┗ 📂 examples/   README.md
+┣ 📂 examples/                                 # Ready-to-run example programs
+┃ ┣ 📜 stdlib_test.hlx                         # Demo of all standard library functions
+┃ ┣ 📂 basic/
+┃ ┃ ┗ 📜 hello.hlx                             # Hello World — the simplest HOLEXA program
+┃ ┗ 📂 advanced/
+┃   ┗ 📜 dragon.hlx                            # Dragon class — OOP demo program
 ┃
-┣ 📂 runtime                              # Runtime Library (C)
-┃ ┣ 📜 runtime.c · runtime.h
+┣ 📂 docs/                                     # Technical Documentation
+┃ ┣ 📜 HOLEXA-SPEC.md                          # Full language specification
+┃ ┣ 📜 README.md                               # Docs overview & index
+┃ ┣ 📂 guide/
+┃ ┃ ┣ 📜 LANGUAGE.md                           # Complete language tutorial
+┃ ┃ ┣ 📜 COMPILER.md                           # Compiler internals & architecture
+┃ ┃ ┣ 📜 HLXPM.md                              # Package manager full guide
+┃ ┃ ┗ 📜 TOOLS.md                              # hlxfmt, hlxlint, hlxbuild guide
+┃ ┣ 📂 syntax/
+┃ ┃ ┣ 📜 HOLEXA-SYNTAX.md                      # Complete syntax reference
+┃ ┃ ┗ 📜 GRAMMAR.md                            # Formal grammar specification (BNF)
+┃ ┣ 📂 stdlib/
+┃ ┃ ┗ 📜 README.md                             # Standard library overview
+┃ ┣ 📂 api/
+┃ ┃ ┗ 📜 README.md                             # API reference
+┃ ┗ 📂 examples/
+┃   ┗ 📜 README.md                             # Code examples documentation
 ┃
-┣ 📂 myapp                                # Example Project (hlxpm create)
-┃ ┣ 📜 hlxpm.json
-┃ ┣ 📂 src/     📄 main.hlx
-┃ ┗ 📂 tests/   📄 test_main.hlx
+┣ 📂 runtime/                                  # Runtime Library — C implementation
+┃ ┣ 📜 README.md                               # Runtime documentation
+┃ ┣ 📜 runtime.c                               # Runtime implementation
+┃ ┗ 📜 runtime.h                               # Runtime header
 ┃
-┣ 📜 HISTORY.md                           # Language history and story
-┣ 📜 INSTALL_COMMAND.md                   # Quick install reference
-┣ 📜 LICENSE                              # MIT License (2026)
-┣ 📜 README.md                            # This file
-┣ 📜 docs.html                            # Full documentation (32 chapters)
-┣ 📜 index.html                           # Official website
-┣ 📜 install.sh                           # Universal installer
-┣ 📜 hlxbuild.json                        # Build configuration
-┗ 📜 logo.png                             # HOLEXA Dragon logo
-```
+┣ 📂 myapp/                                    # Example project created with hlxpm create
+┃ ┣ 📜 README.md                               # Project readme
+┃ ┣ 📜 hlxpm.json                              # Project config — name, version, dependencies
+┃ ┣ 📂 src/
+┃ ┃ ┗ 📜 main.hlx                              # Main source file
+┃ ┗ 📂 tests/
+┃   ┗ 📜 test_main.hlx                         # Project test file
+┃
+┣ 📜 HISTORY.md                                # HOLEXA language history & creator story
+┣ 📜 INSTALL_COMMAND.md                        # Quick install command reference
+┣ 📜 LICENSE                                   # MIT License — Copyright (c) 2026 Ayush Giri
+┣ 📜 README.md                                 # This file — project overview
+┣ 📜 docs.html                                 # Full documentation — 32 chapters (online)
+┣ 📜 index.html                                # Official website with live playground
+┣ 📜 install.sh                                # Universal installer — works on all platforms
+┣ 📜 hlxbuild.json                             # Build configuration file
+┗ 🖼️  logo.png                                 # HOLEXA Dragon logo
+...
 
 ---
 
