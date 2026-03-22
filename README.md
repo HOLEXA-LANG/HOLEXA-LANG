@@ -1,46 +1,80 @@
 <div align="center">
 
-<img src="logo.png" alt="HOLEXA Logo" width="100" style="border-radius:50%;border:3px solid #58a6ff;padding:4px;">
+<img src="logo.png" alt="HOLEXA Logo" width="110" style="border-radius:50%;border:3px solid #58a6ff;padding:4px;box-shadow:0 0 20px rgba(88,166,255,0.3);">
+
+<br><br>
 
 # 🐉 HOLEXA
 
-### Programming Language
+### A Modern, Open-Source Programming Language
 
 **Code like a Dragon. Think like a Human.**
 
-[![Version](https://img.shields.io/badge/version-1.0.0-58a6ff?style=flat-square)](https://github.com/HOLEXA-LANG/HOLEXA-LANG)
+<br>
+
+[![Version](https://img.shields.io/badge/version-1.0.0-58a6ff?style=flat-square&logo=github)](https://github.com/HOLEXA-LANG/HOLEXA-LANG)
 [![License](https://img.shields.io/badge/license-MIT-3fb950?style=flat-square)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Mac%20%7C%20Windows%20%7C%20iPad-8b949e?style=flat-square)](https://github.com/HOLEXA-LANG/HOLEXA-LANG)
-[![Launch](https://img.shields.io/badge/🚀%20launched-March%2023%2C%202026-d29922?style=flat-square)](https://github.com/HOLEXA-LANG/HOLEXA-LANG)
-[![Built on](https://img.shields.io/badge/built%20on-iPad%20%F0%9F%93%B1-bc8cff?style=flat-square)](https://github.com/HOLEXA-LANG/HOLEXA-LANG)
+[![Launch](https://img.shields.io/badge/🚀_launched-March_23,_2026-d29922?style=flat-square)](https://github.com/HOLEXA-LANG/HOLEXA-LANG)
+[![Platform](https://img.shields.io/badge/platform-Linux_|_Mac_|_Windows_|_iPad_|_Android-8b949e?style=flat-square)](https://github.com/HOLEXA-LANG/HOLEXA-LANG)
+[![Built on](https://img.shields.io/badge/built_on-iPad_📱-bc8cff?style=flat-square)](https://github.com/HOLEXA-LANG/HOLEXA-LANG)
+[![Self-Hosting](https://img.shields.io/badge/self--hosting-✅_complete-3fb950?style=flat-square)](https://github.com/HOLEXA-LANG/HOLEXA-LANG)
 
 <br>
 
-[📖 Documentation](docs.html) &nbsp;·&nbsp;
-[⚡ Quick Start](#quick-start) &nbsp;·&nbsp;
-[📦 Install](#install) &nbsp;·&nbsp;
-[🌐 Website](index.html)
+[🌐 Website](https://holexa-lang.github.io/HOLEXA-LANG/) &nbsp;·&nbsp;
+[📖 Full Documentation](https://holexa-lang.github.io/HOLEXA-LANG/docs.html) &nbsp;·&nbsp;
+[⚡ Quick Start](#-quick-start) &nbsp;·&nbsp;
+[📦 Install](#-install) &nbsp;·&nbsp;
+[❤️ Sponsor](https://ko-fi.com/holexalang)
 
 </div>
 
 ---
 
-## What is HOLEXA?
+## 🐉 What is HOLEXA?
 
-HOLEXA is a **modern, open-source programming language** built from scratch — combining the best of the world's most powerful languages into one clean, fast, and readable tool.
+HOLEXA is a **compiled, statically-typed, open-source programming language** built completely from scratch in March 2026. It was designed to eliminate the biggest frustrations of every popular language — giving developers one tool that is fast, safe, readable, and simple all at once.
 
-| | Language | What HOLEXA took |
-|-|----------|-----------------|
-| ⚡ | **C** | Raw speed and native performance |
-| 🛡️ | **Rust** | Memory safety and reliability |
-| 📖 | **Python** | Clean, readable syntax |
-| 🔧 | **Go** | Simplicity and fast compilation |
+> **If Python is too slow, C is too unsafe, Rust is too complex, and Go is too limited —**
+> **HOLEXA is the answer.**
 
 ---
 
-## Hello World
+## ⚡ Why Use HOLEXA?
+
+Most languages make you choose between tradeoffs. HOLEXA removes those tradeoffs.
+
+| Feature | HOLEXA | Python | C | Rust | Go |
+|---------|:------:|:------:|:-:|:----:|:--:|
+| ⚡ Native Speed | ✅ | ❌ | ✅ | ✅ | ✅ |
+| 🛡️ Memory Safe | ✅ | ✅ | ❌ | ✅ | ✅ |
+| 📖 Easy Syntax | ✅ | ✅ | ❌ | ❌ | ⚠️ |
+| 🔧 Simple to Learn | ✅ | ✅ | ❌ | ❌ | ✅ |
+| 📦 Built-in Stdlib | ✅ 14+ | ✅ | ⚠️ | ✅ | ✅ |
+| 🌐 Cross Platform | ✅ | ✅ | ⚠️ | ✅ | ✅ |
+| 🐉 Self-Hosting | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 📱 Runs on iPad | ✅ | ⚠️ | ❌ | ❌ | ❌ |
+| ⏱️ Fast Compilation | ✅ | — | ✅ | ❌ | ✅ |
+| 🤝 Beginner Friendly | ✅ | ✅ | ❌ | ❌ | ⚠️ |
+
+> ✅ = Yes &nbsp; ❌ = No &nbsp; ⚠️ = Partial
+
+### In plain words:
+
+| If you use... | Problem | HOLEXA solves it by... |
+|--------------|---------|----------------------|
+| **Python** | Too slow for real-world performance | Compiling to native code — 10-50x faster |
+| **C** | Memory crashes, buffer overflows | Built-in memory safety with zero overhead |
+| **Rust** | Extremely hard to learn | Python-like clean syntax anyone can read |
+| **Go** | Too limited for complex projects | Full OOP, 14+ libraries, AI integration |
+| **Nothing** | Don't know where to start | Beginner-friendly — if you can read English, you can read HOLEXA |
+
+---
+
+## 🚀 Hello World
 
 ```hlx
+// Your first HOLEXA program
 fn main() {
     print("Hello, World!")
     print("Code like a Dragon!")
@@ -55,7 +89,9 @@ hlxc run hello.hlx
 
 ---
 
-## Install
+## 📦 Install
+
+**One command. Every platform. Under 2 minutes.**
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/install.sh | sh
@@ -63,34 +99,48 @@ curl -fsSL https://raw.githubusercontent.com/HOLEXA-LANG/HOLEXA-LANG/main/instal
 
 | Platform | Command |
 |----------|---------|
-| 🐧 Linux | `curl -fsSL .../install.sh \| sh` |
-| 🍎 macOS | `curl -fsSL .../install.sh \| sh` |
-| 📱 iPad (iSH) | `apk add curl git gcc make` then install |
-| 🪟 Windows | `wsl --install` then use Linux command |
+| 🐧 **Linux** | `curl -fsSL .../install.sh \| sh` |
+| 🍎 **macOS** | `curl -fsSL .../install.sh \| sh` |
+| 📱 **iPad (iSH)** | `apk add curl git gcc make` then run install |
+| 🤖 **Android (Termux)** | `pkg install curl git clang make` then run install |
+| 🪟 **Windows** | `wsl --install` → restart → use Linux command in Ubuntu |
+
+**Installs:** `hlxc` compiler · `hlxpm` package manager · `hlxfmt` formatter · `hlxlint` linter
+
+**Verify:**
+```sh
+hlxc --version
+# HOLEXA Compiler v1.0.0
+```
 
 ---
 
-## Quick Start
+## ⚡ Quick Start
 
 ```hlx
-// Variables
-let name  = "Dragon"
-let count = 42
-let pi    = 3.14
-let flag  = true
-const MAX = 100
+// ── Variables ─────────────────────────────────────
+let name   = "Dragon"      // String
+let count  = 42            // Int
+let pi     = 3.14          // Float
+let active = true          // Bool
+const MAX  = 100           // Constant — cannot change
 
-// Function
+// ── Functions ─────────────────────────────────────
 fn greet(name: String) -> String {
     return "Hello " + name + "!"
 }
 
-// Loop
+fn is_even(n: Int) -> Bool {
+    if n % 2 == 0 { return true }
+    return false
+}
+
+// ── Loops ─────────────────────────────────────────
 for i in 0..5 {
     print(str(i))
 }
 
-// Class
+// ── Classes ───────────────────────────────────────
 class Dragon {
     name:  String
     power: Int
@@ -100,43 +150,102 @@ class Dragon {
     }
 
     fn roar(self) -> String {
-        return self.name + " ROARS!"
+        return self.name + " ROARS with power " + str(self.power) + "!"
     }
 }
 
-// Error handling
+// ── Error Handling ────────────────────────────────
 try {
-    print("safe code")
+    print("safe code here")
 } catch err {
-    print("error: " + err)
+    print("caught: " + err)
 }
+
+// ── Libraries ─────────────────────────────────────
+import math
 
 fn main() {
     print(greet("HOLEXA"))
     let d = Dragon.new("Fire", 9999)
     print(d.roar())
+    print(str(math.sqrt(144)))   // 12.0
+    print(str(is_even(42)))      // true
 }
 ```
 
 ---
 
-## Launch
+## 📚 Documentation
 
-🚀 **Officially launched on March 23, 2026**
+| Resource | Link | Description |
+|----------|------|-------------|
+| 🌐 **Website** | [holexa-lang.github.io/HOLEXA-LANG](https://holexa-lang.github.io/HOLEXA-LANG/) | Official website with playground |
+| 📖 **Full Docs** | [docs.html](https://holexa-lang.github.io/HOLEXA-LANG/docs.html) | Complete 32-chapter documentation |
+| 📦 **Installation** | [#install](#-install) | Install on any device |
+| ⚡ **Quick Start** | [#quick-start](#-quick-start) | Start coding in 5 minutes |
+| 📜 **Language Spec** | [docs/HOLEXA-SPEC.md](docs/HOLEXA-SPEC.md) | Full language specification |
+| 🔧 **Compiler Guide** | [docs/guide/COMPILER.md](docs/guide/COMPILER.md) | Compiler internals |
+| 📦 **Package Manager** | [docs/guide/HLXPM.md](docs/guide/HLXPM.md) | hlxpm guide |
+| 🛠️ **Tools Guide** | [docs/guide/TOOLS.md](docs/guide/TOOLS.md) | hlxfmt, hlxlint, hlxbuild |
+| 📚 **Language Guide** | [docs/guide/LANGUAGE.md](docs/guide/LANGUAGE.md) | Full language tutorial |
+| 🗂️ **Syntax Reference** | [docs/syntax/HOLEXA-SYNTAX.md](docs/syntax/HOLEXA-SYNTAX.md) | All syntax rules |
+| 📐 **Grammar Spec** | [docs/syntax/GRAMMAR.md](docs/syntax/GRAMMAR.md) | Formal grammar |
+| 📚 **Stdlib Docs** | [docs/stdlib/README.md](docs/stdlib/README.md) | All 14 libraries |
 
 ---
 
-## Creator
+## 📦 Standard Library
 
-**HOLEXA** was created by **Ayush Giri** in March 2026.
+14 built-in libraries — install any with `hlxpm install <name>`:
 
-> *"I tried Python — too slow.*
-> *I tried C — too unsafe.*
-> *I tried Rust — too complex.*
-> *I tried Go — too limited.*
-> *So I built HOLEXA."*
->
-> — Ayush Giri, Creator of HOLEXA
+| Library | Install | What it does |
+|---------|---------|-------------|
+| `math` | `hlxpm install math` | sqrt, pow, sin, cos, PI, floor, ceil |
+| `string` | `hlxpm install string` | upper, lower, trim, split, replace |
+| `fs` | `hlxpm install fs` | read, write, delete, exists, mkdir |
+| `http` | `hlxpm install http` | GET, POST, PUT, DELETE requests |
+| `json` | `hlxpm install json` | parse, stringify, validate |
+| `crypto` | `hlxpm install crypto` | sha256, md5, base64, uuid |
+| `time` | `hlxpm install time` | now, date, sleep, elapsed |
+| `random` | `hlxpm install random` | int, float, seed |
+| `os` | `hlxpm install os` | env, platform, exec, cwd |
+| `net` | `hlxpm install net` | tcp, udp, socket |
+| `list` | `hlxpm install list` | push, pop, sort, filter, find |
+| `map` | `hlxpm install map` | set, get, delete, keys, values |
+| `io` | `hlxpm install io` | stdin, stdout, stderr, flush |
+| `process` | `hlxpm install process` | spawn, kill, pid, wait |
+
+---
+
+## 🔧 Developer Tools
+
+| Tool | Command | What it does |
+|------|---------|-------------|
+| `hlxc` | `hlxc run file.hlx` | Run a program directly |
+| `hlxc` | `hlxc build file.hlx` | Compile to native binary |
+| `hlxc` | `hlxc check file.hlx` | Check for errors only |
+| `hlxpm` | `hlxpm install math` | Install a library |
+| `hlxpm` | `hlxpm create myapp` | Create new project |
+| `hlxpm` | `hlxpm update` | Update all packages |
+| `hlxfmt` | `hlxfmt file.hlx` | Auto-format your code |
+| `hlxlint` | `hlxlint file.hlx` | Check code quality |
+| `hlxbuild` | `hlxbuild run` | Build and run project |
+
+---
+
+## 🖥️ Editor Support
+
+HOLEXA works in 7 major code editors with full syntax highlighting, autocomplete, and more:
+
+| Editor | Status | Key Features | Install |
+|--------|--------|-------------|---------|
+| **VS Code** | ✅ Full Support | Highlighting, autocomplete, Dragon theme, Ctrl+Shift+R | `cp -r editor-support/vscode ~/.vscode/extensions/holexa-lang` |
+| **Neovim** | ✅ LSP Ready | Full LSP, autocomplete, error detection | `cp holexa.lua ~/.config/nvim/lua/` |
+| **Vim** | ✅ Supported | Syntax highlighting, filetype detection | `cp holexa.vim ~/.vim/syntax/` |
+| **Emacs** | ✅ Supported | Major mode, indentation | `(load "holexa-mode.el")` |
+| **Sublime Text** | ✅ Supported | Highlighting, snippets | `cp HOLEXA.sublime-syntax Packages/User/` |
+| **IntelliJ** | ✅ Supported | File type, syntax highlighting | Settings → File Types → Import |
+| **Atom** | ✅ Supported | Grammar, highlighting | `cp holexa.cson ~/.atom/packages/` |
 
 ---
 
@@ -167,36 +276,22 @@ fn main() {
 ┃   ┣ 📜 parser.c                         # Parser — tokens → AST
 ┃   ┗ 📜 semantic.c                       # Type checking and validation
 ┃
-┣ 📂 stdlib                               # Standard Library (15 libraries)
+┣ 📂 stdlib                               # Standard Library (14 libraries)
 ┃ ┣ 📜 index.hlx                          # Stdlib registry
-┃ ┣ 📂 crypto
-┃ ┃ ┗ 📜 crypto.hlx                       # hash, encrypt, decrypt, sha256
-┃ ┣ 📂 fs
-┃ ┃ ┗ 📜 fs.hlx                           # read, write, delete, exists
-┃ ┣ 📂 http
-┃ ┃ ┗ 📜 http.hlx                         # get, post, server
-┃ ┣ 📂 io
-┃ ┃ ┗ 📜 io.hlx                           # stdin, stdout, streams
-┃ ┣ 📂 json
-┃ ┃ ┗ 📜 json.hlx                         # parse, stringify
-┃ ┣ 📂 list
-┃ ┃ ┗ 📜 list.hlx                         # push, pop, sort, filter, map
-┃ ┣ 📂 map
-┃ ┃ ┗ 📜 map.hlx                          # set, get, delete, keys
-┃ ┣ 📂 math
-┃ ┃ ┗ 📜 math.hlx                         # abs, sqrt, pow, sin, cos, PI
-┃ ┣ 📂 net
-┃ ┃ ┗ 📜 net.hlx                          # tcp, udp, socket
-┃ ┣ 📂 os
-┃ ┃ ┗ 📜 os.hlx                           # env, args, exit, platform
-┃ ┣ 📂 process
-┃ ┃ ┗ 📜 process.hlx                      # spawn, kill, pid, wait
-┃ ┣ 📂 random
-┃ ┃ ┗ 📜 random.hlx                       # int, float, choice, shuffle
-┃ ┣ 📂 string
-┃ ┃ ┗ 📜 string.hlx                       # upper, lower, trim, split
-┃ ┗ 📂 time
-┃   ┗ 📜 time.hlx                         # now, date, sleep, format
+┃ ┣ 📂 math/      📄 math.hlx             # abs, sqrt, pow, sin, cos, PI
+┃ ┣ 📂 string/    📄 string.hlx           # upper, lower, trim, split
+┃ ┣ 📂 fs/        📄 fs.hlx               # read, write, delete, exists
+┃ ┣ 📂 http/      📄 http.hlx             # get, post, server
+┃ ┣ 📂 json/      📄 json.hlx             # parse, stringify
+┃ ┣ 📂 crypto/    📄 crypto.hlx           # hash, encrypt, sha256
+┃ ┣ 📂 time/      📄 time.hlx             # now, date, sleep, format
+┃ ┣ 📂 random/    📄 random.hlx           # int, float, seed
+┃ ┣ 📂 os/        📄 os.hlx               # env, args, platform
+┃ ┣ 📂 net/       📄 net.hlx              # tcp, udp, socket
+┃ ┣ 📂 list/      📄 list.hlx             # push, pop, sort, filter
+┃ ┣ 📂 map/       📄 map.hlx              # set, get, keys, values
+┃ ┣ 📂 io/        📄 io.hlx               # stdin, stdout, streams
+┃ ┗ 📂 process/   📄 process.hlx          # spawn, kill, pid, wait
 ┃
 ┣ 📂 package-manager                      # hlxpm — Package Manager
 ┃ ┗ 📜 hlxpm                              # Binary (hlxpm install / create)
@@ -205,172 +300,175 @@ fn main() {
 ┃ ┗ 📜 registry.json                      # All available packages
 ┃
 ┣ 📂 tools                                # Developer Tools
-┃ ┣ 📂 hlxfmt
-┃ ┃ ┗ 📜 hlxfmt                           # Code formatter
-┃ ┣ 📂 hlxlint
-┃ ┃ ┗ 📜 hlxlint                          # Code linter
-┃ ┣ 📂 hlxbuild
-┃ ┃ ┗ 📜 hlxbuild                         # Project builder
-┃ ┗ 📂 lsp
-┃   ┗ 📜 hlx-lsp                          # Language Server Protocol
+┃ ┣ 📂 hlxfmt/    📄 hlxfmt              # Code formatter
+┃ ┣ 📂 hlxlint/   📄 hlxlint             # Code linter
+┃ ┣ 📂 hlxbuild/  📄 hlxbuild            # Project builder
+┃ ┗ 📂 lsp/       📄 hlx-lsp             # Language Server Protocol
 ┃
 ┣ 📂 editor-support                       # Support for 7 Code Editors
-┃ ┣ 📜 INSTALL.md                         # Complete editor setup guide
-┃ ┣ 📂 atom
-┃ ┃ ┗ 📜 holexa.cson                      # Atom grammar
-┃ ┣ 📂 emacs
-┃ ┃ ┗ 📜 holexa-mode.el                   # Emacs major mode
-┃ ┣ 📂 intellij
-┃ ┃ ┗ 📜 holexa.xml                       # IntelliJ file type
-┃ ┣ 📂 neovim
-┃ ┃ ┗ 📜 holexa.lua                       # Neovim LSP config
-┃ ┣ 📂 sublime
-┃ ┃ ┣ 📜 HOLEXA.sublime-completions       # Auto-completions
-┃ ┃ ┗ 📜 HOLEXA.sublime-syntax            # Syntax highlighting
-┃ ┣ 📂 vim
-┃ ┃ ┣ 📜 ftdetect.vim                     # File type detection
-┃ ┃ ┗ 📜 holexa.vim                       # Vim syntax highlighting
-┃ ┗ 📂 vscode                             # VS Code Extension (Full)
-┃   ┣ 📜 LICENSE                          # MIT License
-┃   ┣ 📜 extension.js                     # Extension logic
-┃   ┣ 📜 language-configuration.json      # Brackets, comments config
-┃   ┣ 📜 logo.png                         # Dragon logo
-┃   ┣ 📜 package.json                     # Extension metadata
-┃   ┣ 📜 snippets.json                    # Code snippets
-┃   ┣ 📂 syntaxes
-┃   ┃ ┗ 📜 holexa.tmLanguage.json         # Syntax highlighting grammar
-┃   ┗ 📂 themes
-┃     ┗ 📜 dragon-dark.json               # HOLEXA Dragon Dark theme
+┃ ┣ 📜 INSTALL.md                         # Editor setup guide
+┃ ┣ 📂 vscode/                            # VS Code Extension (Full)
+┃ ┃ ┣ 📜 package.json · extension.js · snippets.json · logo.png
+┃ ┃ ┣ 📂 syntaxes/ 📄 holexa.tmLanguage.json
+┃ ┃ ┗ 📂 themes/   📄 dragon-dark.json
+┃ ┣ 📂 vim/        📄 holexa.vim · ftdetect.vim
+┃ ┣ 📂 neovim/     📄 holexa.lua
+┃ ┣ 📂 emacs/      📄 holexa-mode.el
+┃ ┣ 📂 sublime/    📄 HOLEXA.sublime-syntax · completions
+┃ ┣ 📂 intellij/   📄 holexa.xml
+┃ ┗ 📂 atom/       📄 holexa.cson
 ┃
 ┣ 📂 self-hosting                         # Compiler written in HOLEXA
-┃ ┣ 📜 hlxc_interpreter.hlx              # Interpreter in HOLEXA
 ┃ ┣ 📜 hlxc_lexer.hlx                    # Lexer in HOLEXA
 ┃ ┣ 📜 hlxc_parser.hlx                   # Parser in HOLEXA
+┃ ┣ 📜 hlxc_interpreter.hlx              # Interpreter in HOLEXA
 ┃ ┗ 📜 hlxc_selfhosted.hlx               # Full compiler in HOLEXA
 ┃
 ┣ 📂 tests                                # Complete Test Suite
 ┃ ┣ 📜 final_test.hlx                     # Final test — all pass ✅
-┃ ┣ 📜 run_tests.sh                       # Run all tests script
-┃ ┣ 📂 integration                        # Integration tests
-┃ ┃ ┣ 📜 test_algorithms.hlx
-┃ ┃ ┣ 📜 test_class.hlx
-┃ ┃ ┗ 📜 test_error.hlx
-┃ ┣ 📂 realworld                          # Real-world program tests
-┃ ┃ ┗ 📜 task_manager.hlx
-┃ ┗ 📂 unit                               # Unit tests
-┃   ┣ 📜 test_conditions.hlx
-┃   ┣ 📜 test_functions.hlx
-┃   ┣ 📜 test_loops.hlx
-┃   ┣ 📜 test_strings.hlx
-┃   ┗ 📜 test_variables.hlx
+┃ ┣ 📜 run_tests.sh                       # Run all tests
+┃ ┣ 📂 unit/                              # Unit tests
+┃ ┃ ┣ 📜 test_variables.hlx · test_functions.hlx · test_loops.hlx
+┃ ┃ ┣ 📜 test_conditions.hlx · test_strings.hlx
+┃ ┣ 📂 integration/                       # Integration tests
+┃ ┃ ┣ 📜 test_algorithms.hlx · test_class.hlx · test_error.hlx
+┃ ┗ 📂 realworld/
+┃   ┗ 📜 task_manager.hlx
 ┃
 ┣ 📂 examples                             # Example Programs
 ┃ ┣ 📜 stdlib_test.hlx                    # Standard library examples
-┃ ┣ 📂 advanced
-┃ ┃ ┗ 📜 dragon.hlx                       # Dragon class demo
-┃ ┗ 📂 basic
-┃   ┗ 📜 hello.hlx                        # Hello World
+┃ ┣ 📂 basic/      📄 hello.hlx           # Hello World
+┃ ┗ 📂 advanced/   📄 dragon.hlx          # Dragon class demo
 ┃
 ┣ 📂 docs                                 # Technical Documentation
 ┃ ┣ 📜 HOLEXA-SPEC.md                     # Full language specification
-┃ ┣ 📜 README.md                          # Docs overview
-┃ ┣ 📂 api
-┃ ┃ ┗ 📜 README.md                        # API reference
-┃ ┣ 📂 examples
-┃ ┃ ┗ 📜 README.md                        # Examples docs
-┃ ┣ 📂 guide
-┃ ┃ ┣ 📜 COMPILER.md                      # Compiler internals guide
-┃ ┃ ┣ 📜 HLXPM.md                         # Package manager guide
-┃ ┃ ┣ 📜 LANGUAGE.md                      # Language guide
-┃ ┃ ┗ 📜 TOOLS.md                         # Developer tools guide
-┃ ┣ 📂 stdlib
-┃ ┃ ┗ 📜 README.md                        # Standard library docs
-┃ ┗ 📂 syntax
-┃   ┣ 📜 GRAMMAR.md                       # Formal grammar spec
-┃   ┗ 📜 HOLEXA-SYNTAX.md                 # Complete syntax reference
+┃ ┣ 📂 guide/      COMPILER · HLXPM · LANGUAGE · TOOLS
+┃ ┣ 📂 syntax/     GRAMMAR · HOLEXA-SYNTAX
+┃ ┣ 📂 stdlib/     README.md
+┃ ┣ 📂 api/        README.md
+┃ ┗ 📂 examples/   README.md
 ┃
 ┣ 📂 runtime                              # Runtime Library (C)
-┃ ┣ 📜 README.md
-┃ ┣ 📜 runtime.c                          # Runtime implementation
-┃ ┗ 📜 runtime.h                          # Runtime header
+┃ ┣ 📜 runtime.c · runtime.h
 ┃
 ┣ 📂 myapp                                # Example Project (hlxpm create)
-┃ ┣ 📜 README.md
-┃ ┣ 📜 hlxpm.json                         # Project config
-┃ ┣ 📂 src
-┃ ┃ ┗ 📜 main.hlx                         # Main source file
-┃ ┗ 📂 tests
-┃   ┗ 📜 test_main.hlx                    # Project tests
+┃ ┣ 📜 hlxpm.json
+┃ ┣ 📂 src/     📄 main.hlx
+┃ ┗ 📂 tests/   📄 test_main.hlx
 ┃
 ┣ 📜 HISTORY.md                           # Language history and story
 ┣ 📜 INSTALL_COMMAND.md                   # Quick install reference
-┣ 📜 LICENSE                              # MIT License
+┣ 📜 LICENSE                              # MIT License (2026)
 ┣ 📜 README.md                            # This file
-┣ 📜 docs.html                            # Full documentation (23 chapters)
-┣ 📜 hlxbuild.json                        # Build configuration
+┣ 📜 docs.html                            # Full documentation (32 chapters)
 ┣ 📜 index.html                           # Official website
-┣ 📜 install.sh                           # Universal installer script
+┣ 📜 install.sh                           # Universal installer
+┣ 📜 hlxbuild.json                        # Build configuration
 ┗ 📜 logo.png                             # HOLEXA Dragon logo
 ```
 
 ---
 
-## Tools
+## 🏆 Technical Achievements
 
-| Tool | Command | Description |
-|------|---------|-------------|
-| `hlxc` | `hlxc run file.hlx` | Run a HOLEXA program |
-| `hlxc` | `hlxc build file.hlx` | Compile to binary |
-| `hlxc` | `hlxc check file.hlx` | Check for errors only |
-| `hlxpm` | `hlxpm install math` | Install a package |
-| `hlxpm` | `hlxpm create myapp` | Create new project |
-| `hlxfmt` | `hlxfmt file.hlx` | Auto-format code |
-| `hlxlint` | `hlxlint file.hlx` | Check code quality |
-| `hlxbuild` | `hlxbuild run` | Build and run project |
-
----
-
-## Editor Support
-
-| Editor | Status | Features |
-|--------|--------|----------|
-| VS Code | ✅ Full Support | Highlighting, autocomplete, run shortcut, Dragon theme |
-| Vim | ✅ Supported | Syntax highlighting, filetype detection |
-| Neovim | ✅ LSP Ready | Full LSP, highlighting, autocomplete |
-| Emacs | ✅ Supported | Major mode, indentation |
-| Sublime Text | ✅ Supported | Highlighting, snippets |
-| IntelliJ | ✅ Supported | File type, highlighting |
-| Atom | ✅ Supported | Grammar, highlighting |
+| Achievement | Status |
+|-------------|--------|
+| Complete compiler pipeline (Lexer → Parser → AST → Semantic → Interpreter) | ✅ Done |
+| Native code compilation | ✅ Done |
+| 14 standard libraries | ✅ Done |
+| Package manager with registry | ✅ Done |
+| Self-hosting compiler | ✅ Done |
+| VS Code extension with Dragon logo | ✅ Done |
+| Support for 7 code editors | ✅ Done |
+| Live web playground | ✅ Done |
+| Cross-platform (Linux, Mac, Windows, iPad, Android) | ✅ Done |
+| Full test suite — 100+ tests, 0 failures | ✅ Done |
+| Python / JavaScript / C integration | ✅ Done |
+| OpenAI / AI integration | ✅ Done |
 
 ---
 
-## 🐉 Built on iPad
+## 🌍 Integration
 
-> **HOLEXA was built 100% on a normal iPad using iSH Shell.**
+HOLEXA works with other languages and tools:
 
-No MacBook. No PC. No expensive setup.
-Just an iPad, determination, and a vision.
+```python
+# Python + HOLEXA
+import subprocess
+result = subprocess.run(['hlxc', 'run', 'file.hlx'], capture_output=True, text=True)
+print(result.stdout)
+```
 
-A full compiler, package manager, 15+ libraries, and editor support for 7 editors —
-**all built on an iPad.**
+```js
+// Node.js + HOLEXA
+const { execSync } = require('child_process');
+const out = execSync('hlxc run file.hlx').toString();
+console.log(out);
+```
 
-> *"If you have an idea, your device doesn't matter. Your determination does."*
+Full integration guides for **Python, JavaScript, C, and OpenAI** are in the [documentation](https://holexa-lang.github.io/HOLEXA-LANG/docs.html).
+
+---
+
+## 👨‍💻 Creator
+
+**HOLEXA** was created by **Ayush Giri** in March 2026.
+
+> *"I tried Python — too slow.*
+> *I tried C — too unsafe.*
+> *I tried Rust — too complex.*
+> *I tried Go — too limited.*
+> *So I built HOLEXA."*
+>
 > — Ayush Giri, Creator of HOLEXA
 
 ---
 
-## License
+## 📱 Built on iPad
+
+> **HOLEXA was built 100% on a normal iPad using iSH Shell.**
+
+No MacBook. No PC. No expensive workstation.
+Just an iPad, determination, and a vision.
+
+A full compiler, 14+ libraries, a package manager, and support for 7 editors —
+**all built on a normal iPad.**
+
+> *"If you have an idea, your device doesn't matter. Your determination does."*
+> — Ayush Giri
+
+---
+
+## ❤️ Support HOLEXA
+
+HOLEXA is free and open source forever. If it helps you, consider supporting:
+
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-Support_HOLEXA-ff5e5b?style=flat-square&logo=ko-fi)](https://ko-fi.com/holexalang)
+[![GitHub Sponsors](https://img.shields.io/badge/GitHub-Sponsor-ea4aaa?style=flat-square&logo=github)](https://github.com/sponsors/HOLEXA-LANG)
+[![Star](https://img.shields.io/badge/GitHub-⭐_Star_this_repo-yellow?style=flat-square&logo=github)](https://github.com/HOLEXA-LANG/HOLEXA-LANG)
+
+---
+
+## 📜 License
 
 MIT License — Copyright (c) 2026 Ayush Giri
 
-See [LICENSE](LICENSE) for details.
+See [LICENSE](LICENSE) for full details.
 
 ---
 
 <div align="center">
 
-**github.com/HOLEXA-LANG/HOLEXA-LANG**
+<img src="logo.png" alt="HOLEXA" width="60" style="border-radius:50%;opacity:0.8;">
+
+<br>
+
+**[github.com/HOLEXA-LANG/HOLEXA-LANG](https://github.com/HOLEXA-LANG/HOLEXA-LANG)**
 
 🐉 *Code like a Dragon. Think like a Human.*
+
+<br>
+
+Made with ❤️ by **Ayush Giri** · March 23, 2026 · India
 
 </div>
