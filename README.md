@@ -114,6 +114,9 @@ hlxc --version
 # HOLEXA Compiler v1.0.0
 ```
 
+**[Complete Installation Guide](INSTALL.md)**
+**[Quick Install Command](INSTALL_COMMAND.md)**
+
 ---
 
 ## ⚡ Quick Start
