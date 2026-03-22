@@ -115,6 +115,7 @@ hlxc --version
 ```
 
 **[Complete Installation Guide](INSTALL.md)**
+
 **[Quick Install Command](INSTALL_COMMAND.md)**
 
 ---
