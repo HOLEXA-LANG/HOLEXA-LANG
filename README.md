@@ -249,7 +249,7 @@ HOLEXA works in 7 major code editors with full syntax highlighting, autocomplete
 
 ---
 
-...
+```
 ## 📁 Project Structure
 
 📦 HOLEXA-LANG/
@@ -421,7 +421,7 @@ HOLEXA works in 7 major code editors with full syntax highlighting, autocomplete
 ┣ 📜 install.sh                                # Universal installer — works on all platforms
 ┣ 📜 hlxbuild.json                             # Build configuration file
 ┗ 🖼️  logo.png                                 # HOLEXA Dragon logo
-...
+```
 
 ---
 
