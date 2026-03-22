@@ -53,6 +53,8 @@ install_deps() {
             apt-get install -y -qq git gcc make
         elif command -v apk > /dev/null 2>&1; then
             apk add --quiet git gcc make
+    	elif command -v pkg > /dev/null 2>&1; then
+        	pkg update -y && pkg install -y git clang make
         elif command -v yum > /dev/null 2>&1; then
             yum install -y -q git gcc make
         elif command -v dnf > /dev/null 2>&1; then
